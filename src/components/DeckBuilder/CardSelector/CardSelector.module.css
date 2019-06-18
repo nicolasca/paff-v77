@@ -1,0 +1,14 @@
+.CardSelector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CardSelector > * {
+  margin: 5px;
+}
+
+.CardSelector svg {
+  cursor: pointer;
+  width: 35px;
+}
