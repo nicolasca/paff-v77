@@ -5,15 +5,16 @@ import styles from './CardList.module.css';
 
 function CardList(props) {
   
-  const cardList = props.units.map((unit, index) => {
+  const cardList = Object.keys(props.units).map((key, index) => {
+
     return (
       <div className={styles.cardItem} key={index}>
-        <CardItem unit={unit} faction={props.faction}>
+        <CardItem unit={props.units[key]} faction={props.faction}>
         </CardItem>
        <CardSelector
-       count={unit.count}
-       clickedPlus={(e) => props.clickedPlus(unit.name)}
-      clickedMinus={(e) => props.clickedMinus(unit.name)}
+       count={props.units[key].count}
+       clickedPlus={(e) => props.clickedPlus(props.units[key].name)}
+      clickedMinus={(e) => props.clickedMinus(props.units[key].name)}
       >
 
        </CardSelector>

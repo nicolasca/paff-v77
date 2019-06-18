@@ -2,69 +2,63 @@ import React, { Component } from 'react';
 import CardList from './CardList/CardList'
 import DeckSummary from './DeckSummary/DeckSummary';
 import style from "./DeckBuilder.module.css";
-import unites from "./../../unites";
+import unites from "../../assets/unites";
 
 class DeckBuilder extends Component {
 
   state = {
     selectedFaction: 'orcs',
-    selectedCards: [],
-    cardsToDisplay: []
+    cardsToDisplay: {}
   }
 
   componentDidMount() {
-    const cards = [];
-    unites.forEach((unite) => {
-      if (unite.faction === this.state.selectedFaction) {
-        cards.push(unite);
-      }
-    });
-    this.setState({cardsToDisplay: cards});
+    this.populateCardToDisplay('orcs');
   }
 
   changeFactionHandler = (event) => {
     this.setState({ selectedFaction : event.target.value});
-    const cards = [];
     
+    this.populateCardToDisplay(event.target.value);
+  }
+
+  populateCardToDisplay = (faction) => {
+    const cards = [];
     unites.forEach((unite) => {
-      if (unite.faction === event.target.value) {
-        cards.push(unite);
+      if (unite.faction === faction) {
+        
+        // Make a copy of the unite
+        cards[unite.name] = {...unite};
+        cards[unite.name].count = 0;
       }
     });
     this.setState({cardsToDisplay: cards});
-
   }
 
+  // Add one card to the deck
   addCardHandler = (name) => {
-    const selectedCardsChanged = [...this.state.selectedCards];
-    const cardIndex = this.state.selectedCards.findIndex((unite) => {
-      return unite.name === name;
-    });
-    let card = null;
-    if (cardIndex !== -1) {
-      card = unites[cardIndex];
-      card.count += 1; 
-    } else {
-       card = unites.find((unite) => {
-        return unite.name === name;
-      });
-      card.count = 1;
-    }
+    // Copy the state object
+    const cardsToDisplayChanged = {...this.state.cardsToDisplay};
+    
+    let card = cardsToDisplayChanged[name];
 
-    selectedCardsChanged.push(card);
-
-    this.setState({selectedCards: selectedCardsChanged});
+    card.count += 1;
+ 
+    console.log(cardsToDisplayChanged);
+    
+    this.setState({cardsToDisplay: cardsToDisplayChanged});
     
   }
 
+  // Remove one card from the deck
   removeCardHandler = (name) => {
-    const selectedCardsChanged = [...this.state.selectedCards];
-    const index = unites.findIndex((unite) => {
-      return unite.name === name;
-    });
-    selectedCardsChanged.slice(index, 1);
+    // Copy the state object
+    const cardsToDisplayChanged = {...this.state.cardsToDisplay};
 
-    this.setState({selectedCards: selectedCardsChanged});
+    if (cardsToDisplayChanged[name].count === 0)
+      return;
+
+    cardsToDisplayChanged[name].count -= 1;
+    this.setState({cardsToDisplay: cardsToDisplayChanged});
   }
 
   render() {
@@ -95,7 +89,7 @@ class DeckBuilder extends Component {
             >
             </CardList>
           </div>
-          <DeckSummary cards={this.state.selectedCards}>
+          <DeckSummary cards={this.state.cardsToDisplay}>
 
           </DeckSummary>
     </div>
