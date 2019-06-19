@@ -1,13 +1,12 @@
 import React from 'react';
 import DeckBuilder from '../DeckBuilder/DeckBuilder';
+import Header from '../Navigation/Header';
 
 function Layout(props) {
 
   return (
     <React.Fragment>
-      <div>
-        Toolbar, Sidemenu
-      </div>
+      <Header ></Header>
       <main>
         <DeckBuilder></DeckBuilder>
       </main>

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CardItem from '../CardItem/CardItem';
 import styles from './CardList.module.css';
 
@@ -12,10 +13,6 @@ function CardList(props) {
   const ordres = Object.keys(props.cards).filter((key) => {
     return props.cards[key].type === 'ordre';
   });
-
-  console.log(props.cards);
-
-  console.log(ordres);
 
   const cardsUnites = unites.map((key, index) => {
 
@@ -56,3 +53,9 @@ function CardList(props) {
 }
 
 export default CardList;
+
+CardList.propTypes = {
+  cards: PropTypes.array,
+  clickedMinus: PropTypes.func,
+  clickedPlus: PropTypes.func,
+}
