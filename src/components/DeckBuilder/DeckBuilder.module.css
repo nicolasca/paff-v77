@@ -1,4 +1,9 @@
 .deckBuilder {
   display: grid;
-  grid-template-columns: 70% 30%;
+  grid-template-columns: 80% 20%;
+}
+
+.deckSummary {
+  position: fixed;
+  right: 70px;
 }

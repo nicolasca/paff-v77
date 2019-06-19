@@ -1,0 +1,34 @@
+:root {
+    --orcs-bg-color: #006600;
+    --orcs-name-color: #ED4D4D;
+    --orcs-bg-name-color: #003300;
+    --sephosi-bg-color: #963634;
+    --sephosi-name-color: #C00000;
+    --sephosi-bg-name-color: #ffff;
+    --gaeli-bg-color: #6D9CDA;
+    --gaeli-name-color: #ffff;
+    --gaeli-name-surline-color: #079804;
+    --gaeli-bg-name-color: #05467E;
+    --liches-bg-color: #E5D5A1;
+    --liches-name-color: #ffff;
+    --liches-bg-name-color: #c0a13b;
+}
+
+.container {
+    display: grid;
+    max-width: 250px;
+    min-width: 250px;
+    grid-template-columns: 20% 80%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.container>div {
+    padding: 10px;
+}
+
+.recuperable {
+    border-right: 1px solid black;
+}

@@ -1,31 +1,56 @@
 import React from 'react';
 import CardItem from '../CardItem/CardItem';
-import CardSelector from './../CardSelector/CardSelector';
 import styles from './CardList.module.css';
 
 function CardList(props) {
-  
-  const cardList = Object.keys(props.units).map((key, index) => {
+
+  // Separer les unites et ordres
+  const unites = Object.keys(props.cards).filter((key) => {
+    return props.cards[key].type !== 'ordre';
+  });
+
+  const ordres = Object.keys(props.cards).filter((key) => {
+    return props.cards[key].type === 'ordre';
+  });
+
+  console.log(props.cards);
+
+  console.log(ordres);
+
+  const cardsUnites = unites.map((key, index) => {
 
     return (
       <div className={styles.cardItem} key={index}>
-        <CardItem unit={props.units[key]} faction={props.faction}>
+        <CardItem
+          card={props.cards[key]}
+          clickedPlus={props.clickedPlus}
+          clickedMinus={props.clickedMinus}>
         </CardItem>
-       <CardSelector
-       count={props.units[key].count}
-       clickedPlus={(e) => props.clickedPlus(props.units[key].name)}
-      clickedMinus={(e) => props.clickedMinus(props.units[key].name)}
-      >
-
-       </CardSelector>
       </div>
-      
+
+    )
+  });
+
+  const cardsOrdres = ordres.map((key, index) => {
+
+    return (
+      <div className={styles.cardItem} key={index}>
+        <CardItem
+          card={props.cards[key]}
+          clickedPlus={props.clickedPlus}
+          clickedMinus={props.clickedMinus}>
+        </CardItem>
+      </div>
+
     )
   });
 
   return (
     <div>
-      { cardList }
+      <h3>Unités</h3>
+      <div>{cardsUnites}</div>
+      <h3>Ordres</h3>
+      <div>{cardsOrdres}</div>
     </div>
   );
 }
