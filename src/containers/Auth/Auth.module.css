@@ -1,0 +1,9 @@
+.Container {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Form {
+  width: 25%;
+}

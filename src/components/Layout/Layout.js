@@ -1,5 +1,6 @@
 import React from 'react';
 import DeckBuilder from '../DeckBuilder/DeckBuilder';
+import Auth from '../../containers/Auth/Auth';
 import { Route } from 'react-router-dom';
 import styles from './Layout.module.css';
 import Home from '../Home/Home';
@@ -14,6 +15,7 @@ function Layout(props) {
         <Route path="/home" component={Home} />
         <Route path="/" exact component={Home} />
         <Route path="/deckbuilder" exact component={DeckBuilder}/>
+        <Route path="/register" exact component={Auth}/>
       </main>
     </React.Fragment>
   );
