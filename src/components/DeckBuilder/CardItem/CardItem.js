@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import CardUnit from './CardUnit';
 import CardOrder from './CardOrder';
 import CardSelector from './../CardSelector/CardSelector';
@@ -22,8 +21,7 @@ function CardItem(props) {
       {card}
       <CardSelector
         count={props.card.count}
-        clickedPlus={(e) => props.clickedPlus(props.card.name)}
-        clickedMinus={(e) => props.clickedMinus(props.card.name)}
+        name={props.card.name}
       >
       </CardSelector>
     </div>
@@ -31,9 +29,3 @@ function CardItem(props) {
 }
 
 export default CardItem;
-
-CardItem.propTypes = {
-  clickedPlus: PropTypes.func,
-  clickedMinus: PropTypes.func,
-  card: PropTypes.object,
-}

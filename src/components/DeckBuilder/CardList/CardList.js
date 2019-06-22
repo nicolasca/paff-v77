@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import CardItem from '../CardItem/CardItem';
 import styles from './CardList.module.css';
 
@@ -19,9 +18,7 @@ function CardList(props) {
     return (
       <div className={styles.cardItem} key={index}>
         <CardItem
-          card={props.cards[key]}
-          clickedPlus={props.clickedPlus}
-          clickedMinus={props.clickedMinus}>
+          card={props.cards[key]}>
         </CardItem>
       </div>
 
@@ -33,9 +30,7 @@ function CardList(props) {
     return (
       <div className={styles.cardItem} key={index}>
         <CardItem
-          card={props.cards[key]}
-          clickedPlus={props.clickedPlus}
-          clickedMinus={props.clickedMinus}>
+          card={props.cards[key]}>
         </CardItem>
       </div>
 
@@ -53,9 +48,3 @@ function CardList(props) {
 }
 
 export default CardList;
-
-CardList.propTypes = {
-  cards: PropTypes.array,
-  clickedMinus: PropTypes.func,
-  clickedPlus: PropTypes.func,
-}
