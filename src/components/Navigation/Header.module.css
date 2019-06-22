@@ -7,7 +7,8 @@
   background-color: white;
 }
 
-.Logo, .Logo img {
+.Logo,
+.Logo img {
   height: 100%;
 }
 
@@ -18,4 +19,11 @@ ul {
 li {
   display: inline-block;
   padding: 10px;
+}
+
+
+.Header a:hover,
+.Header a:active,
+a.ActiveNavLink {
+  color: rgb(62, 110, 214);
 }
