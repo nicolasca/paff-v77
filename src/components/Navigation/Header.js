@@ -17,9 +17,14 @@ function Header() {
           Home
         </NavLink></li>
         <li><NavLink
-          exact to="/deckbuilder"
+          exact to="/deck"
           activeClassName={styles.ActiveNavLink}>
           Deck
+        </NavLink></li>
+        <li><NavLink
+          exact to="/factions"
+          activeClassName={styles.ActiveNavLink}>
+          Factions
         </NavLink></li>
       </ul>
     </header>

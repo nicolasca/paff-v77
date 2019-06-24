@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom';
 import styles from './Layout.module.css';
 import Home from '../Home/Home';
 import Header from '../Navigation/Header';
+import Factions from '../Factions/Factions';
 
 function Layout(props) {
 
@@ -13,7 +14,8 @@ function Layout(props) {
       <main className={styles.Main}>
         <Route path="/home" component={Home} />
         <Route path="/" exact component={Home} />
-        <Route path="/deckbuilder" exact component={DeckBuilder}/>
+        <Route path="/deck" exact component={DeckBuilder} />
+        <Route path="/factions" exact component={Factions} />
       </main>
     </React.Fragment>
   );
