@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import styles from './Factions.module.css';
 
 
@@ -14,11 +15,13 @@ class Factions extends Component {
             const factionsLoaded = response.data.map((faction) => {
 
                 return (
+
                     <div className={styles.FactionItem} key={faction._id}>
                         <img className={styles.Logo}
                             src={process.env.PUBLIC_URL + 'assets/factions/logo-' + faction.image}
                             alt={faction.nom + ' image'} />
-                        <h3>{faction.nom}</h3>
+                        <Link to={'/factions/' + faction.slug}><h3>{faction.nom}</h3></Link>
+
                     </div>
                 );
             });
@@ -31,7 +34,7 @@ class Factions extends Component {
 
     render() {
         return (
-            <div className={styles.FactionList}>
+            <div className={styles.Faction}>
                 {this.state.factions}
             </div>
         );
