@@ -2,7 +2,9 @@
   align-items: center;
   display: flex;
   border-bottom: 1px solid grey;
-  background-color: white;
+  background-color: #191726;
+  color: white;
+  font-weight: 600;
 }
 
 .Logo,
@@ -23,5 +25,5 @@ li {
 .Header a:hover,
 .Header a:active,
 a.ActiveNavLink {
-  color: rgb(62, 110, 214);
+  color: #D99A4E;
 }

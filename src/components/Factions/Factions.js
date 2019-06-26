@@ -20,7 +20,7 @@ class Factions extends Component {
                         <img className={styles.Logo}
                             src={process.env.PUBLIC_URL + 'assets/factions/logo-' + faction.image}
                             alt={faction.nom + ' image'} />
-                        <Link to={'/factions/' + faction.slug}><h3>{faction.nom}</h3></Link>
+                        <Link to={'/factions/' + faction.slug}><h2>{faction.nom}</h2></Link>
 
                     </div>
                 );

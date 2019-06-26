@@ -21,7 +21,7 @@ function CardItem(props) {
       {card}
       <CardSelector
         count={props.card.count}
-        name={props.card.name}
+        name={props.card.nom}
       >
       </CardSelector>
     </div>

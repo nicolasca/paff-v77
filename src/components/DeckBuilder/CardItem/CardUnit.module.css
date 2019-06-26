@@ -1,7 +1,7 @@
 :root {
-  --orcs-bg-color: #006600;
-  --orcs-name-color: #ED4D4D;
-  --orcs-bg-name-color: #003300;
+  --peaux-vertes-bg-color: #006600;
+  --peaux-vertes-name-color: #ED4D4D;
+  --peaux-vertes-bg-name-color: #003300;
   --sephosi-bg-color: #963634;
   --sephosi-name-color: #C00000;
   --sephosi-bg-name-color: #ffff;
@@ -14,13 +14,13 @@
   --liches-bg-name-color: #c0a13b;
 }
 
-.orcs.container {
-  background-color: var(--orcs-bg-color);
+.peaux-vertes.container {
+  background-color: var(--peaux-vertes-bg-color);
 }
 
-.orcs .name {
-  color: var(--orcs-name-color);
-  background: var(--orcs-bg-name-color);
+.peaux-vertes .name {
+  color: var(--peaux-vertes-name-color);
+  background: var(--peaux-vertes-bg-name-color);
 }
 
 .sephosi.container {

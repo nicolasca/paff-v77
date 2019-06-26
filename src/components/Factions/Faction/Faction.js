@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import styles from './Faction.module.css';
 
 class Faction extends Component {
 
@@ -13,7 +12,6 @@ class Faction extends Component {
 
 
     componentDidMount() {
-        console.log(this.props);
         if (this.props.match.params.slug) {
             axios.get('http://localhost:3008/factions/' + this.props.match.params.slug).then((response) => {
 
@@ -37,8 +35,11 @@ class Faction extends Component {
                     <div>
                         <div style={this.state.style}
                             alt={this.state.faction.nom} />
-                        <h3>{this.state.faction.nom}</h3>
-                        <p>{this.state.faction.description} </p>
+                        <div className="container">
+                            <h2>{this.state.faction.nom}</h2>
+                            <p>{this.state.faction.description} </p>
+                        </div>
+
                     </div> : null}
             </div>
         );

@@ -8,8 +8,8 @@ function CardOrder(props) {
             <div className={styles.recuperable}>
                 R {props.order.recuperable ? 'Oui' : 'Non'}
             </div>
-            <div className={[styles.name, styles[props.order.faction]].join(' ')}>
-                {props.order.name}
+            <div className={[styles.name, styles[props.order.faction.slug]].join(' ')}>
+                {props.order.nom}
             </div>
         </div>
     );

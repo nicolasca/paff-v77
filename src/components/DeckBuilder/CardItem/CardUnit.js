@@ -27,18 +27,18 @@ function CardUnit(props) {
     }
 
     return (
-        <div className={[styles.container, styles[props.unit.faction]].join(' ')}>
+        <div className={[styles.container, styles[props.unit.faction.slug]].join(' ')}>
             <div className={styles.deploy}>
                 {props.unit.deploy}
             </div>
             <div className={styles.name}>
-                <span>{props.unit.name}</span>
+                <span>{props.unit.nom}</span>
             </div>
             <div className={styles.specific}>
                 {type}
             </div>
             <div className={styles.reg}>
-                {props.unit.reg} régiments
+                {props.unit.regiment} régiments
         </div>
             <div className={[styles.armor, styles['type' + armor]].join(' ')}>
                 {armor}
