@@ -1,6 +1,6 @@
 @font-face {
-	font-family: 'MagicSchoolOne';
-	src: local('MagicSchoolOne'), url(./assets/fonts/MagicSchoolOne.ttf) format('truetype');
+	font-family: 'Fantasy';
+	src: local('PiecesOfEight'), url(./assets/fonts/PiecesOfEight.ttf) format('truetype');
 }
 
 html,
@@ -171,13 +171,13 @@ p {
 }
 
 h1 {
-	font-family: 'MagicSchoolTwo';
+	font-family: 'Fantasy';
 	font-size: 8rem;
 	margin: 2rem;
 }
 
 h2 {
-	font-family: 'MagicSchoolOne';
+	font-family: 'Fantasy';
 	font-size: 4rem;
 	margin: 1rem;
 }

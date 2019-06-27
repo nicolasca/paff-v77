@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './CardUnit.module.css';
+import { config } from '../../../config';
 
 function CardUnit(props) {
 
@@ -14,15 +15,15 @@ function CardUnit(props) {
 
     let type = '';
 
-    if (props.unit.type === 'Troupe') {
+    if (props.unit.type === config.typeCard.troupe.label) {
         type = 'Tr';
-    } else if (props.unit.type === 'Unité de tir') {
+    } else if (props.unit.type === config.typeCard.tir.label) {
         type = 'Tir';
-    } else if (props.unit.type === 'Cavalerie') {
+    } else if (props.unit.type === config.typeCard.cavalerie.label) {
         type = 'Cav';
-    } else if (props.unit.type === 'Artillerie') {
+    } else if (props.unit.type === config.typeCard.artillerie.label) {
         type = 'Ar';
-    } else if (props.unit.type === 'Elite') {
+    } else if (props.unit.type === config.typeCard.elite.label) {
         type = 'El';
     }
 

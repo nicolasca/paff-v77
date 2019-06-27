@@ -50,11 +50,11 @@
     background-color: lightgrey;
 }
 
-.container > div {
+.container>div {
     padding: 10px;
 }
 
-.container.gaeli > div {
+.container.gaeli>div {
     padding: 5px;
 }
 
@@ -68,15 +68,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.Tooltip svg path {
-    fill: grey;
-}
-
-.Tooltip .warning-complexity {
-    color: black;
-    margin-left: 0.5rem;
 }
 
 .Tooltip::after {
@@ -104,5 +95,4 @@
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(0);
-    transition-delay: 0.5s;
 }

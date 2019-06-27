@@ -76,44 +76,46 @@ class DeckBuilder extends Component {
   render() {
 
     return (
-      <div className="container">
-        <div className={styles.Title}>
-          <h2>Nouveau deck</h2>
-          <label htmlFor="deckName">Nom du deck</label>
-          <input type="text" placeholder="Les Chevaucheurs de Zarn" id="deckName"></input>
-          <button>A la guerre !</button>
-        </div>
-        <div className={styles.FieldSelect}>
-        <label for="TheSelect" >Ma faction</label>
-        <div className={styles.FieldSelectContainer}>
-          <select onChange={this.changeFactionHandler} value={this.state.selectedFaction} id="TheSelect">
-            <option value="peaux-vertes">Peaux Vertes</option>
-            <option value="sephosi">Sephosi</option>
-            <option value="gaeli">Gaeli</option>
-            <option value="liches">Liches</option>
-          </select>
+      <div className={styles.DeckBuilder + " container"}>
+        <div className={styles.Wrapper}>
+          <div className={styles.Title}>
+            <h2>Nouveau deck</h2>
+            <label htmlFor="deckName">Nom</label>
+            <input type="text" placeholder="Les Chevaucheurs de Zarn" id="deckName"></input>
+            <button>A la guerre !</button>
           </div>
+          <div className={styles.FieldSelect}>
+            <label htmlFor="TheSelect" >Faction</label>
+            <div className={styles.FieldSelectContainer}>
+              <select onChange={this.changeFactionHandler} value={this.state.selectedFaction} id="TheSelect">
+                <option value="peaux-vertes">Peaux Vertes</option>
+                <option value="sephosi">Sephosi</option>
+                <option value="gaeli">Gaeli</option>
+                <option value="liches">Liches</option>
+              </select>
+            </div>
+          </div>
+
+          {this.props.cardsToDisplay ?
+            <div className={styles.CardList}>
+              <div>
+                <CardList
+                  cards={this.props.cardsToDisplay}
+                  faction={this.state.selectedFaction}
+                >
+                </CardList>
+              </div>
+            </div>
+            : null}
         </div>
 
         {this.props.cardsToDisplay ?
-          <div className={styles.DeckBuilder}>
-            <div className="card-list">
-              <CardList
-                cards={this.props.cardsToDisplay}
-                faction={this.state.selectedFaction}
-              >
-              </CardList>
-            </div>
-            <div className={styles.DeckSummary}>
-              <DeckSummary cards={this.props.cardsToDisplay}>
-              </DeckSummary>
-            </div>
+
+          <div className={styles.DeckSummary}>
+            <DeckSummary cards={this.props.cardsToDisplay}>
+            </DeckSummary>
           </div> : null}
-
-
       </div>
-
-
     );
   }
 }

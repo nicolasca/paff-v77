@@ -8,26 +8,26 @@
     padding: 5px 0 5px 5px;
 }
 
-.Troupe {
-    border-left: 3px solid #325080;
+.troupe {
+    border-left: 5px solid #325080;
 }
 
-[class="Unité de tir"] {
-    border-left: 3px solid #16802D;
+.tir {
+    border-left: 5px solid #16802D;
 }
 
-.Cavalerie {
-    border-left: 3px solid #771680;
+.cavalerie {
+    border-left: 5px solid #771680;
 }
 
-.Artillerie {
-    border-left: 3px solid red;
+.artillerie {
+    border-left: 5px solid red;
 }
 
-.Elite {
-    border-left: 3px solid #FAC55D;
+.elite {
+    border-left: 5px solid #FAC55D;
 }
 
 .ordre {
-    border-left: 3px solid grey;
+    border-left: 5px solid grey;
 }

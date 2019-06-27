@@ -6,14 +6,17 @@ function CardOrder(props) {
     return (
         <div className={[styles.container, styles[props.order.factionSlug]].join(' ')}>
             <div className={styles.recuperable}>
-                 {props.order.recuperable ? 'R' : ' '}
+                {props.order.recuperable ? 'R' : ' '}
             </div>
-            <div className={[styles.name, styles.Tooltip].join(' ')}
-            data-tooltip= {props.order.description}>
-                <span>{props.order.nom}</span>
+            <div className={styles.name}>
+                <span className={styles.Tooltip}
+                    data-tooltip={props.order.description}>
+                    {props.order.nom}
+                </span>
             </div>
         </div>
     );
 }
+
 
 export default CardOrder;

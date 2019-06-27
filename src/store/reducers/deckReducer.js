@@ -1,4 +1,5 @@
 import * as actionTypes from '../actions';
+import { config } from '../../config';
 
 
 const initialState = {
@@ -21,7 +22,8 @@ const reducer = (state = initialState, action) => {
             let card = cardsToDisplayChanged[action.id];
 
             // Vérifier si le nombre est limité
-            if (card.limite && card.count === card.limite) {
+            if ((card.limite && card.count === card.limite) ||
+                card.count === config.typeCard[card.type].limite) {
                 return state;
             }
 
