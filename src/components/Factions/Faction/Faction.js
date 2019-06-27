@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { config } from '../../../config';
 
 class Faction extends Component {
 
@@ -13,7 +14,7 @@ class Faction extends Component {
 
     componentDidMount() {
         if (this.props.match.params.slug) {
-            axios.get('http://localhost:3008/factions/' + this.props.match.params.slug).then((response) => {
+            axios.get(config.host + ':3008/factions/' + this.props.match.params.slug).then((response) => {
 
                 this.setState({
                     faction: response.data,

@@ -5,6 +5,7 @@ import styles from "./DeckBuilder.module.css";
 import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
+import { config } from '../../config';
 
 class DeckBuilder extends Component {
 
@@ -16,11 +17,11 @@ class DeckBuilder extends Component {
   }
 
   getUnites = () => {
-    return axios.get("http://localhost:3008/unites");
+    return axios.get(config.host + ":3008/unites");
   }
 
   getOrdres = () => {
-    return axios.get("http://localhost:3008/ordres");
+    return axios.get(config.host + ":3008/ordres");
   }
 
   componentDidMount() {

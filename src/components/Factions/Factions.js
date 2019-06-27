@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import styles from './Factions.module.css';
-
+import { config } from '../../config';
 
 class Factions extends Component {
 
@@ -11,7 +11,7 @@ class Factions extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3008/factions').then((response) => {
+        axios.get(config.host + ':3008/factions').then((response) => {
             const factionsLoaded = response.data.map((faction) => {
 
                 return (
