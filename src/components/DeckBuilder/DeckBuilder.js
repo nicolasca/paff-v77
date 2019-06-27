@@ -12,15 +12,15 @@ class DeckBuilder extends Component {
   ordres = [];
 
   state = {
-    selectedFaction: 'orcs',
+    selectedFaction: 'peaux-vertes',
   }
 
   getUnites = () => {
-    return axios.get("http://localhost:3001/unites");
+    return axios.get("http://localhost:3008/unites");
   }
 
   getOrdres = () => {
-    return axios.get("http://localhost:3001/ordres");
+    return axios.get("http://localhost:3008/ordres");
   }
 
   componentDidMount() {
@@ -29,7 +29,7 @@ class DeckBuilder extends Component {
 
         this.unites = unites.data;
         this.ordres = ordres.data;
-        this.populateCardToDisplay('orcs');
+        this.populateCardToDisplay('peaux-vertes');
       }));
   }
 
@@ -43,25 +43,28 @@ class DeckBuilder extends Component {
 
     const cards = [];
     // Populate les unites
+    console.log(faction);
+
     this.unites.forEach((unite) => {
-      if (unite.faction === faction) {
+      if (unite.faction.slug === faction) {
 
         // Faire une copie de l'unite
-        cards[unite.name] = {
+        cards[unite.nom] = {
           ...unite,
           count: 0,
         };
       }
 
     });
+    console.log(cards);
 
 
     // Populate les ordres
     this.ordres.forEach((ordre) => {
-      if (ordre.faction === faction || ordre.faction === 'commun') {
+      if (ordre.faction.slug === faction || ordre.faction === 'commun') {
 
         // Faire une copie de l'ordre
-        cards[ordre.name] = {
+        cards[ordre.nom] = {
           ...ordre,
           count: 0,
         };
@@ -83,7 +86,7 @@ class DeckBuilder extends Component {
         </div>
         <div>
           <select onChange={this.changeFactionHandler} value={this.state.selectedFaction}>
-            <option value="orcs">Orcs</option>
+            <option value="peaux-vertes">Peaux Vertes</option>
             <option value="sephosi">Sephosi</option>
             <option value="gaeli">Gaeli</option>
             <option value="liches">Liches</option>

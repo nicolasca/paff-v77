@@ -1,0 +1,10 @@
+.Site {
+    display: grid;
+    grid-template-rows: 60px 1fr;
+}
+
+.Header {}
+
+.Main {
+    top: 60px;
+}
