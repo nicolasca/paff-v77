@@ -161,10 +161,19 @@ p {
 }
 
 .container {
+	margin: 2rem;
+}
+
+.content {
 	max-width: 1100px;
-	margin: 1rem;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+h1 {
+	font-family: 'MagicSchoolTwo';
+	font-size: 8rem;
+	margin: 2rem;
 }
 
 h2 {

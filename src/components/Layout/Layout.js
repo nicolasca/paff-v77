@@ -1,6 +1,5 @@
 import React from 'react';
 import DeckBuilder from '../DeckBuilder/DeckBuilder';
-import Auth from '../../containers/Auth/Auth';
 import { Route } from 'react-router-dom';
 import styles from './Layout.module.css';
 import Home from '../Home/Home';

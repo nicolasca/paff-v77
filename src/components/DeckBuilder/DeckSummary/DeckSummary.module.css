@@ -3,3 +3,31 @@
     margin-bottom: 10px;
     border-bottom: 1px solid black;
 }
+
+.Card {
+    padding: 5px 0 5px 5px;
+}
+
+.Troupe {
+    border-left: 3px solid #325080;
+}
+
+[class="Unité de tir"] {
+    border-left: 3px solid #16802D;
+}
+
+.Cavalerie {
+    border-left: 3px solid #771680;
+}
+
+.Artillerie {
+    border-left: 3px solid red;
+}
+
+.Elite {
+    border-left: 3px solid #FAC55D;
+}
+
+.ordre {
+    border-left: 3px solid grey;
+}

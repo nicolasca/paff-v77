@@ -35,7 +35,7 @@ class Faction extends Component {
                     <div>
                         <div style={this.state.style}
                             alt={this.state.faction.nom} />
-                        <div className="container">
+                        <div className="container content">
                             <h2>{this.state.faction.nom}</h2>
                             <p>{this.state.faction.description} </p>
                         </div>

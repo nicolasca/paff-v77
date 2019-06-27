@@ -1,9 +1,77 @@
-.deckBuilder {
+.Title {
+  text-align: center;
+}
+
+.Title label {
+  cursor: pointer;
+}
+
+.Title label,
+.Title input {
+  margin-right: 1rem;
+}
+
+.DeckBuilder {
   display: grid;
   grid-template-columns: 80% 20%;
 }
 
-.deckSummary {
+.DeckSummary {
   position: fixed;
   right: 70px;
+}
+
+.FieldSelect {
+  position: relative;
+}
+
+.FieldSelectContainer {
+  position: relative;
+  width: 200px;
+  background-color: #fff;
+  border: #777 1px solid;
+  margin: 0 0 1.5em 0;
+
+  overflow: hidden;
+}
+
+.FieldSelectContainer select {
+  appearance: none;
+
+  width: 110%;
+  /* 
+		On est sûr de ne plus voir
+		la flèche native 
+	*/
+
+  height: auto;
+  border: 0;
+  margin: 0;
+  padding: .75em;
+  border-radius: 0;
+
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* 
+		On empêche le texte d'aller
+		jusqu'au bout s'il est trop long
+	*/
+}
+
+.FieldSelectContainer::after {
+  /* Le pointeur du select */
+  content: '';
+  position: absolute;
+  top: 50%;
+  margin-top: -3px;
+  right: .75em;
+  display: block;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-top-color: #444;
+  border-width: 6px;
+  border-style: solid;
+  pointer-events: none;
 }

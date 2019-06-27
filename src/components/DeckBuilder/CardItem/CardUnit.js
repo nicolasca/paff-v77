@@ -27,7 +27,7 @@ function CardUnit(props) {
     }
 
     return (
-        <div className={[styles.container, styles[props.unit.faction.slug]].join(' ')}>
+        <div className={[styles.container, styles[props.unit.factionSlug]].join(' ')}>
             <div className={styles.deploy}>
                 {props.unit.deploy}
             </div>

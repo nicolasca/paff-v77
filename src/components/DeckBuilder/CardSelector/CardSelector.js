@@ -13,7 +13,6 @@ function CardSelector(props) {
       <PlusSign onClick={() => props.addCard(props.name)} />
       <span>{props.count}</span>
       <MinusSign onClick={() => props.removeCard(props.name)} />
-
     </div>
   );
 }

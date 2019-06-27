@@ -22,7 +22,7 @@ const reducer = (state = initialState, action) => {
 
             // Vérifier si le nombre est limité
             if (card.limite && card.count === card.limite) {
-                return;
+                return state;
             }
 
             card.count += 1;

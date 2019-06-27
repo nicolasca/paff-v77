@@ -11,7 +11,7 @@ function DeckSummary(props) {
         pts_depl += props.cards[key].deploy * props.cards[key].count;
 
       return (
-        <div key={index}>
+        <div key={index} className={[styles.Card, styles[props.cards[key].type]].join(' ')}>
           {key} x{props.cards[key].count}
         </div>
       )

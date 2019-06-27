@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CardList from './CardList/CardList'
 import DeckSummary from './DeckSummary/DeckSummary';
-import style from "./DeckBuilder.module.css";
+import styles from "./DeckBuilder.module.css";
 import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
@@ -43,8 +43,6 @@ class DeckBuilder extends Component {
 
     const cards = [];
     // Populate les unites
-    console.log(faction);
-
     this.unites.forEach((unite) => {
       if (unite.faction.slug === faction) {
 
@@ -61,7 +59,7 @@ class DeckBuilder extends Component {
 
     // Populate les ordres
     this.ordres.forEach((ordre) => {
-      if (ordre.faction.slug === faction || ordre.faction === 'commun') {
+      if (ordre.factionSlug === faction || ordre.factionSlug === 'commun') {
 
         // Faire une copie de l'ordre
         cards[ordre.nom] = {
@@ -77,24 +75,27 @@ class DeckBuilder extends Component {
   render() {
 
     return (
-      <React.Fragment>
-        <div>
-          <h1>Nouveau deck</h1>
+      <div className="container">
+        <div className={styles.Title}>
+          <h2>Nouveau deck</h2>
           <label htmlFor="deckName">Nom du deck</label>
           <input type="text" placeholder="Les Chevaucheurs de Zarn" id="deckName"></input>
           <button>A la guerre !</button>
         </div>
-        <div>
-          <select onChange={this.changeFactionHandler} value={this.state.selectedFaction}>
+        <div className={styles.FieldSelect}>
+        <label for="TheSelect" >Ma faction</label>
+        <div className={styles.FieldSelectContainer}>
+          <select onChange={this.changeFactionHandler} value={this.state.selectedFaction} id="TheSelect">
             <option value="peaux-vertes">Peaux Vertes</option>
             <option value="sephosi">Sephosi</option>
             <option value="gaeli">Gaeli</option>
             <option value="liches">Liches</option>
           </select>
+          </div>
         </div>
 
         {this.props.cardsToDisplay ?
-          <div className={style.deckBuilder}>
+          <div className={styles.DeckBuilder}>
             <div className="card-list">
               <CardList
                 cards={this.props.cardsToDisplay}
@@ -102,14 +103,14 @@ class DeckBuilder extends Component {
               >
               </CardList>
             </div>
-            <div className={style.deckSummary}>
+            <div className={styles.DeckSummary}>
               <DeckSummary cards={this.props.cardsToDisplay}>
               </DeckSummary>
             </div>
           </div> : null}
 
 
-      </React.Fragment>
+      </div>
 
 
     );

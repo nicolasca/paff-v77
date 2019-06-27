@@ -1,18 +1,4 @@
-:root {
-  --peaux-vertes-bg-color: #006600;
-  --peaux-vertes-name-color: #ED4D4D;
-  --peaux-vertes-bg-name-color: #003300;
-  --sephosi-bg-color: #963634;
-  --sephosi-name-color: #C00000;
-  --sephosi-bg-name-color: #ffff;
-  --gaeli-bg-color: #6D9CDA;
-  --gaeli-name-color: #ffff;
-  --gaeli-name-surline-color: #079804;
-  --gaeli-bg-name-color: #05467E;
-  --liches-bg-color: #E5D5A1;
-  --liches-name-color: #ffff;
-  --liches-bg-name-color: #c0a13b;
-}
+@import '../../../colors.css';
 
 .peaux-vertes.container {
   background-color: var(--peaux-vertes-bg-color);
@@ -85,7 +71,6 @@
   font-weight: 600;
   border: 1px solid black;
   text-align: center;
-
 }
 
 .specific {

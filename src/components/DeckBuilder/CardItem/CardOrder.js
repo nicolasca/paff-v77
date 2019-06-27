@@ -4,12 +4,13 @@ import styles from './CardOrder.module.css';
 function CardOrder(props) {
 
     return (
-        <div className={styles.container}>
+        <div className={[styles.container, styles[props.order.factionSlug]].join(' ')}>
             <div className={styles.recuperable}>
-                R {props.order.recuperable ? 'Oui' : 'Non'}
+                 {props.order.recuperable ? 'R' : ' '}
             </div>
-            <div className={[styles.name, styles[props.order.faction.slug]].join(' ')}>
-                {props.order.nom}
+            <div className={[styles.name, styles.Tooltip].join(' ')}
+            data-tooltip= {props.order.description}>
+                <span>{props.order.nom}</span>
             </div>
         </div>
     );
