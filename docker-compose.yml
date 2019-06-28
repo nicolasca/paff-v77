@@ -4,6 +4,7 @@ services:
 
   sample:
     container_name: paff-v77
+    restart: unless-stopped
     build:
       context: .
       dockerfile: Dockerfile
