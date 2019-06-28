@@ -5,7 +5,10 @@ import styles from './Layout.module.css';
 import Home from '../Home/Home';
 import Header from '../Navigation/Header';
 import Factions from '../Factions/Factions';
-import Faction from '../Factions/Faction/Faction';
+import FactionPeauxVertes from '../Factions/Faction/FactionPeauxVertes';
+import FactionSephosi from '../Factions/Faction/FactionSephosi';
+import FactionGaeli from '../Factions/Faction/FactionGaeli';
+import FactionLiches from '../Factions/Faction/FactionLiches';
 
 function Layout(props) {
 
@@ -17,7 +20,10 @@ function Layout(props) {
         <Route path="/" exact component={Home} />
         <Route path="/deck" exact component={DeckBuilder} />
         <Route path="/factions" exact component={Factions} />
-        <Route path="/factions/:slug" exact component={Faction} />
+        <Route path="/factions/peaux-vertes" exact component={FactionPeauxVertes} />
+        <Route path="/factions/sephosi" exact component={FactionSephosi} />
+        <Route path="/factions/gaeli" exact component={FactionGaeli} />
+        <Route path="/factions/liches" exact component={FactionLiches} />
       </main>
     </div>
   );

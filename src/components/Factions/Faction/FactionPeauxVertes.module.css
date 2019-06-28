@@ -1,0 +1,33 @@
+.Logo {
+    max-width: 200px;
+}
+
+.BgImage {
+    height: calc(100vh - 60px);
+    background-size: cover;
+    background-position: 'top';
+    background-image: url(../../../assets/factions/peaux-vertes.jpg);
+}
+
+.Description {
+    position: absolute;
+    width: 500px;
+    right: 150px;
+    bottom: 150px;
+    background: white;
+    padding: 1rem 3rem 5rem 3rem;
+}
+
+h2.Title {
+    text-align: center;
+    color: #45742D;
+}
+
+.Lettrine p:first-of-type:first-letter {
+    font-family: 'Fantasy';
+    font-size: 5rem;
+    color: #45742D;
+    padding: 5px 10px 5px 0px;
+    margin-right: 5px;
+    float: left;
+  }
