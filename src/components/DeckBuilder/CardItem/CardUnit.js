@@ -27,6 +27,18 @@ function CardUnit(props) {
         type = 'El';
     }
 
+    let capacites = null;
+    if (props.unit.capacites) {
+        capacites = props.unit.capacites.map((capacite) => {
+            return (
+                <p className={styles.Tooltip} key={capacite.slug}
+                    data-tooltip={capacite.description}>
+                    {capacite.nom}
+                </p>
+            )
+        });
+    }
+
     return (
         <div className={[styles.container, styles[props.unit.factionSlug]].join(' ')}>
             <div className={styles.deploy}>
@@ -45,8 +57,8 @@ function CardUnit(props) {
                 {armor}
             </div>
             <div className={styles.capa}>
-                Capacités
-        </div>
+                {capacites}
+            </div>
             <div className={styles.detailCarac1}>
                 <div className={styles.dark}>D</div>
                 <div className={styles.light}>{props.unit.mouv}</div>

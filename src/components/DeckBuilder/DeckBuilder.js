@@ -55,8 +55,6 @@ class DeckBuilder extends Component {
       }
 
     });
-    console.log(cards);
-
 
     // Populate les ordres
     this.ordres.forEach((ordre) => {

@@ -20,14 +20,14 @@
 
 h2.Title {
     text-align: center;
-    color: #45742D;
+    color: #C00000;
 }
 
 .Lettrine p:first-of-type:first-letter {
     font-family: 'Fantasy';
     font-size: 5rem;
-    color: #45742D;
+    color: #C00000;
     padding: 5px 10px 5px 0px;
     margin-right: 5px;
     float: left;
-  }
+}

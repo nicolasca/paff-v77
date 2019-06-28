@@ -10,7 +10,6 @@ class FactionSephosi extends Component {
     };
 
     componentDidMount() {
-        console.log(this.props);
         
         axios.get(config.host + ':3008/factions/sephosi').then((response) => {
 

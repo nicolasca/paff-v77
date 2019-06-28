@@ -16,6 +16,7 @@
     bottom: 150px;
     background: white;
     padding: 1rem 3rem 5rem 3rem;
+    opacity: 0.75;
 }
 
 h2.Title {
@@ -30,4 +31,4 @@ h2.Title {
     padding: 5px 10px 5px 0px;
     margin-right: 5px;
     float: left;
-  }
+}

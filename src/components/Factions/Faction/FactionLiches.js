@@ -10,15 +10,13 @@ class FactionLiches extends Component {
     };
 
     componentDidMount() {
-        console.log(this.props);
-        
         axios.get(config.host + ':3008/factions/liches').then((response) => {
 
             this.setState({
                 faction: response.data,
             });
         });
-        
+
     }
 
     render() {
@@ -31,7 +29,7 @@ class FactionLiches extends Component {
                         <div className={styles.Description}>
                             <h2 className={styles.Title}>{this.state.faction.nom}</h2>
                             <div className={styles.Lettrine}
-                            dangerouslySetInnerHTML={{ __html: this.state.faction.description }} />
+                                dangerouslySetInnerHTML={{ __html: this.state.faction.description }} />
                         </div>
 
                     </div> : null}
