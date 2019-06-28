@@ -6,6 +6,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
 import { config } from '../../config';
+import PropTypes from 'prop-types';
 
 class DeckBuilder extends Component {
 
@@ -131,3 +132,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeckBuilder);
+
+DeckBuilder.propTypes = {
+  cardsToDisplay: PropTypes.object,
+};

@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './DeckSummary.module.css';
+import PropTypes from 'prop-types';
 
 function DeckSummary(props) {
 
@@ -34,3 +35,7 @@ function DeckSummary(props) {
 }
 
 export default DeckSummary;
+
+DeckSummary.propTypes = {
+  cards: PropTypes.object,
+}

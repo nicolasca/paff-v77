@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './CardUnit.module.css';
 import { config } from '../../../config';
+import PropTypes from 'prop-types';
 
 function CardUnit(props) {
 
@@ -87,3 +88,7 @@ function CardUnit(props) {
 }
 
 export default CardUnit;
+
+CardUnit.propTypes = {
+    card: PropTypes.object,
+} 

@@ -1,6 +1,7 @@
 import React from 'react';
 import CardItem from '../CardItem/CardItem';
 import styles from './CardList.module.css';
+import PropTypes from 'prop-types';
 
 function CardList(props) {
 
@@ -48,3 +49,7 @@ function CardList(props) {
 }
 
 export default CardList;
+
+CardList.propTypes = {
+  cards: PropTypes.object,
+} 
