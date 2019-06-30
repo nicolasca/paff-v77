@@ -9,6 +9,8 @@ import FactionPeauxVertes from '../Factions/Faction/FactionPeauxVertes';
 import FactionSephosi from '../Factions/Faction/FactionSephosi';
 import FactionGaeli from '../Factions/Faction/FactionGaeli';
 import FactionLiches from '../Factions/Faction/FactionLiches';
+import Auth from '../Auth/Auth';
+import SignIn from '../Auth/SignIn';
 
 function Layout(props) {
 
@@ -18,6 +20,8 @@ function Layout(props) {
       <main className={styles.Main}>
         <Route path="/home" component={Home} />
         <Route path="/" exact component={Home} />
+        <Route path="/auth" exact component={Auth} />
+        <Route path="/signin" exact component={SignIn} />
         <Route path="/deck" exact component={DeckBuilder} />
         <Route path="/factions" exact component={Factions} />
         <Route path="/factions/peaux-vertes" exact component={FactionPeauxVertes} />

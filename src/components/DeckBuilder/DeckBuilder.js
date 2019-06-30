@@ -4,7 +4,7 @@ import DeckSummary from './DeckSummary/DeckSummary';
 import styles from "./DeckBuilder.module.css";
 import axios from 'axios';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../store/actions';
+import * as actionTypes from '../../store/actions/actionTypes';
 import { config } from '../../config';
 import PropTypes from 'prop-types';
 

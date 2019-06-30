@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import styles from './Auth.module.css';
-import Input from './../../components/UI/Input/Input';
+import Input from '../UI/Input/Input';
+import * as actions from '../../store/actions/index';
 
 class Auth extends Component {
 
@@ -37,7 +39,7 @@ class Auth extends Component {
         valid: false,
         touched: false,
       },
-    }
+    },
   }
 
   checkValidity = (value, rules) => {
@@ -65,13 +67,15 @@ class Auth extends Component {
       }
     };
 
-    this.setState({registerForm: updatedForm});
+    this.setState({ registerForm: updatedForm });
   }
 
   registerHandler = (event) => {
     event.preventDefault();
-    console.log('Submit');
-    
+    console.log(this.state.registerForm.username.value);
+    console.log(this.state.registerForm.password.value);
+    this.props.onAuth(this.state.registerForm.username.value,
+      this.state.registerForm.password.value, '/auth');
   }
 
   render() {
@@ -84,29 +88,35 @@ class Auth extends Component {
       });
     }
     const form = formElementsArray.map(formElement => (
-          <Input 
-            key={formElement.id}
-            id={formElement.id}
-            elementtype={formElement.config.elementType}
-            elementconfig={formElement.config.elementConfig}
-            value={formElement.config.value}
-            invalid={!formElement.config.valid}
-            touched={formElement.config.touched}
-            change={(event) => this.inputChangedHandler(event, formElement.id)}
-            validationError={formElement.config.validationErrorMessage}
-          ></Input>
+      <Input
+        key={formElement.id}
+        id={formElement.id}
+        elementtype={formElement.config.elementType}
+        elementconfig={formElement.config.elementConfig}
+        value={formElement.config.value}
+        invalid={!formElement.config.valid}
+        touched={formElement.config.touched}
+        change={(event) => this.inputChangedHandler(event, formElement.id)}
+        validationError={formElement.config.validationErrorMessage}
+      ></Input>
     ));
-    
+
     return (
       <div className={styles.Container}>
         <form className={styles.Form} onSubmit={this.registerHandler}>
-            {form}
-            <button>Joignasse</button>
+          {form}
+          <button>Se connecter</button>
         </form>
-        
       </div>
     );
   }
 }
 
-export default Auth
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAuth: (username, password, method) => dispatch(actions.auth(username, password, method)),
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Auth);
