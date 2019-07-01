@@ -9,6 +9,7 @@ export const authStart = () => {
 };
 
 export const authSuccess = (token, username) => {
+
     return {
         type: actionTypes.AUTH_SUCCESS,
         token: token,
@@ -38,7 +39,6 @@ export const checkAuthTimeOut = (expirationTime) => {
 }
 
 export const auth = (username, password, method) => {
-    console.log("test");
 
     return dispatch => {
         dispatch(authStart());
@@ -46,14 +46,10 @@ export const auth = (username, password, method) => {
             username: username,
             password: password
         }
-        const url = config.host + method;
-        console.log(url);
-
-        axios.post(config.host + method, authData)
+        axios.post(config.host + ':3008' + method, authData)
             .then((response) => {
-                console.log(response);
                 dispatch(authSuccess(response.data.token, response.data.username));
-                dispatch(checkAuthTimeOut(response.data.expirationTime));
+                dispatch(checkAuthTimeOut(response.data.expiresIn));
             })
             .catch((error) => {
                 console.log(error);

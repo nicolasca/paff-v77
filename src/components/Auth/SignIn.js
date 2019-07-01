@@ -100,10 +100,25 @@ class SignIn extends Component {
         ));
 
         return (
-            <div className={styles.Container}>
+            <div className="container">
                 <form className={styles.Form} onSubmit={this.signinHandler}>
-                    {form}
-                    <button>S'inscrire</button>
+                    <div className="field">
+                        <label className="label">Nom</label>
+                        <div className="control">
+                            <input className="input" type="text" placeholder="Zarn" />
+                        </div>
+                    </div>
+
+                    <div className="field">
+                        <label className="label">Mot de passe</label>
+                        <div className="control">
+                            <input className="input" type="password" placeholder="PrianaSoumis" />
+                        </div>
+                    </div>
+
+                    <div className="control">
+                        <button className="button is-primary">S'inscrire</button>
+                    </div>
                 </form>
             </div>
         );

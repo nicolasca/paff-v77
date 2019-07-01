@@ -1,15 +1,17 @@
 .Header {
-  align-items: center;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   border-bottom: 1px solid grey;
   background-color: #191726;
   color: white;
-  font-weight: 600;
+  /* font-weight: 600; */
   font-family: 'Fantasy';
-  font-size: 1.5rem;
+  font-size: 1.8rem;
 }
 
-a {
+.Header a {
+  color: white;
   text-decoration: none;
 }
 

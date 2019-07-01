@@ -12,10 +12,11 @@
 .Description {
     position: absolute;
     width: 500px;
-    right: 150px;
-    bottom: 150px;
+    right: 10%;
+    bottom: 10%;
     background: white;
     padding: 1rem 3rem 5rem 3rem;
+    border: 1px solid #C00000;
 }
 
 h2.Title {

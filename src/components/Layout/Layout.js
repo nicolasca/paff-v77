@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import DeckBuilder from '../DeckBuilder/DeckBuilder';
 import { Route } from 'react-router-dom';
 import styles from './Layout.module.css';
@@ -11,15 +12,20 @@ import FactionGaeli from '../Factions/Faction/FactionGaeli';
 import FactionLiches from '../Factions/Faction/FactionLiches';
 import Auth from '../Auth/Auth';
 import SignIn from '../Auth/SignIn';
+import Logout from '../Auth/Logout/Logout';
 
 function Layout(props) {
 
   return (
     <div className={styles.Site}>
-      <Header className={styles.Header}></Header>
+      <Header
+        className={styles.Header}
+        username={props.username}
+        isAuthenticated={props.isAuthenticated}></Header>
       <main className={styles.Main}>
         <Route path="/home" component={Home} />
         <Route path="/" exact component={Home} />
+        <Route path="/logout" exact component={Logout} />
         <Route path="/auth" exact component={Auth} />
         <Route path="/signin" exact component={SignIn} />
         <Route path="/deck" exact component={DeckBuilder} />
@@ -33,4 +39,11 @@ function Layout(props) {
   );
 }
 
-export default Layout;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.authReducer.token !== null,
+    username: state.authReducer.username,
+  }
+}
+
+export default connect(mapStateToProps)(Layout);

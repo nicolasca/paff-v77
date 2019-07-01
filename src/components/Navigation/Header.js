@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Header.module.css';
 
-function Header() {
+function Header(props) {
 
   return (
     <header className={styles.Header}>
@@ -11,11 +11,6 @@ function Header() {
           exact to="/"
           activeClassName={styles.ActiveNavLink}>
           Home
-        </NavLink></li>
-        <li><NavLink
-          exact to="/auth"
-          activeClassName={styles.ActiveNavLink}>
-          Connexion
         </NavLink></li>
         <li><NavLink
           exact to="/deck"
@@ -28,6 +23,23 @@ function Header() {
         >
           Factions
         </NavLink></li>
+      </ul>
+      <ul>
+        {!props.isAuthenticated ?
+
+          <li><NavLink
+            exact to="/auth"
+            activeClassName={styles.ActiveNavLink}>
+            Connexion
+        </NavLink></li>
+          :
+          <React.Fragment>
+            <li>{props.username}</li>
+            <li><NavLink
+              exact to="/logout">
+              Déconnexion
+        </NavLink></li>
+          </React.Fragment>}
       </ul>
     </header>
 

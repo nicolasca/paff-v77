@@ -1,7 +1,7 @@
 
 export const config = {
-    host: 'http://51.75.252.210',
-    // host: 'http://localhost:3008',
+    // host: 'http://51.75.252.210',
+    host: 'http://localhost',
     typeCard: {
         ordre: {
             label: 'ordre',
