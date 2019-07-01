@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styles from './Auth.module.css';
 import Input from '../UI/Input/Input';
@@ -105,8 +106,14 @@ class Auth extends Component {
       <div className={styles.Container}>
         <form className={styles.Form} onSubmit={this.registerHandler}>
           {form}
-          <button>Se connecter</button>
+          <button className="button">Se connecter</button>
         </form>
+
+        <li><Link
+          exact to="/signin"
+          activeClassName={styles.ActiveNavLink}>
+          Inscription
+        </Link></li>
       </div>
     );
   }

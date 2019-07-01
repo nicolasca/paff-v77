@@ -23,7 +23,6 @@
 
 .InputElement:focus {
   outline: none;
-  background-color: #ccc;
 }
 
 .Error {

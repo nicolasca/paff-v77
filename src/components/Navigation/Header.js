@@ -18,11 +18,6 @@ function Header() {
           Connexion
         </NavLink></li>
         <li><NavLink
-          exact to="/signin"
-          activeClassName={styles.ActiveNavLink}>
-          Inscription
-        </NavLink></li>
-        <li><NavLink
           exact to="/deck"
           activeClassName={styles.ActiveNavLink}>
           Deck
