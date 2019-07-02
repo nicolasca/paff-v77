@@ -1,3 +1,7 @@
 .MainPage {
   text-align: center;
 }
+
+.MainPage img {
+  max-height: 50vh;
+}

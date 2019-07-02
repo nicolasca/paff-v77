@@ -6,7 +6,7 @@
     height: calc(100vh - 60px);
     background-size: cover;
     background-position: 'top';
-    /* background-image: url(../../../assets/factions/peaux-vertes.jpg); */
+    background-image: url(../../../assets/factions/liches.jpg);
 }
 
 .Description {
@@ -16,17 +16,18 @@
     bottom: 10%;
     background: white;
     padding: 1rem 3rem 5rem 3rem;
+    border: 1px solid #c0a13b;
 }
 
 h2.Title {
     text-align: center;
-    color: #45742D;
+    color: #c0a13b;
 }
 
 .Lettrine p:first-of-type:first-letter {
     font-family: 'Fantasy';
     font-size: 5rem;
-    color: #45742D;
+    color: #c0a13b;
     padding: 5px 10px 5px 0px;
     margin-right: 5px;
     float: left;
