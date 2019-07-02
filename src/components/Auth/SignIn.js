@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router'
 import { connect } from 'react-redux';
 import styles from './Auth.module.css';
 import * as actions from '../../store/actions/index';
@@ -67,11 +68,20 @@ class SignIn extends Component {
                         <button className="button is-primary">S'inscrire</button>
                     </div>
                 </form>
+                {this.props.redirect && (
+          <Redirect to={this.props.redirect}/>
+        )}
             </div>
         );
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+      redirect: state.authReducer.redirect,
+    }
+  };
+  
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -79,4 +89,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

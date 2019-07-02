@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styles from './Auth.module.css';
@@ -87,16 +88,24 @@ class Auth extends Component {
             </p>
           </div>
         </form>
+        {this.props.redirect && (
+          <Redirect to={this.props.redirect}/>
+        )}
       </div>
     );
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    redirect: state.authReducer.redirect,
+  }
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onAuth: (username, password, method) => dispatch(actions.auth(username, password, method)),
   }
-}
+};
 
-export default connect(null, mapDispatchToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

@@ -5,4 +5,5 @@ export {
     auth,
     logout,
     signIn,
+    checkAuthState
 } from './auth';

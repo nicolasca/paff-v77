@@ -6,6 +6,7 @@ const initialState = {
     username: null,
     error: null,
     loading: false,
+    redirect: null,
 };
 
 const authStart = (state, action) => {
@@ -17,25 +18,25 @@ const authSuccess = (state, action) => {
         token: action.token,
         username: action.username,
         error: null,
-        loading: false
-    }
-    );
+        loading: false,
+        redirect: action.redirect,
+    });
 }
 
 const authFail = (state, action) => {
     return updateObject(state, {
         error: action.error,
         loading: false,
+        redirect: null,
     }
     );
 }
 
 const authlogout = (state, action) => {
-    return updateObject(state, { token: null, username: null });
+    return updateObject(state, { token: null, username: null, redirect: null });
 }
 
 const reducer = (state = initialState, action) => {
-    console.log(action.type);
 
     switch (action.type) {
         case actionTypes.AUTH_START:
