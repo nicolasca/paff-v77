@@ -13,26 +13,13 @@ const authStart = (state, action) => {
 }
 
 const authSuccess = (state, action) => {
-    const newObject = updateObject(state, {
+    return updateObject(state, {
         token: action.token,
         username: action.username,
         error: null,
         loading: false
     }
     );
-    const newO = {
-        ...state,
-        token: action.token,
-        username: action.username,
-        error: null,
-        loading: false
-    }
-    console.log('auth success');
-
-    console.log(newObject);
-    console.log(newO);
-
-    return newObject;
 }
 
 const authFail = (state, action) => {

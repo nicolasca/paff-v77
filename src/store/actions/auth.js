@@ -38,7 +38,25 @@ export const checkAuthTimeOut = (expirationTime) => {
     };
 }
 
-export const auth = (username, password, method) => {
+export const signIn = (username, password) => {
+    return (dispatch) => {
+        const signInData = {
+            username: username,
+            password: password
+        }
+
+        axios.post(config.host + ':3008/users', signInData)
+            .then((response) => {
+                
+            })
+            .catch((error) => {
+                console.log(error);
+                dispatch(authFail(error));
+            })
+    }
+}
+
+export const auth = (username, password) => {
 
     return dispatch => {
         dispatch(authStart());
@@ -46,7 +64,7 @@ export const auth = (username, password, method) => {
             username: username,
             password: password
         }
-        axios.post(config.host + ':3008' + method, authData)
+        axios.post(config.host + ':3008/auth', authData)
             .then((response) => {
                 dispatch(authSuccess(response.data.token, response.data.username));
                 dispatch(checkAuthTimeOut(response.data.expiresIn));

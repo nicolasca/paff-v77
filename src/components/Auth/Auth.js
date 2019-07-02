@@ -6,41 +6,6 @@ import * as actions from '../../store/actions/index';
 
 class Auth extends Component {
 
-  // state = {
-  //   registerForm: {
-  //     username: {
-  //       id: 'username',
-  //       elementType: 'input',
-  //       elementConfig: {
-  //         type: 'text',
-  //         placeholder: 'Zarn'
-  //       },
-  //       value: '',
-  //       validation: {
-  //         required: true,
-  //       },
-  //       validationErrorMessage: 'Entrer un username',
-  //       valid: false,
-  //       touched: false,
-  //     },
-  //     password: {
-  //       id: 'password',
-  //       elementType: 'input',
-  //       elementConfig: {
-  //         type: 'password',
-  //         placeholder: 'password'
-  //       },
-  //       value: '',
-  //       validation: {
-  //         required: true,
-  //         minlength: 6
-  //       },
-  //       validationErrorMessage: 'Minimum 6 caractères',
-  //       valid: false,
-  //       touched: false,
-  //     },
-  //   },
-  // }
 
   state = {
     username: '',
@@ -62,23 +27,12 @@ class Auth extends Component {
   }
 
   inputChangedHandler = (event, inputId) => {
-    // const updatedForm = {
-    //   ...this.state.registerForm,
-    //   [inputId]: {
-    //     ...this.state.registerForm[inputId],
-    //     value: event.target.value,
-    //     valid: this.checkValidity(event.target.value, this.state.registerForm[inputId].validation),
-    //     touched: true,
-    //   }
-    // };
-
     this.setState(
       {
         ...this.state,
         [inputId]: event.target.value
       }
     );
-
   }
 
   registerHandler = (event) => {
@@ -96,27 +50,6 @@ class Auth extends Component {
         config: this.state.registerForm[key],
       });
     }
-    // const form = formElementsArray.map(formElement => (
-
-    //   <div className="field">
-    //     <label className="label">Name</label>
-    //     <div className="control">
-    //       <Input
-    //         className="input"
-    //         key={formElement.id}
-    //         id={formElement.id}
-    //         elementtype={formElement.config.elementType}
-    //         elementconfig={formElement.config.elementConfig}
-    //         value={formElement.config.value}
-    //         invalid={!formElement.config.valid}
-    //         touched={formElement.config.touched}
-    //         change={(event) => this.inputChangedHandler(event, formElement.id)}
-    //         validationError={formElement.config.validationErrorMessage}
-    //       ></Input>
-    //     </div>
-    //   </div>
-
-    // ));
 
     return (
       <div className="container">
