@@ -43,7 +43,7 @@ function Layout(props) {
           <Route path="/factions/sephosi" exact component={FactionSephosi} />
           <Route path="/factions/gaeli" exact component={FactionGaeli} />
           <Route path="/factions/liches" exact component={FactionLiches} />
-          <Redirect to="/"></Redirect>
+          <Redirect to="/deck"></Redirect>
 
         </main>
       </React.Fragment>

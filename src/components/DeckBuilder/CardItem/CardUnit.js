@@ -5,15 +5,6 @@ import PropTypes from 'prop-types';
 
 function CardUnit(props) {
 
-    let armor = '';
-    if (props.unit.armor === 1) {
-        armor = 'I';
-    } else if (props.unit.armor === 2) {
-        armor = 'II';
-    } else {
-        armor = 'III';
-    }
-
     let type = '';
 
     if (props.unit.type === config.typeCard.troupe.label) {
@@ -41,7 +32,7 @@ function CardUnit(props) {
     }
 
     return (
-        <div className={[styles.container, styles[props.unit.factionSlug]].join(' ')}>
+        <div className={[styles.CardUnit, styles.container, styles[props.unit.factionSlug]].join(' ')}>
             <div className={styles.deploy}>
                 {props.unit.deploy}
             </div>
@@ -54,34 +45,19 @@ function CardUnit(props) {
             <div className={styles.reg}>
                 {props.unit.regiment} régiments
         </div>
-            <div className={[styles.armor, styles['type' + armor]].join(' ')}>
-                {armor}
-            </div>
-            <div className={styles.capa}>
+            <div className={styles.Capa}>
                 {capacites}
             </div>
-            <div className={styles.detailCarac1}>
-                <div className={styles.dark}>D</div>
-                <div className={styles.light}>{props.unit.mouv}</div>
-                <div className={styles.dark}>M</div>
-                <div className={styles.light}>{props.unit.moral}+</div>
-            </div>
-            <div className={styles.detailCarac2}>
-                <div className={styles.dark}>T</div>
-                <div className={styles.typeI}>{props.unit.t_I}</div>
-                <div className={styles.typeII}>{props.unit.t_II}</div>
-                <div className={styles.typeIII}>{props.unit.t_III}</div>
-                <div className={styles.dark}>Cac</div>
-                <div className={styles.typeI}>{props.unit.a_I}</div>
-                <div className={styles.typeII}>{props.unit.a_II}</div>
-                <div className={styles.typeIII}>{props.unit.a_III}</div>
-            </div>
-
-            <div className={styles.detailCarac3}>
-                <div className={styles.dark}>P</div>
-                <div className={styles.light}>{props.unit.range}</div>
-                <div className={styles.dark}>C</div>
-                <div className={styles.light}>{props.unit.charge}</div>
+            <div className={styles.detailCarac}>
+                <div className={styles.Transparent}></div>
+                <div className={styles.Att}>Att</div>
+                <div className={styles.Def}>Def</div>
+                <div className={styles.Cac}>Cac</div>
+                <div className={styles.AttCac}> { props.unit.attCac } </div>
+                <div className={styles.DefCac}>{ props.unit.defCac }</div>
+                <div className={styles.Tir}>Tir</div>
+                <div className={styles.AttTir}>{ props.unit.attTir }</div>
+                <div className={styles.DefTir}>{props.unit.defTir}</div>
             </div>
         </div>
     );
