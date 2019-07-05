@@ -84,7 +84,7 @@ class Auth extends Component {
               <Link
                 to="/signin">
                 Inscription
-        </Link>
+            </Link>
             </p>
           </div>
         </form>

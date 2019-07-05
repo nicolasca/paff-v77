@@ -115,37 +115,49 @@ class DeckBuilder extends Component {
         <div className={styles.Wrapper}>
           <div className={styles.Title}>
             <h2>Nouveau deck</h2>
-            <label htmlFor="deckName">Nom</label>
-            <input
-              name="name"
-              type="text"
-              placeholder="Les Chevaucheurs de Zarn" 
-              onChange={this.inputChangeHandler}
-              id="deckName">
-            </input>
-            <label htmlFor="description">Description</label>
-            <textarea
-              name="description"
-              placeholder="Ah que ouai"
-              onChange={this.inputChangeHandler} 
-              id="description">
-            </textarea>
-            <button onClick={this.saveDeckhandler}>A la guerre !</button>
+
+            <div className="field">
+              <label className="label">Nom</label>
+              <div className="control">
+                <input 
+                  className="input"
+                  type="text"
+                  placeholder="Les Chevaucheurs de Zarn"
+                  onChange={this.inputChangeHandler}
+                  id="deckName" />
+              </div>
           </div>
-          <div className={styles.FieldSelect}>
-            <label htmlFor="TheSelect" >Faction</label>
-            <div className={styles.FieldSelectContainer}>
-              <select 
-                onChange={this.changeFactionHandler}
+
+          <div className="field">
+              <label className="label">Description</label>
+              <div className="control">
+                <textarea 
+                  className="textarea"
+                  placeholder="Ah que ouai"
+                  onChange={this.inputChangeHandler} 
+              id="description" />
+              </div>
+          </div>
+
+          <div className={[styles.SelectFaction, "field", "is-grouped"].join(' ')}>
+            <div className="control">
+              <button className="button is-primary" onClick={this.saveDeckhandler}>A la guerre !</button>
+            </div>
+            <p className="control">
+            <div class="select">
+              <select onChange={this.changeFactionHandler}
                 value={this.state.selectedFaction}
                 id="TheSelect">
-                  <option value="peaux-vertes">Peaux Vertes</option>
+              <option value="peaux-vertes">Peaux Vertes</option>
                   <option value="sephosi">Sephosi</option>
                   <option value="gaeli">Gaeli</option>
                   <option value="liches">Liches</option>
               </select>
             </div>
+            </p>
           </div>
+         </div>
+          
 
           {this.props.cardsToDisplay ?
             <div className={styles.CardList}>

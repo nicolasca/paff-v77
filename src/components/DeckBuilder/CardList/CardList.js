@@ -39,11 +39,11 @@ function CardList(props) {
   });
 
   return (
-    <div>
-      <h3>Unités</h3>
-      <div>{cardsUnites}</div>
-      <h3>Ordres</h3>
-      <div>{cardsOrdres}</div>
+    <div className={styles.CardList}>
+      <h3 className="title is-4">Unités</h3>
+      <div className={styles.Unites}>{cardsUnites}</div>
+      <h3 className="title is-4">Ordres</h3>
+      <div className={styles.Ordres}>{cardsOrdres}</div>
     </div>
   );
 }

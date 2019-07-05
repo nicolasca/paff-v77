@@ -7,6 +7,11 @@
 }
 
 .Title {
+  width: 60%;
+  margin-left: 1rem;
+}
+
+.Title h2 {
   text-align: center;
 }
 
@@ -19,6 +24,10 @@
   margin-right: 1rem;
 }
 
+.SelectFaction {
+  align-items: center
+}
+
 .DeckSummary {
   width: 20%;
   position: sticky;
@@ -26,55 +35,3 @@
   height: 100%;
 }
 
-.FieldSelect {
-  position: relative;
-}
-
-.FieldSelectContainer {
-  position: relative;
-  width: 200px;
-  background-color: #fff;
-  border: #777 1px solid;
-  overflow: hidden;
-}
-
-.FieldSelectContainer select {
-  appearance: none;
-
-  width: 110%;
-  /* 
-		On est sûr de ne plus voir
-		la flèche native 
-	*/
-
-  height: auto;
-  border: 0;
-  margin: 0;
-  padding: .75em;
-  border-radius: 0;
-
-
-  overflow: hidden;
-  text-overflow: ellipsis;
-  /* 
-		On empêche le texte d'aller
-		jusqu'au bout s'il est trop long
-	*/
-}
-
-.FieldSelectContainer::after {
-  /* Le pointeur du select */
-  content: '';
-  position: absolute;
-  top: 50%;
-  margin-top: -3px;
-  right: .75em;
-  display: block;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-top-color: #444;
-  border-width: 6px;
-  border-style: solid;
-  pointer-events: none;
-}
