@@ -14,7 +14,7 @@ class DeckBuilder extends Component {
   ordres = [];
 
   state = {
-    selectedFaction: 'peaux-vertes',
+    selectedFaction: 'gaeli',
     name: '',
     description: '',
   }
@@ -33,7 +33,7 @@ class DeckBuilder extends Component {
 
         this.unites = unites.data;
         this.ordres = ordres.data;
-        this.populateCardToDisplay('peaux-vertes');
+        this.populateCardToDisplay('gaeli');
       }));
   }
 
@@ -42,7 +42,7 @@ class DeckBuilder extends Component {
 
     this.populateCardToDisplay(event.target.value);
   }
-  
+
 
   populateCardToDisplay = (faction) => {
 
@@ -76,7 +76,7 @@ class DeckBuilder extends Component {
   }
 
   inputChangeHandler = (event) => {
-    const value =  event.target.value;
+    const value = event.target.value;
     const name = event.target.name;
 
     this.setState({
@@ -89,10 +89,10 @@ class DeckBuilder extends Component {
       name: this.state.name,
       description: this.state.description,
     };
-    
+
     const cardsToSave = [];
     console.log();
-    
+
     Object.keys(this.props.cardsToDisplay).forEach((key, index) => {
       if (this.props.cardsToDisplay[key].count > 0) {
         cardsToSave.push({
@@ -105,7 +105,7 @@ class DeckBuilder extends Component {
     deckToSave['cartes'] = cardsToSave;
 
     console.log(deckToSave);
-      
+
   }
 
   render() {
@@ -119,45 +119,45 @@ class DeckBuilder extends Component {
             <div className="field">
               <label className="label">Nom</label>
               <div className="control">
-                <input 
+                <input
                   className="input"
                   type="text"
                   placeholder="Les Chevaucheurs de Zarn"
                   onChange={this.inputChangeHandler}
                   id="deckName" />
               </div>
-          </div>
+            </div>
 
-          <div className="field">
+            <div className="field">
               <label className="label">Description</label>
               <div className="control">
-                <textarea 
+                <textarea
                   className="textarea"
                   placeholder="Ah que ouai"
-                  onChange={this.inputChangeHandler} 
-              id="description" />
+                  onChange={this.inputChangeHandler}
+                  id="description" />
               </div>
+            </div>
+
+            <div className={[styles.SelectFaction, "field", "is-grouped"].join(' ')}>
+              <div className="control">
+                <button className="button is-primary" onClick={this.saveDeckhandler}>A la guerre !</button>
+              </div>
+              <div className="control">
+                <div className="select">
+                  <select onChange={this.changeFactionHandler}
+                    value={this.state.selectedFaction}
+                    id="TheSelect">
+                    <option value="peaux-vertes">Peaux Vertes</option>
+                    <option value="sephosi">Sephosi</option>
+                    <option value="gaeli">Gaeli</option>
+                    <option value="liches">Liches</option>
+                  </select>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className={[styles.SelectFaction, "field", "is-grouped"].join(' ')}>
-            <div className="control">
-              <button className="button is-primary" onClick={this.saveDeckhandler}>A la guerre !</button>
-            </div>
-            <p className="control">
-            <div class="select">
-              <select onChange={this.changeFactionHandler}
-                value={this.state.selectedFaction}
-                id="TheSelect">
-              <option value="peaux-vertes">Peaux Vertes</option>
-                  <option value="sephosi">Sephosi</option>
-                  <option value="gaeli">Gaeli</option>
-                  <option value="liches">Liches</option>
-              </select>
-            </div>
-            </p>
-          </div>
-         </div>
-          
 
           {this.props.cardsToDisplay ?
             <div className={styles.CardList}>

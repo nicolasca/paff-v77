@@ -24,5 +24,9 @@ export const config = {
             label: 'elite',
             limite: 1,
         },
+        unique: {
+            label: 'unique',
+            limite: 1,
+        },
     }
 }
