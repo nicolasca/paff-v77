@@ -15,6 +15,8 @@ class DeckBuilder extends Component {
 
   state = {
     selectedFaction: 'peaux-vertes',
+    name: '',
+    description: '',
   }
 
   getUnites = () => {
@@ -40,6 +42,7 @@ class DeckBuilder extends Component {
 
     this.populateCardToDisplay(event.target.value);
   }
+  
 
   populateCardToDisplay = (faction) => {
 
@@ -72,6 +75,39 @@ class DeckBuilder extends Component {
     this.props.setInitCards(cards);
   }
 
+  inputChangeHandler = (event) => {
+    const value =  event.target.value;
+    const name = event.target.name;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
+  saveDeckhandler = () => {
+    const deckToSave = {
+      name: this.state.name,
+      description: this.state.description,
+    };
+    
+    const cardsToSave = [];
+    console.log();
+    
+    Object.keys(this.props.cardsToDisplay).forEach((key, index) => {
+      if (this.props.cardsToDisplay[key].count > 0) {
+        cardsToSave.push({
+          carte: this.props.cardsToDisplay[key],
+          nbExemplaires: this.props.cardsToDisplay[key].count,
+        });
+      }
+    });
+
+    deckToSave['cartes'] = cardsToSave;
+
+    console.log(deckToSave);
+      
+  }
+
   render() {
 
     return (
@@ -80,17 +116,33 @@ class DeckBuilder extends Component {
           <div className={styles.Title}>
             <h2>Nouveau deck</h2>
             <label htmlFor="deckName">Nom</label>
-            <input type="text" placeholder="Les Chevaucheurs de Zarn" id="deckName"></input>
-            <button>A la guerre !</button>
+            <input
+              name="name"
+              type="text"
+              placeholder="Les Chevaucheurs de Zarn" 
+              onChange={this.inputChangeHandler}
+              id="deckName">
+            </input>
+            <label htmlFor="description">Description</label>
+            <textarea
+              name="description"
+              placeholder="Ah que ouai"
+              onChange={this.inputChangeHandler} 
+              id="description">
+            </textarea>
+            <button onClick={this.saveDeckhandler}>A la guerre !</button>
           </div>
           <div className={styles.FieldSelect}>
             <label htmlFor="TheSelect" >Faction</label>
             <div className={styles.FieldSelectContainer}>
-              <select onChange={this.changeFactionHandler} value={this.state.selectedFaction} id="TheSelect">
-                <option value="peaux-vertes">Peaux Vertes</option>
-                <option value="sephosi">Sephosi</option>
-                <option value="gaeli">Gaeli</option>
-                <option value="liches">Liches</option>
+              <select 
+                onChange={this.changeFactionHandler}
+                value={this.state.selectedFaction}
+                id="TheSelect">
+                  <option value="peaux-vertes">Peaux Vertes</option>
+                  <option value="sephosi">Sephosi</option>
+                  <option value="gaeli">Gaeli</option>
+                  <option value="liches">Liches</option>
               </select>
             </div>
           </div>

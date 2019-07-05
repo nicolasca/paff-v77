@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { config } from '../../../config';
+import bossOrc from '../../../assets/factions/boss-orc.jpg'
+import shamanOrc from '../../../assets/factions/shaman-orc.jpg'
 import styles from './FactionPeauxVertes.module.css';
 
 class FactionPeauxVertes extends Component {
@@ -24,7 +26,8 @@ class FactionPeauxVertes extends Component {
         return (
             <div>
                 {this.state.faction ?
-                    <div>
+                    <React.Fragment>
+                    <div className={styles.Main}>
                         <div className={styles.BgImage}
                             alt={this.state.faction.nom} />
                         <div className={styles.Description}>
@@ -33,7 +36,23 @@ class FactionPeauxVertes extends Component {
                                 dangerouslySetInnerHTML={{ __html: this.state.faction.description }} />
                         </div>
 
-                    </div> : null}
+                    </div> 
+                    <div className={styles.SecondPart}>
+                        <div className={styles.BossOrcImg}>
+                        <img src={bossOrc} alt=""/>
+                        </div>
+                        <div className={styles.BossOrcDesc}>
+                        <h3 class="title is-2"> Boss Orc</h3>
+                        </div>
+
+                        <div className={styles.ShamanOrcImg}>
+                        <img src={shamanOrc} alt=""/>
+                        </div>
+                        <div className={styles.ShamanOrcDesc}>
+                        <h3 class="title is-2"> Shaman Orc</h3>
+                        </div>
+                    </div>
+                    </React.Fragment>: null}
             </div>
         );
     }
