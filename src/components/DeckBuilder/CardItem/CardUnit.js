@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './CardUnit.module.css';
+import styles from './CardUnit.module.scss';
 import { config } from '../../../config';
 import PropTypes from 'prop-types';
 
@@ -25,10 +25,10 @@ function CardUnit(props) {
 	if (props.unit.capacites) {
 		capacites = props.unit.capacites.map((capacite) => {
 			return (
-				<p className={styles.Tooltip} key={capacite.slug}
+				<span className={styles.Tooltip} key={capacite.slug}
 					data-tooltip={capacite.description}>
 					{capacite.nom}
-				</p>
+				</span>
 			)
 		});
 	}
@@ -40,7 +40,7 @@ function CardUnit(props) {
 			<div className={styles.deploy}>
 				{props.unit.deploy}
 			</div>
-			<div className={styles.faction}>
+			<div className={styles.Faction}>
 				<span>{props.unit.faction.nom}</span>
 			</div>
 			<div className={styles.name}>

@@ -1,10 +1,10 @@
 .peaux-vertes.container {
-    background-color: var(--peaux-vertes-bg-color);
+    background-color: var(--peaux-vertes-bg-name-color);
 }
 
 .peaux-vertes .name {
     color: var(--peaux-vertes-name-color);
-    background: var(--peaux-vertes-bg-name-color);
+    background: var(--peaux-vertes-bg-color);
 }
 
 .sephosi.container {
