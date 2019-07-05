@@ -20,7 +20,7 @@ function Layout(props) {
     <main className={styles.Main}>
       <Route path="/auth" exact component={Auth} />
       <Route path="/signin" exact component={SignIn} />
-      {/* <Redirect to="/auth"></Redirect> */}
+      <Redirect to="/auth"></Redirect>
     </main>
   );
 
@@ -43,7 +43,7 @@ function Layout(props) {
           <Route path="/factions/sephosi" exact component={FactionSephosi} />
           <Route path="/factions/gaeli" exact component={FactionGaeli} />
           <Route path="/factions/liches" exact component={FactionLiches} />
-          {/* <Redirect to="/deck"></Redirect> */}
+          <Redirect to="/deck"></Redirect>
 
         </main>
       </React.Fragment>
