@@ -1,42 +1,44 @@
+@import './../../../colors.scss';
+
 .peaux-vertes.container {
-    background-color: var(--peaux-vertes-bg-name-color);
+    background-color: $peaux-vertes-bg-name-color;
 }
 
 .peaux-vertes .name {
-    color: var(--peaux-vertes-name-color);
-    background: var(--peaux-vertes-bg-color);
+    color: $peaux-vertes-name-color;
+    background: $peaux-vertes-bg-color;
 }
 
 .sephosi.container {
-    background-color: var(--sephosi-bg-color);
+    background-color: $sephosi-bg-color;
 }
 
 .sephosi .name {
-    color: var(--sephosi-name-color);
-    background: var(--sephosi-bg-name-color);
+    color: $sephosi-name-color;
+    background: $sephosi-bg-name-color;
 }
 
 .gaeli.container {
-    background-color: var(--gaeli-bg-color);
+    background-color: $gaeli-bg-color;
 }
 
 .gaeli .name {
-    color: var(--gaeli-name-color);
-    background-color: var(--gaeli-bg-name-color);
+    color: white;
+    background-color: $gaeli-bg-name-color;
 }
 
 .gaeli .name span {
     padding: 5px;
-    background: linear-gradient(to bottom, transparent 20%, var(--gaeli-name-surline-color) 20%, var(--gaeli-name-surline-color) 85%, transparent 85%);
+    background: linear-gradient(to bottom, transparent 20%, $gaeli-name-surline-color 20%, $gaeli-name-surline-color 85%, transparent 85%);
 }
 
 .liches.container {
-    background-color: var(--liches-bg-color);
+    background-color: $liches-bg-color;
 }
 
 .liches .name {
-    color: var(--liches-name-color);
-    background: var(--liches-bg-name-color);
+    color: $liches-name-color;
+    background: $liches-bg-name-color;
 }
 
 .container {

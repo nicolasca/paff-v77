@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './CardOrder.module.css';
+import styles from './CardOrder.module.scss';
 
 function CardOrder(props) {
 

@@ -1,9 +1,13 @@
-@import '../../../colors.css';
+@import './../../../colors.scss';
 
 
 @mixin setColorsFaction($colorName, $colorBgName, $colorBg) {
-  background-color: $colorBg;
-  padding: 15px;
+  &>div {
+    background-color: $colorBg;
+  }
+
+  // border: 15px solid lighten($colorBg, 15%);
+  border: 10px solid darken($colorBg, 10%);
 
   .name {
     color: $colorName;
@@ -14,27 +18,27 @@
 /* Set colors for each faction */
 
 .CardUnit.container.peaux-vertes {
-  @include setColorsFaction(var(--peaux-vertes-name-color), var(--peaux-vertes-bg-name-color), var(--peaux-vertes-bg-color));
+  @include setColorsFaction($peaux-vertes-name-color, $peaux-vertes-bg-name-color, $peaux-vertes-bg-color);
   color: white;
 
 }
 
 .CardUnit.container.sephosi {
-  @include setColorsFaction(var(--sephosi-name-color), var(--sephosi-bg-name-color), var(--sephosi-bg-color));
+  @include setColorsFaction($sephosi-name-color, $sephosi-bg-name-color, $sephosi-bg-color);
   color: white;
 }
 
 .CardUnit.container.gaeli {
-  @include setColorsFaction(var(--gaeli-name-color), var(--gaeli-bg-name-color), var(--gaeli-bg-color));
+  @include setColorsFaction($gaeli-name-color, $gaeli-bg-name-color, $gaeli-bg-color);
 
   .name span {
     padding: 5px;
-    background: linear-gradient(to bottom, transparent 20%, var(--gaeli-name-surline-color) 20%, var(--gaeli-name-surline-color) 85%, transparent 85%);
+    background: linear-gradient(to bottom, transparent 20%, $gaeli-name-surline-color 20%, $gaeli-name-surline-color 85%, transparent 85%);
   }
 }
 
 .CardUnit.container.liches {
-  @include setColorsFaction(var(--liches-name-color), var(--liches-bg-name-color), var(--liches-bg-color));
+  @include setColorsFaction($liches-name-color, $liches-bg-name-color, $liches-bg-color);
 }
 
 .CardUnit.container {
@@ -69,6 +73,8 @@
   align-items: center;
   justify-content: center;
   font-weight: 600;
+  border: 1px solid black;
+  border-left: none;
 }
 
 .Faction {
@@ -79,6 +85,7 @@
   justify-content: center;
   font-weight: 600;
   border: 1px solid black;
+  border-width: 1px 1px 0 0;
   text-align: center;
 }
 
@@ -90,6 +97,7 @@
   align-items: center;
   justify-content: center;
   border: 1px solid black;
+  border-left: 0;
   text-align: center;
 }
 
@@ -160,7 +168,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: -1px 0 0 -1px;
+  margin: 0 0 0 -1px;
 }
 
 .Capacites {
