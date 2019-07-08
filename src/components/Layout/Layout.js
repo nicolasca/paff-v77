@@ -13,6 +13,7 @@ import FactionLiches from '../Factions/Faction/FactionLiches';
 import Auth from '../Auth/Auth';
 import SignIn from '../Auth/SignIn';
 import Logout from '../Auth/Logout/Logout';
+import DeckList from '../DeckList/DeckList';
 
 function Layout(props) {
 
@@ -38,6 +39,7 @@ function Layout(props) {
           <Route path="/auth" exact component={Auth} />
           <Route path="/signin" exact component={SignIn} />
           <Route path="/deck" exact component={DeckBuilder} />
+          <Route path="/liste-decks" exact component={DeckList} />
           <Route path="/factions" exact component={Factions} />
           <Route path="/factions/peaux-vertes" exact component={FactionPeauxVertes} />
           <Route path="/factions/sephosi" exact component={FactionSephosi} />

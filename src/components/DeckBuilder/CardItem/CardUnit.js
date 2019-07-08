@@ -36,7 +36,7 @@ function CardUnit(props) {
 	const imageUrl = require(`../../../assets/logo.jpg`);
 
 	return (
-		<div className={[styles.CardUnit, styles.container, styles[props.unit.factionSlug]].join(' ')}>
+		<div className={[styles.CardUnit, styles.container, styles[props.unit.faction.slug]].join(' ')}>
 			<div className={styles.deploy}>
 				{props.unit.deploy}
 			</div>

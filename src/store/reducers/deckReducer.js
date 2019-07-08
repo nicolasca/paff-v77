@@ -45,6 +45,15 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 cardsToDisplay: cardToDisplayRemove,
             }
+        case actionTypes.RESET_COUNT:
+            const cardToDisplayReset = { ...state.cardsToDisplay };
+            Object.keys(cardToDisplayReset).forEach((key, index) => {
+                cardToDisplayReset[key].count = 0;
+            });
+            return {
+                ...state,
+                cardsToDisplay: cardToDisplayReset,
+            }
         default:
             return state;
     }

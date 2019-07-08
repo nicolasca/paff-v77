@@ -14,8 +14,8 @@ class DeckBuilder extends Component {
   ordres = [];
 
   state = {
-    selectedFaction: 'gaeli',
-    name: '',
+    selectedFaction: null,
+    nom: '',
     description: '',
   }
 
@@ -50,7 +50,10 @@ class DeckBuilder extends Component {
     // Populate les unites
     this.unites.forEach((unite) => {
       if (unite.faction.slug === faction) {
-
+        this.setState({
+          ...this.state,
+          selectedFaction: unite.faction,
+        });
         // Faire une copie de l'unite
         cards[unite.nom] = {
           ...unite,
@@ -62,7 +65,7 @@ class DeckBuilder extends Component {
 
     // Populate les ordres
     this.ordres.forEach((ordre) => {
-      if (ordre.factionSlug === faction || ordre.factionSlug === 'commun') {
+      if (ordre.faction.slug === faction || ordre.faction === 'commun') {
 
         // Faire une copie de l'ordre
         cards[ordre.nom] = {
@@ -80,18 +83,22 @@ class DeckBuilder extends Component {
     const name = event.target.name;
 
     this.setState({
+      ...this.state,
       [name]: value
     });
   }
 
   saveDeckhandler = () => {
     const deckToSave = {
-      name: this.state.name,
+      nom: this.state.nom,
       description: this.state.description,
+      faction: this.state.selectedFaction,
+      joueur: this.props.username,
+      create_date: new Date().toISOString(),
+      update_date: new Date().toISOString(),
     };
 
     const cardsToSave = [];
-    console.log();
 
     Object.keys(this.props.cardsToDisplay).forEach((key, index) => {
       if (this.props.cardsToDisplay[key].count > 0) {
@@ -103,8 +110,24 @@ class DeckBuilder extends Component {
     });
 
     deckToSave['cartes'] = cardsToSave;
-
     console.log(deckToSave);
+
+    var headers = {
+      'Authorization': 'Bearer ' + this.props.token,
+    }
+    axios.post(config.host + ":3008/decks", deckToSave, { headers: headers })
+      .then((response) => {
+        console.log(response);
+        this.setState({
+          ...this.state,
+          nom: '',
+          description: '',
+        });
+        this.props.resetCount();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
 
   }
 
@@ -120,9 +143,11 @@ class DeckBuilder extends Component {
               <label className="label">Nom</label>
               <div className="control">
                 <input
+                  name="nom"
                   className="input"
                   type="text"
                   placeholder="Les Chevaucheurs de Zarn"
+                  value={this.state.nom}
                   onChange={this.inputChangeHandler}
                   id="deckName" />
               </div>
@@ -132,30 +157,33 @@ class DeckBuilder extends Component {
               <label className="label">Description</label>
               <div className="control">
                 <textarea
+                  name="description"
                   className="textarea"
                   placeholder="Ah que ouai"
+                  value={this.state.description}
                   onChange={this.inputChangeHandler}
                   id="description" />
               </div>
             </div>
 
-            <div className={[styles.SelectFaction, "field", "is-grouped"].join(' ')}>
-              <div className="control">
-                <button className="button is-primary" onClick={this.saveDeckhandler}>A la guerre !</button>
-              </div>
-              <div className="control">
-                <div className="select">
-                  <select onChange={this.changeFactionHandler}
-                    value={this.state.selectedFaction}
-                    id="TheSelect">
-                    <option value="peaux-vertes">Peaux Vertes</option>
-                    <option value="sephosi">Sephosi</option>
-                    <option value="gaeli">Gaeli</option>
-                    <option value="liches">Liches</option>
-                  </select>
+            {this.state.selectedFaction ?
+              <div className={[styles.SelectFaction, "field", "is-grouped"].join(' ')}>
+                <div className="control">
+                  <button className="button is-primary" onClick={this.saveDeckhandler}>A la guerre !</button>
                 </div>
-              </div>
-            </div>
+                <div className="control">
+                  <div className="select">
+                    <select onChange={this.changeFactionHandler}
+                      value={this.state.selectedFaction.slug}
+                      id="TheSelect">
+                      <option value="peaux-vertes">Peaux Vertes</option>
+                      <option value="sephosi">Sephosi</option>
+                      <option value="gaeli">Gaeli</option>
+                      <option value="liches">Liches</option>
+                    </select>
+                  </div>
+                </div>
+              </div> : null}
           </div>
 
 
@@ -185,13 +213,16 @@ class DeckBuilder extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    cardsToDisplay: state.deckReducer.cardsToDisplay
+    cardsToDisplay: state.deckReducer.cardsToDisplay,
+    token: state.authReducer.token,
+    username: state.authReducer.username,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setInitCards: (cards) => dispatch({ type: actionTypes.INIT_CARD_DISPLAY, cards: cards })
+    setInitCards: (cards) => dispatch({ type: actionTypes.INIT_CARD_DISPLAY, cards: cards }),
+    resetCount: () => dispatch({ type: actionTypes.RESET_COUNT })
   }
 }
 
