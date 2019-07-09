@@ -2,11 +2,18 @@
 
 
 @mixin setColorsFaction($colorName, $colorBgName, $colorBg) {
+  &>* {
+    background-image: url(./../../../assets/textures/asfalt-dark.png);
+  }
 
   &>.type,
   &>.deploy,
   &>.Faction {
     background-color: $colorBg;
+    // background-color: #c97928;
+    background-image: url(./../../../assets/textures/light-paper-fibers.png);
+    /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+    color: white;
   }
 
   // border: 15px solid lighten($colorBg, 15%);
@@ -22,13 +29,11 @@
 
 .CardUnit.container.peaux-vertes {
   @include setColorsFaction($peaux-vertes-name-color, $peaux-vertes-bg-name-color, $peaux-vertes-bg-color);
-  color: white;
 
 }
 
 .CardUnit.container.sephosi {
   @include setColorsFaction($sephosi-name-color, $sephosi-bg-name-color, $sephosi-bg-color);
-  color: white;
 }
 
 .CardUnit.container.gaeli {
@@ -42,6 +47,12 @@
 
 .CardUnit.container.liches {
   @include setColorsFaction($liches-name-color, $liches-bg-name-color, $liches-bg-color);
+
+  &>.type,
+  &>.deploy,
+  &>.Faction {
+    color: unset;
+  }
 }
 
 .CardUnit.container {
@@ -90,6 +101,8 @@
   border: 1px solid black;
   border-width: 1px 1px 0 0;
   text-align: center;
+  font-family: 'Fantasy';
+  font-size: 1.5rem;
 }
 
 .name {

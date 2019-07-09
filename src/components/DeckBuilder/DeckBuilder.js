@@ -168,9 +168,9 @@ class DeckBuilder extends Component {
 
             {this.state.selectedFaction ?
               <div className={[styles.SelectFaction, "field", "is-grouped"].join(' ')}>
-                <div className="control">
+                {/* <div className="control">
                   <button className="button is-primary" onClick={this.saveDeckhandler}>A la guerre !</button>
-                </div>
+                </div> */}
                 <div className="control">
                   <div className="select">
                     <select onChange={this.changeFactionHandler}

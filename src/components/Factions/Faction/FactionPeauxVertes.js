@@ -27,32 +27,32 @@ class FactionPeauxVertes extends Component {
             <div>
                 {this.state.faction ?
                     <React.Fragment>
-                    <div className={styles.Main}>
-                        <div className={styles.BgImage}
-                            alt={this.state.faction.nom} />
-                        <div className={styles.Description}>
-                            <h2 className={styles.Title}>{this.state.faction.nom}</h2>
-                            <div className={styles.Lettrine}
-                                dangerouslySetInnerHTML={{ __html: this.state.faction.description }} />
-                        </div>
+                        <div className={styles.Main}>
+                            <div className={styles.BgImage}
+                                alt={this.state.faction.nom} />
+                            <div className={styles.Description}>
+                                <h2 className={styles.Title}>{this.state.faction.nom}</h2>
+                                <div className={styles.Lettrine}
+                                    dangerouslySetInnerHTML={{ __html: this.state.faction.description }} />
+                            </div>
 
-                    </div> 
-                    <div className={styles.SecondPart}>
-                        <div className={styles.BossOrcImg}>
-                        <img src={bossOrc} alt=""/>
                         </div>
-                        <div className={styles.BossOrcDesc}>
-                        <h3 class="title is-2"> Boss Orc</h3>
-                        </div>
+                        <div className={styles.SecondPart}>
+                            <div className={styles.BossOrcImg}>
+                                <img src={bossOrc} alt="" />
+                            </div>
+                            <div className={styles.BossOrcDesc}>
+                                <h3 className="title is-2"> Boss Orc</h3>
+                            </div>
 
-                        <div className={styles.ShamanOrcImg}>
-                        <img src={shamanOrc} alt=""/>
+                            <div className={styles.ShamanOrcImg}>
+                                <img src={shamanOrc} alt="" />
+                            </div>
+                            <div className={styles.ShamanOrcDesc}>
+                                <h3 className="title is-2"> Shaman Orc</h3>
+                            </div>
                         </div>
-                        <div className={styles.ShamanOrcDesc}>
-                        <h3 class="title is-2"> Shaman Orc</h3>
-                        </div>
-                    </div>
-                    </React.Fragment>: null}
+                    </React.Fragment> : null}
             </div>
         );
     }

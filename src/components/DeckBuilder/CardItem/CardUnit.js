@@ -33,7 +33,9 @@ function CardUnit(props) {
 		});
 	}
 
-	const imageUrl = require(`../../../assets/logo.jpg`);
+
+	const imageUrl = !props.unit.image ? require(`../../../assets/logo.jpg`) :
+		require(`../../../assets/cartes/${props.unit.faction.slug}/${props.unit.image}`);
 
 	return (
 		<div className={[styles.CardUnit, styles.container, styles[props.unit.faction.slug]].join(' ')}>
@@ -63,10 +65,16 @@ function CardUnit(props) {
 				<div className={styles.Att}>Att</div>
 				<div className={styles.Def}>Def</div>
 				<div className={styles.Cac}>Cac</div>
-				<div className={styles.AttCac}> {props.unit.attCac} </div>
+				<div className={styles.AttCac}>
+					{props.unit.attCac}
+					{props.unit.isAttCacMagique ? '(m)' : ''}
+				</div>
 				<div className={styles.DefCac}>{props.unit.defCac}</div>
 				<div className={styles.Tir}>Tir</div>
-				<div className={styles.AttTir}>{props.unit.attTir}</div>
+				<div className={styles.AttTir}>
+					{props.unit.attTir}
+					{props.unit.isAttTirMagique ? '(m)' : ''}
+				</div>
 				<div className={styles.DefTir}>{props.unit.defTir}</div>
 			</div>
 		</div >
