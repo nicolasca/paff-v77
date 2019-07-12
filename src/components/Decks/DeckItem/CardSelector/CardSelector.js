@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './CardSelector.module.css';
-import { ReactComponent as PlusSign } from './../../../assets/plus.svg';
-import { ReactComponent as MinusSign } from './../../../assets/minus.svg';
+import { ReactComponent as PlusSign } from './../../../../assets/plus.svg';
+import { ReactComponent as MinusSign } from './../../../../assets/minus.svg';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../../store/actions/actionTypes';
+import * as actionTypes from '../../../../store/actions/actionTypes';
 
 
 function CardSelector(props) {

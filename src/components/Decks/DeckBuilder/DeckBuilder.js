@@ -188,15 +188,8 @@ class DeckBuilder extends Component {
 
 
           {this.props.cardsToDisplay ?
-            <div className={styles.CardList}>
-              <div>
-                <CardList
-                  cards={this.props.cardsToDisplay}
-                  faction={this.state.selectedFaction}
-                >
-                </CardList>
-              </div>
-            </div>
+
+            <DeckItem cardsToDisplay={this.props.cardsToDisplay}></DeckItem>
             : null}
         </div>
 
