@@ -13,7 +13,7 @@ function Header(props) {
           Home
         </NavLink></li>
         <li><NavLink
-          exact to="/deck"
+          exact to="/liste-decks"
           activeClassName={styles.ActiveNavLink}>
           Les decks
         </NavLink></li>

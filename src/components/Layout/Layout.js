@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import DeckBuilder from '../DeckBuilder/DeckBuilder';
 import { Route, Redirect } from 'react-router-dom';
 import styles from './Layout.module.css';
 import Home from '../Home/Home';
@@ -13,7 +12,8 @@ import FactionLiches from '../Factions/Faction/FactionLiches';
 import Auth from '../Auth/Auth';
 import SignIn from '../Auth/SignIn';
 import Logout from '../Auth/Logout/Logout';
-import DeckList from '../DeckList/DeckList';
+import DeckList from '../Decks/DeckList/DeckList';
+import DeckBuilder from '../Decks/DeckBuilder/DeckBuilder';
 
 function Layout(props) {
 
@@ -38,14 +38,14 @@ function Layout(props) {
           <Route path="/logout" exact component={Logout} />
           <Route path="/auth" exact component={Auth} />
           <Route path="/signin" exact component={SignIn} />
-          <Route path="/deck" exact component={DeckBuilder} />
           <Route path="/liste-decks" exact component={DeckList} />
+          <Route path="/nouveau-deck" exact component={DeckBuilder} />
           <Route path="/factions" exact component={Factions} />
           <Route path="/factions/peaux-vertes" exact component={FactionPeauxVertes} />
           <Route path="/factions/sephosi" exact component={FactionSephosi} />
           <Route path="/factions/gaeli" exact component={FactionGaeli} />
           <Route path="/factions/liches" exact component={FactionLiches} />
-          <Redirect to="/deck"></Redirect>
+          <Redirect to="/liste-decks"></Redirect>
 
         </main>
       </React.Fragment>

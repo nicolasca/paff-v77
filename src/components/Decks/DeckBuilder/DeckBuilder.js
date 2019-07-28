@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import CardList from './CardList/CardList'
 import DeckSummary from './DeckSummary/DeckSummary';
+import DeckItem from '../DeckItem/DeckItem';
 import styles from "./DeckBuilder.module.css";
 import axios from 'axios';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../store/actions/actionTypes';
-import { config } from '../../config';
+import * as actionTypes from '../../../store/actions/actionTypes';
+import { config } from '../../../config';
 import PropTypes from 'prop-types';
 
 class DeckBuilder extends Component {
@@ -94,8 +94,8 @@ class DeckBuilder extends Component {
       description: this.state.description,
       faction: this.state.selectedFaction,
       joueur: this.props.username,
-      create_date: new Date().toISOString(),
-      update_date: new Date().toISOString(),
+      createDate: new Date().toISOString(),
+      updateDate: new Date().toISOString(),
     };
 
     const cardsToSave = [];
@@ -110,20 +110,19 @@ class DeckBuilder extends Component {
     });
 
     deckToSave['cartes'] = cardsToSave;
-    console.log(deckToSave);
 
     var headers = {
       'Authorization': 'Bearer ' + this.props.token,
     }
     axios.post(config.host + ":3008/decks", deckToSave, { headers: headers })
       .then((response) => {
-        console.log(response);
         this.setState({
           ...this.state,
           nom: '',
           description: '',
         });
         this.props.resetCount();
+
       })
       .catch((error) => {
         console.log(error);
@@ -168,9 +167,9 @@ class DeckBuilder extends Component {
 
             {this.state.selectedFaction ?
               <div className={[styles.SelectFaction, "field", "is-grouped"].join(' ')}>
-                {/* <div className="control">
+                <div className="control">
                   <button className="button is-primary" onClick={this.saveDeckhandler}>A la guerre !</button>
-                </div> */}
+                </div>
                 <div className="control">
                   <div className="select">
                     <select onChange={this.changeFactionHandler}
@@ -188,15 +187,8 @@ class DeckBuilder extends Component {
 
 
           {this.props.cardsToDisplay ?
-            <div className={styles.CardList}>
-              <div>
-                <CardList
-                  cards={this.props.cardsToDisplay}
-                  faction={this.state.selectedFaction}
-                >
-                </CardList>
-              </div>
-            </div>
+
+            <DeckItem cardsToDisplay={this.props.cardsToDisplay}></DeckItem>
             : null}
         </div>
 

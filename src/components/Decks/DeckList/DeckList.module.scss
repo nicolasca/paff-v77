@@ -1,0 +1,14 @@
+.DeckList {
+    display: flex;
+}
+
+.Wrapper {
+    width: 80%;
+}
+
+.DeckSummary {
+    width: 20%;
+    position: sticky;
+    top: 50px;
+    height: 100%;
+}

@@ -1,9 +1,9 @@
-@import './../../../colors.scss';
+@import './../../../../colors.scss';
 
 
 @mixin setColorsFaction($colorName, $colorBgName, $colorBg) {
   &>* {
-    background-image: url(./../../../assets/textures/asfalt-dark.png);
+    background-image: url(./../../../../assets/textures/asfalt-dark.png);
   }
 
   &>.type,
@@ -11,7 +11,7 @@
   &>.Faction {
     background-color: $colorBg;
     // background-color: #c97928;
-    background-image: url(./../../../assets/textures/light-paper-fibers.png);
+    background-image: url(./../../../../assets/textures/light-paper-fibers.png);
     /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
     color: white;
   }

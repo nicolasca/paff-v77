@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './CardUnit.module.scss';
-import { config } from '../../../config';
+import { config } from '../../../../config';
 import PropTypes from 'prop-types';
 
 function CardUnit(props) {
@@ -34,8 +34,8 @@ function CardUnit(props) {
 	}
 
 
-	const imageUrl = !props.unit.image ? require(`../../../assets/logo.jpg`) :
-		require(`../../../assets/cartes/${props.unit.faction.slug}/${props.unit.image}`);
+	const imageUrl = !props.unit.image ? require(`../../../../assets/logo.jpg`) :
+		require(`../../../../assets/cartes/${props.unit.faction.slug}/${props.unit.image}`);
 
 	return (
 		<div className={[styles.CardUnit, styles.container, styles[props.unit.faction.slug]].join(' ')}>
