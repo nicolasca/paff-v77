@@ -59,7 +59,7 @@ class DeckList extends Component {
 
     populateCardToDisplay = () => {
         const cards = {};
-        if (this.state.deckSelected && this.state.deckSelected.cards) {
+        if (this.state.deckSelected) {
             this.state.deckSelected.cartes.forEach((card) => {
                 // Faire une copie de l'ordre
                 cards[card.carte.nom] = card.carte;
