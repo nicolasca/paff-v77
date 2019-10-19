@@ -38,8 +38,6 @@ class DeckList extends Component {
                     ...this.state,
                 })
             }
-
-
         })
             .catch(error => {
                 console.log(error);
@@ -56,11 +54,16 @@ class DeckList extends Component {
 
     populateCardToDisplay = () => {
         const cards = {};
+        this.state.deckSelected.fac.forEach(element => {
+
+        });
         if (this.state.deckSelected) {
             this.state.deckSelected.cartes.forEach((card) => {
                 cards[card.carte.nom] = card.carte;
             });
             this.props.setInitCards(cards);
+        } else {
+            this.props.setInitCards([]);
         }
 
     }
@@ -103,40 +106,41 @@ class DeckList extends Component {
 
         return (
             <div className={styles.DeckList + " container"}>
-            <div className={styles.Wrapper}>
-                {this.state.deckListOptions ?
-                    <div>
-                        <label className="label">Tes decks</label>
-                        <div className="control" >
-                            <div className="select">
-                                <select onChange={this.changeDeck}
-                                    value={this.state.deckSelectedId}
-                                    id="TheSelect">
-                                    {this.state.deckListOptions}
-                                </select>
+                <div className={styles.Wrapper}>
+                    {this.state.deckListOptions ?
+                        <div>
+                            <label className="label">Tes decks</label>
+                            <div className="control" >
+                                <div className="select">
+                                    <select onChange={this.changeDeck}
+                                        value={this.state.deckSelectedId}
+                                        id="TheSelect">
+                                        {this.state.deckListOptions}
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <button className="button" onClick={this.deleteDeck}>Supprimer</button>
-                    </div> : null}
+                            <button className="button" onClick={this.deleteDeck}>Supprimer</button>
+                        </div> : null}
 
-                <div>
-                    {(this.props.cardsToDisplay && this.state.deckSelected) ?
-                        <DeckItem
-                            cardsToDisplay={this.props.cardsToDisplay}
-                            faction={this.state.deckSelected.faction}
-                        ></DeckItem>
-                        : null}
+                    <div>
+                        {(this.props.cardsToDisplay && this.state.deckSelected) ?
+                            <DeckItem
+                                cardsToDisplay={this.props.cardsToDisplay}
+                                faction={this.state.deckSelected.faction}
+                            ></DeckItem>
+                            : null}
+                    </div>
                 </div>
-            </div>
-            {this.props.cardsToDisplay ?
+                {this.props.cardsToDisplay ?
 
-                <div className={styles.DeckSummary}>
-                    <DeckSummary cards={this.props.cardsToDisplay}>
-                    </DeckSummary>
-                </div> : null}
-        </div >
+                    <div className={styles.DeckSummary}>
+                        <DeckSummary cards={this.props.cardsToDisplay}>
+                        </DeckSummary>
+                    </div> : null}
+            </div >
         );
     }
+
 }
 
 
