@@ -3,6 +3,7 @@ import DeckSummary from './DeckSummary/DeckSummary';
 import DeckItem from '../DeckItem/DeckItem';
 import styles from "./DeckBuilder.module.css";
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../store/actions/actionTypes';
 import { config } from '../../../config';
@@ -122,6 +123,7 @@ class DeckBuilder extends Component {
           description: '',
         });
         this.props.resetCount();
+        this.props.history.push('/liste-decks');
 
       })
       .catch((error) => {
@@ -218,7 +220,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DeckBuilder);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DeckBuilder));
 
 DeckBuilder.propTypes = {
   cardsToDisplay: PropTypes.object,

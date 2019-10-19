@@ -15,7 +15,6 @@ class DeckList extends Component {
         deckListOptions: [],
         deckSelected: null,
         deckSelectedId: "",
-        newDeck: false,
     }
 
     componentDidMount() {
@@ -103,14 +102,6 @@ class DeckList extends Component {
         );
     }
 
-    addNewDeck = () => {
-        this.setState({
-            ...this.state,
-            newDeck: true,
-        })
-    }
-
-
     render() {
         let display;
 
@@ -130,7 +121,6 @@ class DeckList extends Component {
                                 </div>
                             </div>
                             <button className="button" onClick={this.deleteDeck}>Supprimer</button>
-                            <button className="button" onClick={this.addNewDeck}>Ajouter</button>
                         </div> : null}
 
                     <div>
