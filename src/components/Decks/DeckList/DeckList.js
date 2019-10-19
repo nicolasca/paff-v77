@@ -6,7 +6,6 @@ import axios from 'axios';
 import * as actionTypes from '../../../store/actions/actionTypes';
 import { config } from '../../../config';
 import { connect } from 'react-redux';
-import DeckBuilder from '../DeckBuilder/DeckBuilder';
 
 class DeckList extends Component {
 
@@ -34,14 +33,7 @@ class DeckList extends Component {
                 });
 
                 this.populateCardToDisplay();
-            } else {
-                this.setState({
-                    ...this.state,
-                    newDeck: true,
-                })
             }
-
-
         })
             .catch(error => {
                 console.log(error);
@@ -58,12 +50,16 @@ class DeckList extends Component {
 
     populateCardToDisplay = () => {
         const cards = {};
+        this.state.deckSelected.fac.forEach(element => {
+
+        });
         if (this.state.deckSelected) {
             this.state.deckSelected.cartes.forEach((card) => {
-                // Faire une copie de l'ordre
                 cards[card.carte.nom] = card.carte;
             });
             this.props.setInitCards(cards);
+        } else {
+            this.props.setInitCards([]);
         }
 
     }
@@ -103,10 +99,9 @@ class DeckList extends Component {
     }
 
     render() {
-        let display;
 
-        if (!this.state.newDeck) {
-            display = <div className={styles.DeckList + " container"}>
+        return (
+            <div className={styles.DeckList + " container"}>
                 <div className={styles.Wrapper}>
                     {this.state.deckListOptions ?
                         <div>
@@ -120,7 +115,9 @@ class DeckList extends Component {
                                     </select>
                                 </div>
                             </div>
-                            <button className="button" onClick={this.deleteDeck}>Supprimer</button>
+                            {this.state.deckSelected ?
+                                <button className="button" onClick={this.deleteDeck}>Supprimer</button> : null
+                            }
                         </div> : null}
 
                     <div>
@@ -136,14 +133,9 @@ class DeckList extends Component {
                         </DeckSummary>
                     </div> : null}
             </div >
-        } else {
-            display = <DeckBuilder></DeckBuilder>
-        }
-
-        return (
-            display
         );
     }
+
 }
 
 
