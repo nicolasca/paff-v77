@@ -50,9 +50,6 @@ class DeckList extends Component {
 
     populateCardToDisplay = () => {
         const cards = {};
-        this.state.deckSelected.fac.forEach(element => {
-
-        });
         if (this.state.deckSelected) {
             this.state.deckSelected.cartes.forEach((card) => {
                 cards[card.carte.nom] = card.carte;

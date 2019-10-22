@@ -14,18 +14,15 @@ import SignIn from '../Auth/SignIn';
 import Logout from '../Auth/Logout/Logout';
 import DeckList from '../Decks/DeckList/DeckList';
 import DeckBuilder from '../Decks/DeckBuilder/DeckBuilder';
+import CreateGame from '../Game/CreateGame';
+import LobbyView from '../Lobby/Lobby';
 
 function Layout(props) {
 
-  let content = (
-    <main className={styles.Main}>
-      <Route path="/auth" exact component={Auth} />
-      <Route path="/signin" exact component={SignIn} />
-      <Redirect to="/auth"></Redirect>
-    </main>
-  );
+  let content;
 
   if (props.isAuthenticated) {
+
     content = (
       <React.Fragment>
         <Header
@@ -45,13 +42,22 @@ function Layout(props) {
           <Route path="/factions/sephosi" exact component={FactionSephosi} />
           <Route path="/factions/gaeli" exact component={FactionGaeli} />
           <Route path="/factions/liches" exact component={FactionLiches} />
+          <Route path="/jouer" exact component={LobbyView} />
+
           <Redirect to="/liste-decks"></Redirect>
 
         </main>
       </React.Fragment>
     );
+  } else {
+    content = (
+      <main className={styles.Main}>
+        <Route path="/auth" exact component={Auth} />
+        <Route path="/signin" exact component={SignIn} />
+        <Redirect to="/auth"></Redirect>
+      </main>
+    );
   }
-
 
 
   return (
