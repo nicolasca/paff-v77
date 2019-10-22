@@ -14,6 +14,8 @@ import SignIn from '../Auth/SignIn';
 import Logout from '../Auth/Logout/Logout';
 import DeckList from '../Decks/DeckList/DeckList';
 import DeckBuilder from '../Decks/DeckBuilder/DeckBuilder';
+import CreateGame from '../Game/CreateGame';
+import LobbyView from '../Lobby/Lobby';
 
 
 function Layout(props) {
@@ -21,6 +23,7 @@ function Layout(props) {
   let content;
 
   if (props.isAuthenticated) {
+
     content = (
       <React.Fragment>
         <Header
@@ -28,32 +31,33 @@ function Layout(props) {
           username={props.username}
           isAuthenticated={props.isAuthenticated}></Header>
         <main className={styles.Main}>
-        <Switch>
-          <Route path="/home" component={Home} />
-          <Route path="/" exact component={Home} />
-          <Route path="/logout" exact component={Logout} />
-          <Route path="/deck" exact component={DeckBuilder} />
-          <Route path="/signin" exact component={SignIn} />
-          <Route path="/liste-decks" exact component={DeckList} />
-          <Route path="/creer-deck" exact component={DeckBuilder} />
-          <Route path="/factions" exact component={Factions} />
-          <Route path="/factions/peaux-vertes" exact component={FactionPeauxVertes} />
-          <Route path="/factions/sephosi" exact component={FactionSephosi} />
-          <Route path="/factions/gaeli" exact component={FactionGaeli} />
-          <Route path="/factions/liches" exact component={FactionLiches} />
-          <Route render={() => <Redirect to="/" />} />
-        </Switch>
+          <Switch>
+            <Route path="/home" component={Home} />
+            <Route path="/" exact component={Home} />
+            <Route path="/logout" exact component={Logout} />
+            <Route path="/deck" exact component={DeckBuilder} />
+            <Route path="/signin" exact component={SignIn} />
+            <Route path="/liste-decks" exact component={DeckList} />
+            <Route path="/creer-deck" exact component={DeckBuilder} />
+            <Route path="/factions" exact component={Factions} />
+            <Route path="/factions/peaux-vertes" exact component={FactionPeauxVertes} />
+            <Route path="/factions/sephosi" exact component={FactionSephosi} />
+            <Route path="/factions/gaeli" exact component={FactionGaeli} />
+            <Route path="/factions/liches" exact component={FactionLiches} />
+            <Route path="/jouer" exact component={LobbyView} />
+            <Route render={() => <Redirect to="/" />} />
+          </Switch>
 
         </main>
       </React.Fragment>
     );
   } else {
     content = (
-    <main className={styles.Main}>
-    <Route path="/auth" exact component={Auth} />
-    <Route path="/signin" exact component={SignIn} />
-    <Redirect to="/auth"></Redirect>
-  </main>
+      <main className={styles.Main}>
+        <Route path="/auth" exact component={Auth} />
+        <Route path="/signin" exact component={SignIn} />
+        <Redirect to="/auth"></Redirect>
+      </main>
 
     )
   }

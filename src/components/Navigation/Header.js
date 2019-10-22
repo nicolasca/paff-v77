@@ -24,9 +24,13 @@ function Header(props) {
         </NavLink></li>
         <li><NavLink
           to="/factions"
-          activeClassName={styles.ActiveNavLink}
-        >
+          activeClassName={styles.ActiveNavLink}>
           Factions
+        </NavLink></li>
+        <li><NavLink
+          to="/jouer"
+          activeClassName={styles.ActiveNavLink}>
+          Jouer
         </NavLink></li>
       </ul>
       <ul>
