@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import DeckBuilder from '../DeckBuilder/DeckBuilder';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 import styles from './Layout.module.css';
 import Home from '../Home/Home';
 import Header from '../Navigation/Header';
@@ -15,15 +15,10 @@ import SignIn from '../Auth/SignIn';
 import Logout from '../Auth/Logout/Logout';
 import DeckList from '../DeckList/DeckList';
 
+
 function Layout(props) {
 
-  let content = (
-    <main className={styles.Main}>
-      <Route path="/auth" exact component={Auth} />
-      <Route path="/signin" exact component={SignIn} />
-      <Redirect to="/auth"></Redirect>
-    </main>
-  );
+  let content;
 
   if (props.isAuthenticated) {
     content = (
@@ -33,11 +28,10 @@ function Layout(props) {
           username={props.username}
           isAuthenticated={props.isAuthenticated}></Header>
         <main className={styles.Main}>
+        <Switch>
           <Route path="/home" component={Home} />
           <Route path="/" exact component={Home} />
           <Route path="/logout" exact component={Logout} />
-          <Route path="/auth" exact component={Auth} />
-          <Route path="/signin" exact component={SignIn} />
           <Route path="/deck" exact component={DeckBuilder} />
           <Route path="/liste-decks" exact component={DeckList} />
           <Route path="/factions" exact component={Factions} />
@@ -45,14 +39,21 @@ function Layout(props) {
           <Route path="/factions/sephosi" exact component={FactionSephosi} />
           <Route path="/factions/gaeli" exact component={FactionGaeli} />
           <Route path="/factions/liches" exact component={FactionLiches} />
-          <Redirect to="/deck"></Redirect>
-
+          <Route render={() => <Redirect to="/" />} />
+        </Switch>
         </main>
       </React.Fragment>
     );
+  } else {
+    content = (
+    <main className={styles.Main}>
+    <Route path="/auth" exact component={Auth} />
+    <Route path="/signin" exact component={SignIn} />
+    <Redirect to="/auth"></Redirect>
+  </main>
+
+    )
   }
-
-
 
   return (
     <div className={styles.Site}>

@@ -17,7 +17,7 @@ class DeckList extends Component {
                 console.log(error);
             })
 
-        {/* < div className = "control" >
+        /* < div className = "control" >
                 <div className="select">
                     <select onChange={this.changeFactionHandler}
                         value={this.state.selectedFaction.slug}
@@ -28,7 +28,7 @@ class DeckList extends Component {
                         <option value="liches">Liches</option>
                     </select>
                 </div>
-                </div > */}
+                </div > */
     }
 
     render() {

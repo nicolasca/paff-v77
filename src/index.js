@@ -13,16 +13,16 @@ const rootReducer = combineReducers({
     deckReducer: deckReducer,
     authReducer: authReducer,
 })
-const logger = store => {
-    return next => {
-        return action => {
-            console.log('[Middleware] Dispatching', action);
-            const result = next(action);
-            console.log('[Middleware] next state', store.getState());
-            return result;
-        }
-    }
-};
+// const logger = store => {
+//     return next => {
+//         return action => {
+//             console.log('[Middleware] Dispatching', action);
+//             const result = next(action);
+//             console.log('[Middleware] next state', store.getState());
+//             return result;
+//         }
+//     }
+// };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

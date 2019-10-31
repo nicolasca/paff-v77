@@ -4,9 +4,11 @@
 
 .BgImage {
     height: calc(100vh - 60px);
-    background-size: cover;
-    background-position: 'top';
-    background-image: url(../../../assets/factions/gaeli.jpg);
+    background-size: 35%;
+    background-position: 21% -24%;
+    background-image: url(../../../assets/factions/gaeli.png);
+    background-repeat: no-repeat;
+    background-color: #7D7D7D;
 }
 
 .Description {
