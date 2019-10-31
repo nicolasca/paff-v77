@@ -8,7 +8,15 @@ function CardItem(props) {
   let card = null;
   if (props.card.type !== 'ordre') {
     card = (
+      <React.Fragment>
       <CardUnit unit={props.card}></CardUnit>
+      <CardSelector
+        count={props.card.count}
+        name={props.card.nom}
+      >
+      </CardSelector>
+      </React.Fragment>
+
     );
   } else {
     card = (
@@ -19,11 +27,6 @@ function CardItem(props) {
   return (
     <div>
       {card}
-      <CardSelector
-        count={props.card.count}
-        name={props.card.nom}
-      >
-      </CardSelector>
     </div>
   );
 }

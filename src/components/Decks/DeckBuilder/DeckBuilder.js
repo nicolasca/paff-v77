@@ -190,7 +190,12 @@ class DeckBuilder extends Component {
 
           {this.props.cardsToDisplay ?
 
-            <DeckItem cardsToDisplay={this.props.cardsToDisplay}></DeckItem>
+            <DeckItem
+              cardsToDisplay={this.props.cardsToDisplay}
+              faction={this.state.selectedFaction}
+              >
+
+            </DeckItem>
             : null}
         </div>
 

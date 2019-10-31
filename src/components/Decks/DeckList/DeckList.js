@@ -6,7 +6,6 @@ import axios from 'axios';
 import * as actionTypes from '../../../store/actions/actionTypes';
 import { config } from '../../../config';
 import { connect } from 'react-redux';
-import DeckBuilder from '../DeckBuilder/DeckBuilder';
 
 class DeckList extends Component {
 
@@ -37,7 +36,6 @@ class DeckList extends Component {
             } else {
                 this.setState({
                     ...this.state,
-                    newDeck: true,
                 })
             }
 
@@ -60,7 +58,6 @@ class DeckList extends Component {
         const cards = {};
         if (this.state.deckSelected) {
             this.state.deckSelected.cartes.forEach((card) => {
-                // Faire une copie de l'ordre
                 cards[card.carte.nom] = card.carte;
             });
             this.props.setInitCards(cards);
@@ -103,45 +100,41 @@ class DeckList extends Component {
     }
 
     render() {
-        let display;
-
-        if (!this.state.newDeck) {
-            display = <div className={styles.DeckList + " container"}>
-                <div className={styles.Wrapper}>
-                    {this.state.deckListOptions ?
-                        <div>
-                            <label className="label">Tes decks</label>
-                            <div className="control" >
-                                <div className="select">
-                                    <select onChange={this.changeDeck}
-                                        value={this.state.deckSelectedId}
-                                        id="TheSelect">
-                                        {this.state.deckListOptions}
-                                    </select>
-                                </div>
-                            </div>
-                            <button className="button" onClick={this.deleteDeck}>Supprimer</button>
-                        </div> : null}
-
-                    <div>
-                        {this.props.cardsToDisplay ?
-                            <DeckItem cardsToDisplay={this.props.cardsToDisplay}></DeckItem>
-                            : null}
-                    </div>
-                </div>
-                {this.props.cardsToDisplay ?
-
-                    <div className={styles.DeckSummary}>
-                        <DeckSummary cards={this.props.cardsToDisplay}>
-                        </DeckSummary>
-                    </div> : null}
-            </div >
-        } else {
-            display = <DeckBuilder></DeckBuilder>
-        }
 
         return (
-            display
+            <div className={styles.DeckList + " container"}>
+            <div className={styles.Wrapper}>
+                {this.state.deckListOptions ?
+                    <div>
+                        <label className="label">Tes decks</label>
+                        <div className="control" >
+                            <div className="select">
+                                <select onChange={this.changeDeck}
+                                    value={this.state.deckSelectedId}
+                                    id="TheSelect">
+                                    {this.state.deckListOptions}
+                                </select>
+                            </div>
+                        </div>
+                        <button className="button" onClick={this.deleteDeck}>Supprimer</button>
+                    </div> : null}
+
+                <div>
+                    {(this.props.cardsToDisplay && this.state.deckSelected) ?
+                        <DeckItem
+                            cardsToDisplay={this.props.cardsToDisplay}
+                            faction={this.state.deckSelected.faction}
+                        ></DeckItem>
+                        : null}
+                </div>
+            </div>
+            {this.props.cardsToDisplay ?
+
+                <div className={styles.DeckSummary}>
+                    <DeckSummary cards={this.props.cardsToDisplay}>
+                    </DeckSummary>
+                </div> : null}
+        </div >
         );
     }
 }
