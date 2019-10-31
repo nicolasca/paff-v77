@@ -5,9 +5,6 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { config } from '../../../../config';
 
-
-
-
 function CardList(props) {
   const [orders, setOrders] = useState([]);
 
@@ -70,4 +67,5 @@ export default CardList;
 
 CardList.propTypes = {
   cards: PropTypes.object,
+  faction: PropTypes.object,
 } 
