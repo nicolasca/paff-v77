@@ -54,6 +54,9 @@ class Auth extends Component {
 
     return (
       <div className="container">
+        { this.props.error && <div className=" field has-text-danger">
+            Le nom ou mot de passe n'est pas correct ! 
+        </div>} 
         <form className={styles.Form} onSubmit={this.registerHandler}>
           <div className="field">
             <label className="label">Nom</label>
@@ -99,6 +102,7 @@ class Auth extends Component {
 const mapStateToProps = (state) => {
   return {
     redirect: state.authReducer.redirect,
+    error: state.authReducer.error,
   }
 };
 
