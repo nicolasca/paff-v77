@@ -30,10 +30,10 @@ function CardList(props) {
 
       // Populate les ordres
       const ordres = ordresAll.data.filter((ordre) => {
-        return ordre.faction === 'commun' || ordre.faction.slug === props.faction.slug;
+        return ordre.faction === 'commun' || ordre.faction.slug === props.faction;
       });
-    
-      
+
+
       const cardsOrdres = ordres.map((ordre, index) => {
         return (
           <div className={styles.cardItem} key={index}>
@@ -47,7 +47,7 @@ function CardList(props) {
     }
 
     if (props.faction) getOrders();
-    
+
   }, [props.faction]);
 
 
@@ -67,5 +67,5 @@ export default CardList;
 
 CardList.propTypes = {
   cards: PropTypes.object,
-  faction: PropTypes.object,
+  faction: PropTypes.string,
 } 
