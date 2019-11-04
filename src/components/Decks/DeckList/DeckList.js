@@ -116,7 +116,9 @@ class DeckList extends Component {
                                     </select>
                                 </div>
                             </div>
-                            <button className="button" onClick={this.deleteDeck}>Supprimer</button>
+                            {this.state.deckSelected ?
+                                <button className="button" onClick={this.deleteDeck}>Supprimer</button> : null
+                            }
                         </div> : null}
 
                     <div>
