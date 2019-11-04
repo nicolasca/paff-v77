@@ -9,12 +9,16 @@ function CardItem(props) {
   if (props.card.type !== 'ordre') {
     card = (
       <React.Fragment>
-      <CardUnit unit={props.card}></CardUnit>
-      <CardSelector
-        count={props.card.count}
-        name={props.card.nom}
-      >
-      </CardSelector>
+        <CardUnit unit={props.card}></CardUnit>
+        {
+          props.counter !== "none" ?
+            <CardSelector
+              count={props.card.count}
+              name={props.card.nom}
+            >
+            </CardSelector> : null
+        }
+
       </React.Fragment>
 
     );
@@ -25,9 +29,9 @@ function CardItem(props) {
   }
 
   return (
-    <div>
+    <React.Fragment>
       {card}
-    </div>
+    </React.Fragment>
   );
 }
 

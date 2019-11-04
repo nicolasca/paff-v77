@@ -2,17 +2,19 @@ import { Client } from 'boardgame.io/react';
 import React, { Component } from 'react';
 import Board from './Board/Board';
 import Game from '../../game/PAFF';
+import { connect } from 'react-redux';
 
 class CreateGame extends Component {
     render() {
         const PAFF = Client({
             game: Game,
             board: Board,
-            multiplayer: { local: true },
+            multiplayer: { server: 'localhost:8000' },
+            debug: true,
         });
 
         return (
-            <div>
+            <div >
                 <PAFF playerID="0" />
                 <PAFF playerID="1" />
             </div>
@@ -21,7 +23,15 @@ class CreateGame extends Component {
     }
 }
 
-export default CreateGame;
+const mapStateToProps = (state) => {
+    return {
+        username: state.authReducer.username,
+    }
+};
+
+export default connect(mapStateToProps)(CreateGame);
+
+
 
 
 

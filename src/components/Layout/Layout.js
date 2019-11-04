@@ -14,7 +14,6 @@ import SignIn from '../Auth/SignIn';
 import Logout from '../Auth/Logout/Logout';
 import DeckList from '../Decks/DeckList/DeckList';
 import DeckBuilder from '../Decks/DeckBuilder/DeckBuilder';
-import CreateGame from '../Game/CreateGame';
 import LobbyView from '../Lobby/Lobby';
 
 

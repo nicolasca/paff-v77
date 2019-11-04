@@ -5,3 +5,12 @@
     grid-gap: 10px 10px;
     margin: 10px;
 }
+
+.Cards {
+    display: flex;
+}
+
+.Card {
+    height: 150px;
+    width: 100px;
+}

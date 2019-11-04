@@ -11,12 +11,9 @@ const hostname = window.location.hostname;
 const importedGames = [
     { game: Game, board: Board },
 ];
-console.log(importedGames);
 
 const LobbyView = () => (
     <div style={{ padding: 50 }}>
-        <h1>Lobby</h1>
-
         <Lobby
             gameServer={`http://${hostname}:8000`}
             lobbyServer={`http://${hostname}:8000`}

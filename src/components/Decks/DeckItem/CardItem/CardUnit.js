@@ -52,7 +52,7 @@ function CardUnit(props) {
 				{type}
 			</div>
 			<div className={styles.Image} style={{ backgroundImage: `url(${imageUrl})` }} >
-				{/* <img src={require(`../../../assets/logo.jpg`)} alt="boss orc" /> */}
+				<img src={imageUrl} alt="boss orc" />
 			</div>
 			<div className={styles.Regiment}>
 				{props.unit.regiment}
