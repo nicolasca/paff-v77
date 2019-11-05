@@ -3,12 +3,20 @@ import Draft from './Draft';
 import CardItem from '../../Decks/DeckItem/CardItem/CardItem'
 import styles from './Board.module.css';
 import { PHASES } from './../../../game/PAFF';
+import IntiativeModal from './InitiativeModal/InitiativeModal';
 
 function Board(props) {
 
     const selectedDeckHandler = (deck) => {
-        // props.G.decks[props.playerID] = deck;
         props.moves.setDeck(deck, props.playerID);
+    }
+
+    const getPlayer0 = () => {
+        return props.gameMetadata.find((player) => player.id == 0)
+    }
+
+    const getPlayer1 = () => {
+        return props.gameMetadata.find((player) => player.id == 1)
     }
 
     const topPlayer = () => {
@@ -19,6 +27,16 @@ function Board(props) {
         return props.gameMetadata.find((player) => player.id != props.playerID)
     }
 
+    const onRollDice = () => {
+        props.moves.rollDice(props.playerID);
+    }
+
+    const initiativeFinished = () => {
+        console.log(props.G.initiativeScore[0] !== null && props.G.initiativeScore[1] !== null);
+
+        return props.G.initiativeScore[0] !== null && props.G.initiativeScore[1] !== null;
+    }
+
     const cellStyle = {
         border: '1px solid #555',
         width: '100px',
@@ -27,13 +45,14 @@ function Board(props) {
     };
 
 
+
     let screenPhase = '';
 
     switch (props.ctx.phase) {
         case PHASES.DRAFT:
             screenPhase = (<Draft onClickHandler={selectedDeckHandler}></Draft>);
             break;
-        case PHASES.DEPLOYMENT:
+        case PHASES.INITIATIVE:
 
             let tbody = [];
 
@@ -49,9 +68,6 @@ function Board(props) {
                 }
             }
 
-            console.log(props.G.decks);
-            console.log(props.playerID);
-
             const cards = props.G.decks[props.playerID].cartes.map((card, index) => {
                 return (
                     <div className={styles.Card} key={index}>
@@ -64,6 +80,17 @@ function Board(props) {
 
             screenPhase = (
                 <div>
+                    {props.ctx.phase === PHASES.INITIATIVE ?
+                        <IntiativeModal
+                            player0={getPlayer0().name}
+                            player1={getPlayer1().name}
+                            score0={props.G.initiativeScore[0]}
+                            score1={props.G.initiativeScore[1]}
+                            onRollDiceHandler={onRollDice}
+                            hasResult={props.G.initiativeScore[0] !== null && props.G.initiativeScore[1] !== null}
+                        >
+                        </IntiativeModal> : null}
+
                     <div>
                         {topPlayer().name}
                     </div>

@@ -2,6 +2,7 @@ import { Stage } from 'boardgame.io/core';
 
 export const PHASES = {
     DRAFT: 'draft',
+    INITIATIVE: 'initiative',
     DEPLOYMENT: 'deployment'
 }
 
@@ -11,17 +12,16 @@ const PAFF = {
     setup: () => ({
         decks: Array(2).fill(null),
         cells: Array(42).fill(null),
+        initiativeScore: Array(2).fill(null),
     }),
 
     moves: {
-        clickCell: (G, ctx, id) => {
-            G.cells[id] = ctx.currentPlayer;
-        },
+
     },
 
     phases: {
         [PHASES.DRAFT]: {
-            next: PHASES.DEPLOYMENT,
+            next: PHASES.INITIATIVE,
             start: true,
             turn: {
                 activePlayers: { all: Stage.NULL },
@@ -36,6 +36,20 @@ const PAFF = {
             },
             endIf: G => (G.decks.every(i => i !== null)),
 
+        },
+        [PHASES.INITIATIVE]: {
+            moves: {
+                rollDice: (G, ctx, playerID) => {
+                    G.initiativeScore[playerID] = ctx.random.Die(100);
+                },
+            },
+            onBegin: (G, ctx) => {
+                console.log('begin initiative');
+                G.initiativeScore = Array(2).fill(null)
+            },
+            turn: {
+                activePlayers: { all: Stage.NULL },
+            },
         },
         [PHASES.DEPLOYMENT]: {
             onBegin: (G, ctx) => console.log('begin deployment')

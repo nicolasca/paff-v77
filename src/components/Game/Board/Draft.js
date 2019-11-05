@@ -35,7 +35,7 @@ function Draft(props) {
 
             setOptions(getSelectOptions(response.data));
         })
-    }, [setOptions, setDecks, setSelectedDeck])
+    }, [setOptions, setDecks, setSelectedDeck, props.token])
 
     return (
         <div>
