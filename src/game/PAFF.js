@@ -1,3 +1,5 @@
+import { Stage } from 'boardgame.io/core';
+
 export const PHASES = {
     DRAFT: 'draft',
     DEPLOYMENT: 'deployment'
@@ -22,7 +24,7 @@ const PAFF = {
             next: PHASES.DEPLOYMENT,
             start: true,
             turn: {
-                moveLimit: 1,
+                activePlayers: { all: Stage.NULL },
             },
             moves: {
                 setDeck: (G, ctx, deck, player) => {
