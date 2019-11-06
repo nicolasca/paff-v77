@@ -52,6 +52,7 @@ function CardUnit(props) {
 				{type}
 			</div>
 			<div className={styles.Image} style={{ backgroundImage: `url(${imageUrl})` }} >
+			{/* <div className={styles.Image} style={{ backgroundImage: `url(${imageUrl})` }} > */}
 				<img src={imageUrl} alt="boss orc" />
 			</div>
 			<div className={styles.Regiment}>

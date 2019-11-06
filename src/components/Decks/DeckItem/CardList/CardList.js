@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import CardItem from '../CardItem/CardItem';
+import CardUnit from '../CardUnit/CardUnit';
+import CardOrder from '../CardOrder/CardOrder';
+import CardSelector from './../CardSelector/CardSelector';
 import styles from './CardList.module.css';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -17,9 +19,15 @@ function CardList(props) {
 
     return (
       <div className={styles.cardItem} key={index}>
-        <CardItem
-          card={props.cards[key]}>
-        </CardItem>
+        <CardUnit
+          unit={props.cards[key]}>
+        </CardUnit>
+
+        <CardSelector
+              count={props.cards[key].count}
+              name={props.cards[key].nom}
+            >
+            </CardSelector> 
       </div>
     );
   });
@@ -37,9 +45,9 @@ function CardList(props) {
       const cardsOrdres = ordres.map((ordre, index) => {
         return (
           <div className={styles.cardItem} key={index}>
-            <CardItem
-              card={ordre}>
-            </CardItem>
+            <CardOrder
+              order={ordre}>
+            </CardOrder>
           </div>
         )
       });

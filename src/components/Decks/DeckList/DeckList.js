@@ -125,7 +125,7 @@ class DeckList extends Component {
                         {(this.props.cardsToDisplay && this.state.deckSelected) ?
                             <DeckItem
                                 cardsToDisplay={this.props.cardsToDisplay}
-                                faction={this.state.deckSelected.faction}
+                                faction={this.state.deckSelected.faction.slug}
                             ></DeckItem>
                             : null}
                     </div>

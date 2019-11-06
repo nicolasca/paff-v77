@@ -31,9 +31,6 @@ const PAFF = {
                     G.decks[player] = deck;
                 },
             },
-            onBegin: (G, ctx) => {
-                console.log('begin draft');
-            },
             endIf: G => (G.decks.every(i => i !== null)),
 
         },
@@ -44,15 +41,15 @@ const PAFF = {
                 },
             },
             onBegin: (G, ctx) => {
-                console.log('begin initiative');
                 G.initiativeScore = Array(2).fill(null)
             },
             turn: {
                 activePlayers: { all: Stage.NULL },
             },
+            next: PHASES.DEPLOYMENT,
+            
         },
         [PHASES.DEPLOYMENT]: {
-            onBegin: (G, ctx) => console.log('begin deployment')
 
             // next: 'pick_used_cards'
         },

@@ -8,10 +8,12 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import deckReducer from './store/reducers/deckReducer';
 import authReducer from './store/reducers/authReducer';
+import gameReducer from './store/reducers/gameReducer';
 
 const rootReducer = combineReducers({
     deckReducer: deckReducer,
     authReducer: authReducer,
+    gameReducer: gameReducer,
 })
 /* const logger = store => {
     return next => {
