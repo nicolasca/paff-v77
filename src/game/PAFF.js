@@ -24,17 +24,21 @@ const PAFF = {
                 activePlayers: { all: Stage.NULL },
             },
             moves: {
-                setDeck: (G, ctx, deck, player) => {
-                    G.decks[player] = deck;
+                setDeck: (G, ctx, deck, playerID) => {
+                    console.log(playerID);
+
+                    G.decks[playerID] = deck;
                     const hand = [];
-                    console.log(deck);
-                    
+
+
                     deck.cartes.forEach((item) => {
                         for (let number = 0; number < item.nbExemplaires; number++) {
                             hand.push(item.carte);
                         }
                     });
-                    G.hands[player] = hand; 
+                    console.log(hand);
+
+                    G.hands[playerID] = hand;
                 },
             },
             endIf: G => (G.decks.every(i => i !== null)),
@@ -53,16 +57,30 @@ const PAFF = {
                 activePlayers: { all: Stage.NULL },
             },
             next: PHASES.DEPLOYMENT,
-            
+
         },
         [PHASES.DEPLOYMENT]: {
 
             moves: {
                 drop: (G, ctx, options) => {
-                    
+
+                    // Remove from previous square
                     if (options.previousSquareId) {
                         G.squares[options.previousSquareId] = null;
                     }
+
+                    console.log('card', options.card._id);
+
+                    // Remove from hand if exists
+                    const hand = G.hands[ctx.playerID].filter((card) => {
+                        console.log(card._id);
+
+                        return card._id !== options.card._id;
+                    });
+                    console.log(hand);
+
+                    G.hands[ctx.playerID] = hand
+
                     G.squares[options.squareId] = options.card;
                 }
             },

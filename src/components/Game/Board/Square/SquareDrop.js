@@ -1,7 +1,6 @@
 import React from 'react';
 import Square from './Square';
 import { ItemTypes } from './../../Drag/ItemTypes';
-import { moveCard } from './../../Drag/Game';
 import { useDrop } from 'react-dnd'
 
 function SquareDrop(props) {
@@ -18,9 +17,9 @@ function SquareDrop(props) {
 
   return (
     <div
-    ref={drop}
+      ref={drop}
     >
-    <Square >{props.children}</Square>
+      <Square >{props.children}</Square>
     </div>
   );
 }

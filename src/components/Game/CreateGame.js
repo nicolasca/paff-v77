@@ -11,7 +11,6 @@ class CreateGame extends Component {
             game: Game,
             board: Board,
             multiplayer: { server: 'localhost:8000' },
-            debug: true,
             enhancer: applyMiddleware(logger),
         });
 
