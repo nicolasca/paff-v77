@@ -1,13 +1,30 @@
 import React from 'react';
 import styles from './CardInGame.module.scss';
+import { useDrag } from 'react-dnd'
+import { ItemTypes } from './../Drag/ItemTypes';
 
 function CardInGame(props) {
+
+	const [{isDragging}, drag] = useDrag({
+    item: { type: ItemTypes.CARD, card: props.unit, previousSquareId: props.previousSquareId },
+		collect: monitor => ({
+			isDragging: !!monitor.isDragging(),
+		}),
+	});
+	
 
   const imageUrl = !props.unit.image ? require(`../../../assets/logo.jpg`) :
   require(`../../../assets/cartes/${props.unit.faction.slug}/${props.unit.image}`);
 
   return (
-		<div className={[styles.CardUnit, styles.container, styles[props.unit.faction.slug]].join(' ')}>
+		<div
+			className={[styles.CardUnit, styles.container, styles[props.unit.faction.slug]].join(' ')}
+			ref={drag}
+			style={{
+        opacity: isDragging ? 0.5 : 1,
+        cursor: 'move',
+      }}
+		>
 			<div className={styles.name}>
 				<span>{props.unit.nom}</span>
 			</div>

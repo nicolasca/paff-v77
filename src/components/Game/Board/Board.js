@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Draft from '../Draft/Draft';
 import CardInGame from '../CardInGame/CardInGame';
+import SquareDrop from './Square/SquareDrop';
 import CardUnit from './../../Decks/DeckItem/CardUnit/CardUnit';
 import styles from './Board.module.css';
 import { PHASES } from './../../../game/PAFF';
 import * as actionTypes from '../../../store/actions/actionTypes';
 import IntiativeModal from './InitiativeModal/InitiativeModal';
 import { connect } from 'react-redux';
+import { DndProvider } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 
 function Board(props) {
 
@@ -38,20 +41,11 @@ function Board(props) {
         props.moves.rollDice(props.playerID);
     }
     const mouseEnterHandler = (card) => {
-        console.log(card);
-        
         props.showCardHover(card);
     }
 
     const mouseLeaveHandler = () => {
-        console.log('mouse leave');
-        
         props.hideCardHover();
-    }
-
-    const clickHandler = () => {
-        console.log('click');
-        
     }
 
     useEffect(() => {
@@ -64,16 +58,35 @@ function Board(props) {
         }
     }, [G.initiativeScore, events]);
 
-    const cellStyle = {
-        border: '1px solid #555',
-        width: '100px',
-        height: '150px',
-        textAlign: 'center',
-    };
+    const onDropHandler = (item, squareId) => {
+        props.moves.drop({card: item.card, squareId: squareId, previousSquareId: item.previousSquareId});
+    }
 
-
+    const renderSquare = (i, squareId) => {
+        
+       return (
+            <SquareDrop key={i} square={squareId} moveCard={(item) => onDropHandler(item, squareId)}>
+                {
+                    props.G.squares[squareId] ?
+                    <div className={styles.Card} 
+                    onMouseEnter={mouseEnterHandler.bind(this, props.G.squares[squareId])}
+                    onMouseLeave={mouseLeaveHandler}>
+                        <CardInGame 
+                        unit={props.G.squares[squareId]}
+                        previousSquareId={squareId}>
+                         </CardInGame>
+                    </div>
+                     : null
+                }
+              
+            </SquareDrop>
+        );
+    }
 
     let screenPhase = '';
+
+    console.log(props.G.decks);
+    
     
     switch (props.ctx.phase) {
         case PHASES.DRAFT:
@@ -83,28 +96,31 @@ function Board(props) {
         case PHASES.DEPLOYMENT:
 
             let tbody = [];
-
             const spacePositions = [3, 7, 12, 16, 21, 25, 30, 34, 39, 43, 48, 52];
-
+            let squareId = 0;
+            
             for (let i = 1; i < 55; i++) {
                 if (spacePositions.includes(i)) {
                     tbody.push(<div key={i} className="space"></div>);
                 } else {
-                    tbody.push(<div style={cellStyle} key={i}>
-                        {props.G.cells[i]}
-                    </div>);
+
+                    tbody.push(renderSquare(i, squareId));
+                    squareId += 1;
                 }
             }
 
             const cards = props.G.decks[props.playerID].cartes.map((card, index) => {
                 return (
-                    <div className={styles.Card} key={index}
+           
+                        <div className={styles.Card}  key={index}
                             onMouseEnter={mouseEnterHandler.bind(this, card.carte)}
                             onMouseLeave={mouseLeaveHandler}
                     >
                         <CardInGame unit={card.carte}>
                         </CardInGame>
                     </div>
+              
+                    
                 );
             });
 
@@ -152,9 +168,12 @@ function Board(props) {
     }
 
     return (
-        <div>
-            {screenPhase}
-        </div>
+        <DndProvider backend={HTML5Backend}>
+            <div>
+                {screenPhase}
+            </div>
+        </DndProvider>
+        
     );
 }
 
