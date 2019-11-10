@@ -13,9 +13,7 @@ export function observe(o) {
 }
 
 export function moveCard(toX, toY) {
-  console.log('moveCard');
-  console.log(toX, toY);
-  
+
   cardPosition = [toX, toY]
   emitChange()
 }

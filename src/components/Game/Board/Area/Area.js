@@ -19,8 +19,7 @@ function Area(props) {
                 {
                     props.squares[squareId] ?
                         <div className={styles.Card}
-                            onMouseEnter={props.mouseEnter.bind(this, props.squares[squareId])}
-                            onMouseLeave={props.mouseLeave}>
+                            onMouseEnter={props.mouseEnter.bind(this, props.squares[squareId])}>
                             <CardInGame
                                 unit={props.squares[squareId]}
                                 previousSquareId={squareId}>
@@ -47,12 +46,11 @@ function Area(props) {
         }
     }
 
-    const hands = props.hands[props.playerID].map((card, index) => {
+    const playerHand = props.hands[props.playerID].map((card, index) => {
         return (
 
             <div className={styles.Card} key={index}
                 onMouseEnter={props.mouseEnter.bind(this, card)}
-                onMouseLeave={props.mouseLeave}
             >
                 <CardInGame unit={card}>
                 </CardInGame>
@@ -62,62 +60,85 @@ function Area(props) {
         );
     });
 
-    console.log(props.playerID);
-    console.log('player0', props.player0);
-    console.log('player1', props.player1);
-    console.log(props.hands);
-
+    const otherPlayerID = +props.playerID === 0 ? 1 : 0;
+    const otherHand = props.hands[otherPlayerID].map((card, index) => {
+        return (
+            <div className={styles.HiddenCard} key={index}>
+            </div>
+        );
+    });
 
     return (
-        <div>
-            {props.ctx.phase === PHASES.INITIATIVE ?
-                <IntiativeModal
-                    player0={props.player0.name}
-                    player1={props.player1.name}
-                    score0={props.score0}
-                    score1={props.score1}
-                    onRollDiceHandler={props.onRollDice}
-                    hasResult={props.initiativeFinished}
-                >
-                </IntiativeModal> : null}
-
-            <div>
-                <h2>{props.player0.name}</h2>
-            </div>
+        <React.Fragment>
             {
                 +props.playerID === props.player0.id ?
-                    <div className={styles.Cards}>
-                        {hands}
+                    <div className={`${styles.Hand} ${styles.HandTop}`} >
+                        {playerHand}
                     </div>
-                    : null
+                    :
+                    <div className={`${styles.Hand} ${styles.HandTop}`} >
+                        {otherHand}
+                    </div>
             }
 
-            <div className={styles.Board}>
-                {tbody}
-            </div>
+            <div className={styles.ScreenGame}>
+                {props.ctx.phase === PHASES.INITIATIVE ?
+                    <IntiativeModal
+                        player0={props.player0.name}
+                        player1={props.player1.name}
+                        score0={props.score0}
+                        score1={props.score1}
+                        onRollDiceHandler={props.onRollDice}
+                        hasResult={props.initiativeFinished}
+                    >
+                    </IntiativeModal> : null}
 
-            {
-                +props.playerID === props.player1.id ?
-                    <div className={styles.Cards}>
-                        {hands}
-                    </div>
-                    : null
-            }
-
-            <div>
-                <h2>{props.player1.name}</h2>
-            </div>
+                <div className={styles.PlayerTop}>
+                    <p>{props.player0.name}</p>
+                    <p className={styles.FactionPlayer}>
+                        <span>{props.decks[0].cartes[0].carte.faction.nom}</span>
+                        <img src={process.env.PUBLIC_URL + 'assets/factions/logo-' + props.decks[0].cartes[0].carte.faction.image}
+                            alt={props.decks[0].cartes[0].carte.faction.nom + ' image'} />
+                    </p>
+                </div>
 
 
-            <div className={styles.CardHover}>
-                {props.cardHover ?
-                    <CardUnit unit={props.cardHover}>
-                    </CardUnit>
-                    : null
+                <div className={styles.Board}>
+                    {tbody}
+                </div>
+
+                {
+                    +props.playerID === props.player1.id ?
+                        <div className={`${styles.Hand} ${styles.HandBottom}`}>
+                            {playerHand}
+                        </div>
+                        :
+                        <div className={`${styles.Hand} ${styles.HandBottom}`}>
+                            {otherHand}
+                        </div>
                 }
 
-            </div>
-        </div>
+                <div className={styles.PlayerBottom}>
+                    <p>{props.player1.name}</p>
+                    <p className={styles.FactionPlayer}>
+                        <span>{props.decks[1].cartes[0].carte.faction.nom}</span>
+                        <img src={process.env.PUBLIC_URL + 'assets/factions/logo-' + props.decks[1].cartes[0].carte.faction.image}
+                            alt={props.decks[1].cartes[0].carte.faction.nom + ' image'} />
+                    </p>
+                </div>
+
+
+                <div className={styles.CardHover}>
+                    {props.cardHover ?
+                        <CardUnit unit={props.cardHover}>
+                        </CardUnit>
+                        : null
+                    }
+
+                </div>
+            </div >
+        </React.Fragment>
+
     );
 }
 

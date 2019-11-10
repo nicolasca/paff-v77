@@ -3,7 +3,8 @@ import { Stage } from 'boardgame.io/core';
 export const PHASES = {
     DRAFT: 'draft',
     INITIATIVE: 'initiative',
-    DEPLOYMENT: 'deployment'
+    DEPLOYMENT: 'deployment',
+    PICK_ORDERS: 'pickOrders',
 }
 
 
@@ -14,6 +15,7 @@ const PAFF = {
         squares: Array(42).fill(null),
         initiativeScore: Array(2).fill(null),
         hands: Array(2).fill(null),
+        orders: Array(2).fill(null),
     }),
 
     phases: {
@@ -25,7 +27,6 @@ const PAFF = {
             },
             moves: {
                 setDeck: (G, ctx, deck, playerID) => {
-                    console.log(playerID);
 
                     G.decks[playerID] = deck;
                     const hand = [];
@@ -36,10 +37,12 @@ const PAFF = {
                             hand.push(item.carte);
                         }
                     });
-                    console.log(hand);
 
                     G.hands[playerID] = hand;
                 },
+            },
+            onEnd: (G, ctx) => {
+
             },
             endIf: G => (G.decks.every(i => i !== null)),
 
@@ -69,15 +72,11 @@ const PAFF = {
                         G.squares[options.previousSquareId] = null;
                     }
 
-                    console.log('card', options.card._id);
-
                     // Remove from hand if exists
                     const hand = G.hands[ctx.playerID].filter((card) => {
-                        console.log(card._id);
 
                         return card._id !== options.card._id;
                     });
-                    console.log(hand);
 
                     G.hands[ctx.playerID] = hand
 
@@ -87,8 +86,17 @@ const PAFF = {
             turn: {
                 activePlayers: { all: Stage.NULL },
             },
+            endIf: (G) => {
+                console.log(G.hands[0].length === 0 && G.hands[1].length === 0);
+
+                return G.hands[0].length === 0 && G.hands[1].length === 0;
+            },
+            next: PHASES.PICK_ORDERS,
         },
-        // pick_used_cards: { next: 'set_the_orders' },
+        [PHASES.PICK_ORDERS]: {
+
+            // next: 'set_the_orders'
+        },
         // set_the_orders: { next: 'use_the_orders' },
         // use_the_orders: { next: 'fight' },
         // fight: { next: 'pick_used_cards' },

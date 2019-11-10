@@ -48,15 +48,19 @@ function Board(props) {
         setInitiativeFinished(G.initiativeScore[0] !== null && G.initiativeScore[1] !== null);
         if (G.initiativeScore[0] !== null && G.initiativeScore[1] !== null
             && props.ctx.phase === PHASES.INITIATIVE) {
-            setTimeout(() => {
-                console.log(props.ctx.phase);
+            console.log('initiative finished');
 
-                events.endPhase();
+            setTimeout(() => {
+                console.log('end phase');
+
+                events.setPhase(PHASES.DEPLOYMENT);
             }, 5000);
         }
     }, [G.initiativeScore, events]);
 
     const onDropHandler = (item, squareId) => {
+        console.log('on drop');
+
         props.moves.drop({ card: item.card, squareId: squareId, previousSquareId: item.previousSquareId });
     }
 
@@ -68,6 +72,7 @@ function Board(props) {
             break;
         case PHASES.INITIATIVE:
         case PHASES.DEPLOYMENT:
+        case PHASES.PICK_ORDERS:
 
             screenPhase = (
                 <Area
