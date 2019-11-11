@@ -1,5 +1,6 @@
 import React from 'react';
 import SquareDrop from './../Square/SquareDrop';
+import OrdersProgramming from './../OrdersProgramming/OrdersProgramming';
 import CardInGame from './../../CardInGame/CardInGame';
 import CardUnit from './../../../Decks/DeckItem/CardUnit/CardUnit';
 import IntiativeModal from './../InitiativeModal/InitiativeModal';
@@ -9,6 +10,7 @@ import styles from './Area.module.scss';
 
 function Area(props) {
 
+
     const renderSquare = (i, squareId) => {
 
         return (
@@ -17,11 +19,13 @@ function Area(props) {
                 square={squareId}
                 moveCard={(item) => props.onDrop(item, squareId)}>
                 {
-                    props.squares[squareId] ?
+                    props.G.squares[squareId] ?
                         <div className={styles.Card}
-                            onMouseEnter={props.mouseEnter.bind(this, props.squares[squareId])}>
+                            onMouseEnter={props.mouseEnter.bind(this, props.G.squares[squareId])}
+                            onMouseLeave={props.mouseLeave.bind(this, props.G.squares[squareId])}
+                        >
                             <CardInGame
-                                unit={props.squares[squareId]}
+                                unit={props.G.squares[squareId]}
                                 previousSquareId={squareId}>
                             </CardInGame>
                         </div>
@@ -46,11 +50,12 @@ function Area(props) {
         }
     }
 
-    const playerHand = props.hands[props.playerID].map((card, index) => {
+    const playerHand = props.G.hands[props.playerID].map((card, index) => {
         return (
 
             <div className={styles.Card} key={index}
                 onMouseEnter={props.mouseEnter.bind(this, card)}
+                onMouseLeave={props.mouseLeave.bind(this, card)}
             >
                 <CardInGame unit={card}>
                 </CardInGame>
@@ -61,17 +66,22 @@ function Area(props) {
     });
 
     const otherPlayerID = +props.playerID === 0 ? 1 : 0;
-    const otherHand = props.hands[otherPlayerID].map((card, index) => {
+    const otherHand = props.G.hands[otherPlayerID].map((card, index) => {
         return (
             <div className={styles.HiddenCard} key={index}>
             </div>
         );
     });
 
+    const endDeploymentHandler = () => {
+        props.events.endPhase();
+    }
+
     return (
         <React.Fragment>
             {
                 +props.playerID === props.player0.id ?
+
                     <div className={`${styles.Hand} ${styles.HandTop}`} >
                         {playerHand}
                     </div>
@@ -86,8 +96,8 @@ function Area(props) {
                     <IntiativeModal
                         player0={props.player0.name}
                         player1={props.player1.name}
-                        score0={props.score0}
-                        score1={props.score1}
+                        score0={props.G.initiativeScore[0]}
+                        score1={props.G.initiativeScore[1]}
                         onRollDiceHandler={props.onRollDice}
                         hasResult={props.initiativeFinished}
                     >
@@ -96,11 +106,35 @@ function Area(props) {
                 <div className={styles.PlayerTop}>
                     <p>{props.player0.name}</p>
                     <p className={styles.FactionPlayer}>
-                        <span>{props.decks[0].cartes[0].carte.faction.nom}</span>
-                        <img src={process.env.PUBLIC_URL + 'assets/factions/logo-' + props.decks[0].cartes[0].carte.faction.image}
-                            alt={props.decks[0].cartes[0].carte.faction.nom + ' image'} />
+                        <span>{props.G.decks[0].cartes[0].carte.faction.nom}</span>
+                        <img src={process.env.PUBLIC_URL + 'assets/factions/logo-' + props.G.decks[0].cartes[0].carte.faction.image}
+                            alt={props.G.decks[0].cartes[0].carte.faction.nom + ' image'} />
                     </p>
                 </div>
+
+                {
+                    +props.playerID === props.player0.id ?
+                        <div className={styles.OrdersTop}>
+
+                            <OrdersProgramming
+                                orders={props.G.availableOrders[0]}>
+                            </OrdersProgramming>
+                        </div>
+                        :
+                        null
+                }
+
+                {
+                    +props.playerID === props.player1.id ?
+                        <div className={styles.OrdersBottom}>
+
+                            <OrdersProgramming
+                                orders={props.G.availableOrders[1]}>
+                            </OrdersProgramming>
+                        </div>
+                        :
+                        null
+                }
 
 
                 <div className={styles.Board}>
@@ -121,12 +155,21 @@ function Area(props) {
                 <div className={styles.PlayerBottom}>
                     <p>{props.player1.name}</p>
                     <p className={styles.FactionPlayer}>
-                        <span>{props.decks[1].cartes[0].carte.faction.nom}</span>
-                        <img src={process.env.PUBLIC_URL + 'assets/factions/logo-' + props.decks[1].cartes[0].carte.faction.image}
-                            alt={props.decks[1].cartes[0].carte.faction.nom + ' image'} />
+                        <span>{props.G.decks[1].cartes[0].carte.faction.nom}</span>
+                        <img src={process.env.PUBLIC_URL + 'assets/factions/logo-' + props.G.decks[1].cartes[0].carte.faction.image}
+                            alt={props.G.decks[1].cartes[0].carte.faction.nom + ' image'} />
                     </p>
                 </div>
 
+                {
+                    props.ctx.phase === PHASES.DEPLOYMENT ?
+                        <div className={styles.EndDeployment}>
+                            <button className="button" onClick={endDeploymentHandler}>
+                                Valider le déploiement
+                                </button>
+                        </div>
+                        : null
+                }
 
                 <div className={styles.CardHover}>
                     {props.cardHover ?

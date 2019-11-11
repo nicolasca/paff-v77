@@ -9,7 +9,28 @@ function Draft(props) {
 
     const [options, setOptions] = useState([]);
     const [decks, setDecks] = useState([]);
+    const [orders, setOrders] = useState([]);
     const [selectedDeck, setSelectedDeck] = useState(null);
+
+    useEffect(() => {
+        const headers = {
+            'Authorization': 'Bearer ' + props.token,
+        }
+
+        axios.all([
+            axios.get(config.host + ":3008/decks", { headers: headers }),
+            axios.get(config.host + ":3008/ordres")])
+            .then(axios.spread((decksHttp, ordresHttp) => {
+
+                // Set decks
+                setDecks(decksHttp.data);
+                setSelectedDeck(decksHttp.data[0]);
+                setOptions(getSelectOptions(decksHttp.data));
+
+                setOrders(ordresHttp.data);
+            }));
+
+    }, [setOptions, setDecks, setSelectedDeck, props.token]);
 
     const getSelectOptions = (decks) => {
         return decks.map((deck) => {
@@ -24,18 +45,21 @@ function Draft(props) {
         setSelectedDeck(deck);
     }
 
-    useEffect(() => {
-        const headers = {
-            'Authorization': 'Bearer ' + props.token,
-        }
+    const validateDeckHandler = () => {
 
-        axios.get(config.host + ':3008/decks', { headers }).then((response) => {
-            setDecks(response.data);
-            setSelectedDeck(response.data[0]);
+        const availableOrders = []
+        const faction = selectedDeck.cartes[0].carte.faction;
 
-            setOptions(getSelectOptions(response.data));
-        })
-    }, [setOptions, setDecks, setSelectedDeck, props.token])
+        orders.forEach((order) => {
+            if (order.faction.slug === faction.slug || order.faction === 'commun') {
+                // Faire une copie de l'ordre
+                availableOrders.push(order);
+            }
+        });
+
+        props.onClickHandler(selectedDeck, availableOrders);
+    }
+
 
     return (
         <div>
@@ -51,7 +75,7 @@ function Draft(props) {
                             </select>
                         </div>
                     </div>
-                    <button className="button" onClick={() => props.onClickHandler(selectedDeck)}>Choisir</button>
+                    <button className="button" onClick={validateDeckHandler}>Choisir</button>
                 </div> : null}
         </div>
     );

@@ -18,7 +18,7 @@ const LobbyView = () => (
             gameServer={`http://${hostname}:8000`}
             lobbyServer={`http://${hostname}:8000`}
             gameComponents={importedGames}
-            debug={true}
+            debug={false}
         />
     </div>
 );

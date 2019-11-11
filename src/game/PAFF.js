@@ -1,37 +1,54 @@
 import { Stage } from 'boardgame.io/core';
 
 export const PHASES = {
+    CREATE: 'create',
     DRAFT: 'draft',
     INITIATIVE: 'initiative',
     DEPLOYMENT: 'deployment',
     PICK_ORDERS: 'pickOrders',
 }
 
+const drop = (G, ctx, options) => {
+    // Remove from previous square
+    if (options.previousSquareId) {
+        G.squares[options.previousSquareId] = null;
+    }
+
+    // Remove from hand if exists
+    const hand = G.hands[ctx.playerID].filter((card) => {
+
+        return card._id !== options.card._id;
+    });
+
+    G.hands[ctx.playerID] = hand
+    G.squares[options.squareId] = options.card;
+}
 
 const PAFF = {
     name: 'PAFF',
-    setup: () => ({
+    setup: (ctx) => ({
+
         decks: Array(2).fill(null),
         squares: Array(42).fill(null),
         initiativeScore: Array(2).fill(null),
         hands: Array(2).fill(null),
-        orders: Array(2).fill(null),
+        availableOrders: Array(2).fill(null),
     }),
 
     phases: {
         [PHASES.DRAFT]: {
-            next: PHASES.INITIATIVE,
             start: true,
+            next: PHASES.INITIATIVE,
             turn: {
                 activePlayers: { all: Stage.NULL },
             },
             moves: {
-                setDeck: (G, ctx, deck, playerID) => {
+                setDeck: (G, ctx, deck, playerID, orders) => {
 
                     G.decks[playerID] = deck;
+                    G.availableOrders[playerID] = orders;
+
                     const hand = [];
-
-
                     deck.cartes.forEach((item) => {
                         for (let number = 0; number < item.nbExemplaires; number++) {
                             hand.push(item.carte);
@@ -40,9 +57,6 @@ const PAFF = {
 
                     G.hands[playerID] = hand;
                 },
-            },
-            onEnd: (G, ctx) => {
-
             },
             endIf: G => (G.decks.every(i => i !== null)),
 
@@ -65,36 +79,20 @@ const PAFF = {
         [PHASES.DEPLOYMENT]: {
 
             moves: {
-                drop: (G, ctx, options) => {
-
-                    // Remove from previous square
-                    if (options.previousSquareId) {
-                        G.squares[options.previousSquareId] = null;
-                    }
-
-                    // Remove from hand if exists
-                    const hand = G.hands[ctx.playerID].filter((card) => {
-
-                        return card._id !== options.card._id;
-                    });
-
-                    G.hands[ctx.playerID] = hand
-
-                    G.squares[options.squareId] = options.card;
-                }
+                drop: drop,
             },
             turn: {
                 activePlayers: { all: Stage.NULL },
             },
-            endIf: (G) => {
-                console.log(G.hands[0].length === 0 && G.hands[1].length === 0);
-
-                return G.hands[0].length === 0 && G.hands[1].length === 0;
-            },
             next: PHASES.PICK_ORDERS,
         },
         [PHASES.PICK_ORDERS]: {
-
+            moves: {
+                drop: drop,
+            },
+            turn: {
+                activePlayers: { all: Stage.NULL },
+            },
             // next: 'set_the_orders'
         },
         // set_the_orders: { next: 'use_the_orders' },
@@ -102,5 +100,6 @@ const PAFF = {
         // fight: { next: 'pick_used_cards' },
     }
 }
+
 
 export default PAFF;

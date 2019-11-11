@@ -5,7 +5,8 @@ import { useDrop } from 'react-dnd'
 
 function SquareDrop(props) {
 
-  const [{ isOver, canDrop }, drop] = useDrop({
+  // const [{ isOver, canDrop }, drop] = useDrop({
+  const [{ }, drop] = useDrop({
     accept: ItemTypes.CARD,
     drop: (item) => props.moveCard(item),
     collect: mon => ({

@@ -7,13 +7,14 @@ import { DndProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 import Area from './Area/Area';
 
+
 function Board(props) {
 
     const [initiativeFinished, setInitiativeFinished] = useState(false);
     const { G, events } = props;
 
-    const selectedDeckHandler = (deck) => {
-        props.moves.setDeck(deck, props.playerID);
+    const selectedDeckHandler = (deck, orders) => {
+        props.moves.setDeck(deck, props.playerID, orders);
     }
 
     const getPlayer0 = () => {
@@ -76,6 +77,9 @@ function Board(props) {
 
             screenPhase = (
                 <Area
+                    G={G}
+                    ctx={props.ctx}
+                    events={events}
                     onDrop={(item, squareId) => onDropHandler(item, squareId)}
                     mouseEnter={(card) => mouseEnterHandler(card)}
                     mouseLeave={mouseLeaveHandler}
@@ -85,11 +89,6 @@ function Board(props) {
                     topPlayer={topPlayer()}
                     bottomPlayer={bottomPlayer()}
                     initiativeFinished={initiativeFinished}
-                    squares={props.G.squares}
-                    decks={props.G.decks}
-                    hands={props.G.hands}
-                    score0={props.G.initiativeScore[0]}
-                    score1={props.G.initiativeScore[1]}
                     playerID={props.playerID}
                     ctx={props.ctx}
                     cardHover={props.cardHover}

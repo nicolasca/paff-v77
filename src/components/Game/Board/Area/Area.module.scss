@@ -25,13 +25,27 @@
 }
 
 .HandTop {
-    grid-column: 1 / 11;
+    grid-column: 1 / 9;
     grid-row: 1 / 2;
+    margin-bottom: 10px;
+    max-width: 70%;
+    flex-wrap: wrap;
+}
+
+.OrdersTop {
+    grid-column: 8 / 11;
+    grid-row: 3 / 6;
+}
+
+.OrdersBottom {
+    grid-column: 8 / 11;
+    grid-row: 5 / 8;
 }
 
 .HandBottom {
     grid-column: 1 / 11;
     grid-row: 7 / 8;
+    margin-top: 10px;
 }
 
 .Hand {
@@ -47,10 +61,15 @@
 .CardHover {
     height: 400px;
     width: 250px;
-    border: 1px solid black;
     position: absolute;
     top: 300px;
     right: 20px;
+    z-index: 5;
+}
+
+.EndDeployment {
+    grid-column: 8 / 10;
+    grid-row: 4 / 5;
 }
 
 .HiddenCard {
