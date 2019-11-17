@@ -10,7 +10,6 @@ import styles from './Area.module.scss';
 
 function Area(props) {
 
-
     const renderSquare = (i, squareId) => {
 
         return (
@@ -77,6 +76,10 @@ function Area(props) {
         props.events.endPhase();
     }
 
+    const onHideHandler = () => {
+        props.moves.hideShowOrders();
+    }
+
     return (
         <React.Fragment>
             {
@@ -112,29 +115,54 @@ function Area(props) {
                     </p>
                 </div>
 
-                {
-                    +props.playerID === props.player0.id ?
-                        <div className={styles.OrdersTop}>
 
+                <div className={styles.OrdersTop}>
+
+                    {
+                        (+props.playerID === props.player0.id ||
+                            props.G.showOrders[props.topPlayer.id]) ?
                             <OrdersProgramming
                                 orders={props.G.availableOrders[0]}>
-                            </OrdersProgramming>
-                        </div>
-                        :
-                        null
-                }
+                            </OrdersProgramming> : null
+                    }
+                    {
+                        +props.playerID === props.player0.id ?
+                            <div>
+                                {
+                                    props.G.showOrders[props.playerID] ?
+                                        <button className="button" onClick={onHideHandler}>Cacher</button>
+                                        :
+                                        <button className="button" onClick={onHideHandler}>Montrer</button>
+                                }
+                            </div>
+                            :
+                            null
+                    }
+                </div>
 
-                {
-                    +props.playerID === props.player1.id ?
-                        <div className={styles.OrdersBottom}>
+                <div className={styles.OrdersBottom}>
 
+                    {
+                        (+props.playerID === props.player1.id ||
+                            props.G.showOrders[props.bottomPlayer.id]) ?
                             <OrdersProgramming
                                 orders={props.G.availableOrders[1]}>
-                            </OrdersProgramming>
-                        </div>
-                        :
-                        null
-                }
+                            </OrdersProgramming> : null
+                    }
+                    {
+                        +props.playerID === props.player1.id ?
+                            <div>
+                                {
+                                    props.G.showOrders[props.playerID] ?
+                                        <button className="button" onClick={onHideHandler}>Cacher</button>
+                                        :
+                                        <button className="button" onClick={onHideHandler}>Montrer</button>
+                                }
+                            </div>
+                            :
+                            null
+                    }
+                </div>
 
 
                 <div className={styles.Board}>
@@ -171,14 +199,14 @@ function Area(props) {
                         : null
                 }
 
-                <div className={styles.CardHover}>
-                    {props.cardHover ?
+                {props.cardHover ?
+                    <div className={styles.CardHover}>
                         <CardUnit unit={props.cardHover}>
                         </CardUnit>
-                        : null
-                    }
+                    </div>
+                    : null
+                }
 
-                </div>
             </div >
         </React.Fragment>
 

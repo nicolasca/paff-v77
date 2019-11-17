@@ -5,7 +5,7 @@ export const PHASES = {
     DRAFT: 'draft',
     INITIATIVE: 'initiative',
     DEPLOYMENT: 'deployment',
-    PICK_ORDERS: 'pickOrders',
+    CHOOSE_ORDERS: 'chooseOrders',
 }
 
 const drop = (G, ctx, options) => {
@@ -33,6 +33,7 @@ const PAFF = {
         initiativeScore: Array(2).fill(null),
         hands: Array(2).fill(null),
         availableOrders: Array(2).fill(null),
+        showOrders: Array(2).fill(false),
     }),
 
     phases: {
@@ -84,18 +85,19 @@ const PAFF = {
             turn: {
                 activePlayers: { all: Stage.NULL },
             },
-            next: PHASES.PICK_ORDERS,
+            next: PHASES.CHOOSE_ORDERS,
         },
-        [PHASES.PICK_ORDERS]: {
+        [PHASES.CHOOSE_ORDERS]: {
             moves: {
-                drop: drop,
+                hideShowOrders: (G, ctx) => {
+                    G.showOrders[ctx.playerID] = !G.showOrders[ctx.playerID];
+                }
             },
             turn: {
                 activePlayers: { all: Stage.NULL },
             },
             // next: 'set_the_orders'
         },
-        // set_the_orders: { next: 'use_the_orders' },
         // use_the_orders: { next: 'fight' },
         // fight: { next: 'pick_used_cards' },
     }

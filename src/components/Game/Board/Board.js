@@ -26,11 +26,11 @@ function Board(props) {
     }
 
     const topPlayer = () => {
-        return props.gameMetadata.find((player) => player.id === +props.playerID)
+        return props.gameMetadata.find((player) => player.id === 0)
     }
 
     const bottomPlayer = () => {
-        return props.gameMetadata.find((player) => player.id !== +props.playerID)
+        return props.gameMetadata.find((player) => player.id === 1)
     }
 
     const onRollDiceHandler = () => {
@@ -57,7 +57,7 @@ function Board(props) {
                 events.setPhase(PHASES.DEPLOYMENT);
             }, 5000);
         }
-    }, [G.initiativeScore, events]);
+    }, [G.initiativeScore, props.ctx.phase, events]);
 
     const onDropHandler = (item, squareId) => {
         console.log('on drop');
@@ -73,12 +73,13 @@ function Board(props) {
             break;
         case PHASES.INITIATIVE:
         case PHASES.DEPLOYMENT:
-        case PHASES.PICK_ORDERS:
+        case PHASES.CHOOSE_ORDERS:
 
             screenPhase = (
                 <Area
                     G={G}
                     ctx={props.ctx}
+                    moves={props.moves}
                     events={events}
                     onDrop={(item, squareId) => onDropHandler(item, squareId)}
                     mouseEnter={(card) => mouseEnterHandler(card)}
@@ -90,7 +91,6 @@ function Board(props) {
                     bottomPlayer={bottomPlayer()}
                     initiativeFinished={initiativeFinished}
                     playerID={props.playerID}
-                    ctx={props.ctx}
                     cardHover={props.cardHover}
                 >
                 </Area>)

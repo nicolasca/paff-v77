@@ -22,7 +22,7 @@ function OrdersProgramming(props) {
     return (
         <div className={styles.OrdersProgramming}>
             <div>
-                Order 1
+                Ordre 1
             </div>
             <div className="field">
                 <div className="control">
@@ -44,7 +44,7 @@ function OrdersProgramming(props) {
             </div>
 
             <div>
-                Order 2
+                Ordre 2
             </div>
             <div className="field">
                 <div className="control">
@@ -67,7 +67,7 @@ function OrdersProgramming(props) {
             </div>
 
             <div>
-                Order 3
+                Ordre 3
             </div>
             <div className="field">
                 <div className="control">
