@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import DeckItem from './../DeckItem/DeckItem';
-import DeckSummary from './../DeckBuilder/DeckSummary/DeckSummary';
-import styles from './DeckList.module.scss';
 import axios from 'axios';
-import * as actionTypes from '../../../store/actions/actionTypes';
-import { config } from '../../../config';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { config } from '../../../config';
+import * as actionTypes from '../../../store/actions/actionTypes';
+import DeckSummary from './../DeckBuilder/DeckSummary/DeckSummary';
+import DeckItem from './../DeckItem/DeckItem';
+import styles from './DeckList.module.scss';
 
 class DeckList extends Component {
 
@@ -106,9 +106,8 @@ class DeckList extends Component {
             <div className={styles.Wrapper}>
                 {this.state.deckListOptions ?
                     <div>
-                        <label className="label">Tes decks</label>
                         <div className="control" >
-                            <div className="select">
+                            <div className={styles.SelectDecks + " select "}>
                                 <select onChange={this.changeDeck}
                                     value={this.state.deckSelectedId}
                                     id="TheSelect">
@@ -116,7 +115,9 @@ class DeckList extends Component {
                                 </select>
                             </div>
                         </div>
-                        <button className="button" onClick={this.deleteDeck}>Supprimer</button>
+                        <div className="control">
+                            < button className = "button is-paff" onClick = { this.deleteDeck }>Supprimer</button>
+                        </div>
                     </div> : null}
 
                 <div>

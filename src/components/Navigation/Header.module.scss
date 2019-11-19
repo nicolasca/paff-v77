@@ -1,9 +1,11 @@
+@import './../../colors.scss';
+
 .Header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid grey;
-  background-color: #191726;
+  background-color: $dark-color;
   color: white;
   /* font-weight: 600; */
   font-family: 'Fantasy';

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router'
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import styles from './Auth.module.css';
+import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 import * as actions from '../../store/actions/index';
+import styles from './Auth.module.css';
 
 class Auth extends Component {
 
@@ -81,7 +81,7 @@ class Auth extends Component {
           </div>
           <div className="field is-grouped">
             <div className="control">
-              <button className="button is-primary">Se connecter</button>
+              <button className="button is-paff">Se connecter</button>
             </div>
             <p className="control">
               <Link

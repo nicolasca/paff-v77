@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
 import axios from 'axios';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import styles from './Factions.module.css';
 import { config } from '../../config';
+import styles from './Factions.module.scss';
 
 class Factions extends Component {
 
@@ -17,10 +17,13 @@ class Factions extends Component {
                 return (
 
                     <div className={styles.FactionItem} key={faction._id}>
+                        < Link to = {
+                            '/factions/' + faction.slug
+                        } >
                         <img className={styles.Logo}
                             src={process.env.PUBLIC_URL + 'assets/factions/logo-' + faction.image}
                             alt={faction.nom + ' image'} />
-                        <Link to={'/factions/' + faction.slug}><h2>{faction.nom}</h2></Link>
+                        <h2>{faction.nom}</h2></Link>
 
                     </div>
                 );

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router'
 import { connect } from 'react-redux';
-import styles from './Auth.module.css';
+import { Redirect } from 'react-router';
 import * as actions from '../../store/actions/index';
+import styles from './Auth.module.css';
 
 class SignIn extends Component {
 
@@ -65,7 +65,7 @@ class SignIn extends Component {
                     </div>
 
                     <div className="control">
-                        <button className="button is-primary">S'inscrire</button>
+                        <button className="button is-paff">S'inscrire</button>
                     </div>
                 </form>
                 {this.props.redirect && (

@@ -1,5 +1,6 @@
 /* Custom/Extend normalize.css values  */
 @import './scss/init-bulma.scss';
+@import './colors.scss';
 
 @font-face {
 	font-family: 'Fantasy';
@@ -29,7 +30,7 @@ p {
 
 h1 {
 	font-family: 'Fantasy';
-	font-size: 8rem;
+	font-size: 6rem;
 	margin: 2rem;
 }
 
@@ -39,6 +40,14 @@ h2 {
 	margin: 1rem;
 }
 
-.button {
+h3 {
+	font-family: 'Fantasy';
+	font-size: 3rem;
+	margin: 0.8rem;
+}
+
+.button.is-paff {
 	appearance: none;
+	background-color: $dark-color;
+	color: #D99A4E;
 }

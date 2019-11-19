@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import DeckSummary from './DeckSummary/DeckSummary';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { config } from '../../../config';
+import * as actionTypes from '../../../store/actions/actionTypes';
 import DeckItem from '../DeckItem/DeckItem';
 import styles from "./DeckBuilder.module.css";
-import axios from 'axios';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import * as actionTypes from '../../../store/actions/actionTypes';
-import { config } from '../../../config';
-import PropTypes from 'prop-types';
+import DeckSummary from './DeckSummary/DeckSummary';
 
 function DeckBuilder(props) {
 
@@ -124,8 +124,6 @@ function DeckBuilder(props) {
     <div className={styles.DeckBuilder + " container"}>
       <div className={styles.Wrapper}>
         <div className={styles.Title}>
-          <h2>Nouveau deck</h2>
-
           <div className="field">
             <label className="label">Nom</label>
             <div className="control">
@@ -156,7 +154,7 @@ function DeckBuilder(props) {
           {selectedFaction ?
             <div className={[styles.SelectFaction, "field", "is-grouped"].join(' ')}>
               <div className="control">
-                <button className="button is-primary" onClick={saveDeckhandler}>A la guerre !</button>
+                <button className="button is-paff" onClick={saveDeckhandler}>A la guerre !</button>
               </div>
               <div className="control">
                 <div className="select">

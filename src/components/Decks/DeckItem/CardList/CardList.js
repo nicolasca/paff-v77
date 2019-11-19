@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { config } from '../../../../config';
 import CardItem from '../CardItem/CardItem';
 import styles from './CardList.module.css';
-import PropTypes from 'prop-types';
-import axios from 'axios';
-import { config } from '../../../../config';
 
 function CardList(props) {
   const [orders, setOrders] = useState([]);
@@ -55,9 +55,9 @@ function CardList(props) {
 
   return (
     <div className={styles.CardList}>
-      <h3 className="title is-4">Unités</h3>
+      <h3 className="title">Unités</h3>
       <div className={styles.Unites}>{cardsUnites}</div>
-      <h3 className="title is-4">Ordres</h3>
+      <h3 className="title">Ordres</h3>
       <div className={styles.Ordres}>{orders}</div>
     </div>
   );

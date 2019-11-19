@@ -1,0 +1,36 @@
+@import './../../colors.scss';
+
+.MainPage {
+      display: flex;
+      margin: auto;
+      margin-top: 3rem;
+}
+
+.MainPage .Description {
+  padding-right: 3rem;
+  padding-top: 0;
+  flex-basis: 35%;
+
+   h3 {
+     color: $dark-color;
+     margin-top: 0;
+     margin-bottom: 2rem;
+   }
+
+  p {
+    white-space: pre-line;
+    line-height: 1.7;
+  }
+}
+
+
+.MapPriana {
+  width: 65%; 
+}
+
+.MainPage img {
+  max-height: 80vh;
+  border-radius: 7px;
+  // border: 2px solid $dark-color;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
+}

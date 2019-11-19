@@ -1,5 +1,7 @@
 .Logo {
     max-width: 200px;
+    border-radius: 50%;
+    min-height: 200px;
 }
 
 .Faction {
@@ -8,13 +10,21 @@
     justify-content: space-evenly;
 }
 
-.FactionItem {
+.FactionItem a {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
 }
 
-.FactionItem h3 {
-    font-size: 1.5rem;
+.FactionItem {
+    h2 {
+        color: #363636;
+    }
+
+    &:hover {
+        h2 {
+            color: #D99A4E;
+        }
+    }
 }
