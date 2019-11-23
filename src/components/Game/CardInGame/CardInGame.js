@@ -18,14 +18,19 @@ function CardInGame(props) {
 	const onRightClickHandler = (event) => {
 		event.preventDefault();
 		setCardHover(true);
-		console.log(props.unit);
-
 	}
 
 	const onMouseLeaveHandler = () => {
 		setCardHover(false);
 	}
 
+	const onClickPlusHandler = () => {
+		props.moves.changeRegimentNumber(props.previousSquareId, '+');
+	}
+
+	const onClickLessHandler = () => {
+		props.moves.changeRegimentNumber(props.previousSquareId, '-');
+	}
 
 	const imageUrl = !props.unit.image ? require(`../../../assets/logo.jpg`) :
 		require(`../../../assets/cartes/${props.unit.faction.slug}/${props.unit.image}`);
@@ -45,22 +50,14 @@ function CardInGame(props) {
 				<span>{props.unit.nom}</span>
 			</div>
 			<div className={styles.Image} style={{ backgroundImage: `url(${imageUrl})` }} >
-				<img src={imageUrl} alt="boss orc" />
+				<img src={imageUrl} alt="" />
 			</div>
 			<div className={styles.Regiment}>
 				{props.unit.regiment}
 			</div>
-			<div className={styles.DetailCarac}>
-				<div className={styles.AttCac}>
-					{props.unit.attCac}
-					{props.unit.isAttCacMagique ? '(m)' : ''}
-				</div>
-				<div className={styles.DefCac}>{props.unit.defCac}</div>
-				<div className={styles.AttTir}>
-					{props.unit.attTir}
-					{props.unit.isAttTirMagique ? '(m)' : ''}
-				</div>
-				<div className={styles.DefTir}>{props.unit.defTir}</div>
+			<div className={styles.RegimentButtons}>
+				<p onClick={onClickPlusHandler}>+</p>
+				<p onClick={onClickLessHandler}>-</p>
 			</div>
 
 			{cardHover ?

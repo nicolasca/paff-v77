@@ -18,12 +18,11 @@ function Area(props) {
                 moveCard={(item) => props.onDrop(item, squareId)}>
                 {
                     props.G.squares[squareId] ?
-                        <div className={styles.Card}
-
-                        >
+                        <div className={styles.Card}>
                             <CardInGame
                                 unit={props.G.squares[squareId]}
-                                previousSquareId={squareId}>
+                                previousSquareId={squareId}
+                                moves={props.moves}>
                             </CardInGame>
                         </div>
                         : null

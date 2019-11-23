@@ -41,19 +41,13 @@ function Board(props) {
         setInitiativeFinished(G.initiativeScore[0] !== null && G.initiativeScore[1] !== null);
         if (G.initiativeScore[0] !== null && G.initiativeScore[1] !== null
             && props.ctx.phase === PHASES.INITIATIVE) {
-            console.log('initiative finished');
-
             setTimeout(() => {
-                console.log('end phase');
-
                 events.setPhase(PHASES.DEPLOYMENT);
             }, 5000);
         }
     }, [G.initiativeScore, props.ctx.phase, events]);
 
     const onDropHandler = (item, squareId) => {
-        console.log('on drop');
-
         props.moves.drop({ card: item.card, squareId: squareId, previousSquareId: item.previousSquareId });
     }
 

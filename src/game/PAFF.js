@@ -89,8 +89,25 @@ const PAFF = {
         },
         [PHASES.CHOOSE_ORDERS]: {
             moves: {
+                drop: drop,
                 hideShowOrders: (G, ctx) => {
                     G.showOrders[ctx.playerID] = !G.showOrders[ctx.playerID];
+                },
+                changeRegimentNumber: (G, ctx, squareId, action) => {
+                    G.squares.forEach((card, index) => {
+                        if (index === squareId) {
+                            switch (action) {
+                                case '+':
+                                    card.regiment = card.regiment + 1;
+                                    break;
+                                case '-':
+                                    card.regiment = card.regiment - 1;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    });
                 }
             },
             turn: {
