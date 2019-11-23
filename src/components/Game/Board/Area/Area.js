@@ -2,7 +2,6 @@ import React from 'react';
 import SquareDrop from './../Square/SquareDrop';
 import OrdersProgramming from './../OrdersProgramming/OrdersProgramming';
 import CardInGame from './../../CardInGame/CardInGame';
-import CardUnit from './../../../Decks/DeckItem/CardUnit/CardUnit';
 import IntiativeModal from './../InitiativeModal/InitiativeModal';
 import { PHASES } from './../../../../game/PAFF';
 import styles from './Area.module.scss';
@@ -20,8 +19,7 @@ function Area(props) {
                 {
                     props.G.squares[squareId] ?
                         <div className={styles.Card}
-                            onMouseEnter={props.mouseEnter.bind(this, props.G.squares[squareId])}
-                            onMouseLeave={props.mouseLeave.bind(this, props.G.squares[squareId])}
+
                         >
                             <CardInGame
                                 unit={props.G.squares[squareId]}
@@ -52,10 +50,7 @@ function Area(props) {
     const playerHand = props.G.hands[props.playerID].map((card, index) => {
         return (
 
-            <div className={styles.Card} key={index}
-                onMouseEnter={props.mouseEnter.bind(this, card)}
-                onMouseLeave={props.mouseLeave.bind(this, card)}
-            >
+            <div className={styles.Card} key={index}>
                 <CardInGame unit={card}>
                 </CardInGame>
             </div>
@@ -199,13 +194,15 @@ function Area(props) {
                         : null
                 }
 
-                {props.cardHover ?
-                    <div className={styles.CardHover}>
+                {/* <div className={styles.CardHover}>
+                    {props.cardHover ?
+
                         <CardUnit unit={props.cardHover}>
                         </CardUnit>
-                    </div>
-                    : null
-                }
+                        : null
+                    }
+
+                </div> */}
 
             </div >
         </React.Fragment>

@@ -37,14 +37,6 @@ function Board(props) {
         props.moves.rollDice(props.playerID);
     }
 
-    const mouseEnterHandler = (card) => {
-        props.showCardHover(card);
-    }
-
-    const mouseLeaveHandler = () => {
-        props.hideCardHover();
-    }
-
     useEffect(() => {
         setInitiativeFinished(G.initiativeScore[0] !== null && G.initiativeScore[1] !== null);
         if (G.initiativeScore[0] !== null && G.initiativeScore[1] !== null
@@ -82,8 +74,6 @@ function Board(props) {
                     moves={props.moves}
                     events={events}
                     onDrop={(item, squareId) => onDropHandler(item, squareId)}
-                    mouseEnter={(card) => mouseEnterHandler(card)}
-                    mouseLeave={mouseLeaveHandler}
                     onRollDice={onRollDiceHandler}
                     player0={getPlayer0()}
                     player1={getPlayer1()}

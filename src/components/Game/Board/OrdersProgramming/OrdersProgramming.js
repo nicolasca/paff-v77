@@ -6,7 +6,7 @@ function OrdersProgramming(props) {
 
     const options = props.orders.map((order) => {
         return (
-            <option key={order._id}>{order.nom}</option>
+            <option key={order._id}>{order.nom} x{order.limite}</option>
         )
     });
 

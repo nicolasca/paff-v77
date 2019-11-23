@@ -1,29 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './CardInGame.module.scss';
+import CardUnit from './../../Decks/DeckItem/CardUnit/CardUnit';
 import { useDrag } from 'react-dnd'
 import { ItemTypes } from './../Drag/ItemTypes';
 
 function CardInGame(props) {
 
-	const [{isDragging}, drag] = useDrag({
-    item: { type: ItemTypes.CARD, card: props.unit, previousSquareId: props.previousSquareId },
+	const [cardHover, setCardHover] = useState(false);
+
+	const [{ isDragging }, drag] = useDrag({
+		item: { type: ItemTypes.CARD, card: props.unit, previousSquareId: props.previousSquareId },
 		collect: monitor => ({
 			isDragging: !!monitor.isDragging(),
 		}),
 	});
-	
 
-  const imageUrl = !props.unit.image ? require(`../../../assets/logo.jpg`) :
-  require(`../../../assets/cartes/${props.unit.faction.slug}/${props.unit.image}`);
+	const onRightClickHandler = (event) => {
+		event.preventDefault();
+		setCardHover(true);
+		console.log(props.unit);
 
-  return (
+	}
+
+	const onMouseLeaveHandler = () => {
+		setCardHover(false);
+	}
+
+
+	const imageUrl = !props.unit.image ? require(`../../../assets/logo.jpg`) :
+		require(`../../../assets/cartes/${props.unit.faction.slug}/${props.unit.image}`);
+
+	return (
 		<div
 			className={[styles.CardUnit, styles.container, styles[props.unit.faction.slug]].join(' ')}
+			onContextMenu={onRightClickHandler}
+			onMouseLeave={onMouseLeaveHandler}
 			ref={drag}
 			style={{
-        opacity: isDragging ? 0.5 : 1,
-        cursor: 'move',
-      }}
+				opacity: isDragging ? 0.5 : 1,
+				cursor: 'move',
+			}}
 		>
 			<div className={styles.name}>
 				<span>{props.unit.nom}</span>
@@ -46,6 +62,15 @@ function CardInGame(props) {
 				</div>
 				<div className={styles.DefTir}>{props.unit.defTir}</div>
 			</div>
+
+			{cardHover ?
+
+				<div className={styles.CardHover}>
+					<CardUnit unit={props.unit}>
+					</CardUnit>
+				</div>
+				: null
+			}
 		</div >
 	);
 }

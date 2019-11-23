@@ -42,6 +42,10 @@
   }
 }
 
+.CardUnit {
+  position: relative;
+}
+
 .CardUnit.container {
   font-family: 'Helvetica';
   display: grid;
@@ -114,4 +118,12 @@
   justify-content: center;
   margin: 0 0 0 -1px;
   font-size: 0.8rem;
+}
+
+.CardHover {
+  height: 400px;
+  width: 250px;
+  position: absolute;
+  left: 100px;
+  z-index: 5;
 }
