@@ -77,17 +77,6 @@ function Area(props) {
 
     return (
         <React.Fragment>
-            {
-                +props.playerID === props.player0.id ?
-
-                    <div className={`${styles.Hand} ${styles.HandTop}`} >
-                        {playerHand}
-                    </div>
-                    :
-                    <div className={`${styles.Hand} ${styles.HandTop}`} >
-                        {otherHand}
-                    </div>
-            }
 
             <div className={styles.ScreenGame}>
                 {props.ctx.phase === PHASES.INITIATIVE ?
@@ -101,62 +90,96 @@ function Area(props) {
                     >
                     </IntiativeModal> : null}
 
-                <div className={styles.PlayerTop}>
-                    <p>{props.player0.name}</p>
-                    <p className={styles.FactionPlayer}>
-                        <span>{props.G.decks[0].cartes[0].carte.faction.nom}</span>
-                        <img src={process.env.PUBLIC_URL + 'assets/factions/logo-' + props.G.decks[0].cartes[0].carte.faction.image}
-                            alt={props.G.decks[0].cartes[0].carte.faction.nom + ' image'} />
-                    </p>
-                </div>
+                {
+                    +props.playerID === props.player0.id ?
+
+                        <div className={`${styles.Hand} ${styles.HandTop}`} >
+                            {playerHand}
+                        </div>
+                        :
+                        <div className={`${styles.Hand} ${styles.HandTop}`} >
+                            {otherHand}
+                        </div>
+                }
+
+                <div className={styles.GameInformation}>
+
+                    <div className={styles.PlayerTop}>
+                        <p>{props.player0.name}</p>
+                        <p className={styles.FactionPlayer}>
+                            <span>{props.G.decks[0].cartes[0].carte.faction.nom}</span>
+                            <img src={process.env.PUBLIC_URL + 'assets/factions/logo-' + props.G.decks[0].cartes[0].carte.faction.image}
+                                alt={props.G.decks[0].cartes[0].carte.faction.nom + ' image'} />
+                        </p>
+                    </div>
+
+                    <div className={styles.PlayerBottom}>
+                        <p>{props.player1.name}</p>
+                        <p className={styles.FactionPlayer}>
+                            <span>{props.G.decks[1].cartes[0].carte.faction.nom}</span>
+                            <img src={process.env.PUBLIC_URL + 'assets/factions/logo-' + props.G.decks[1].cartes[0].carte.faction.image}
+                                alt={props.G.decks[1].cartes[0].carte.faction.nom + ' image'} />
+                        </p>
+                    </div>
 
 
-                <div className={styles.OrdersTop}>
+                    <div className={styles.OrdersTop}>
 
-                    {
-                        (+props.playerID === props.player0.id ||
-                            props.G.showOrders[props.topPlayer.id]) ?
-                            <OrdersProgramming
-                                orders={props.G.availableOrders[0]}>
-                            </OrdersProgramming> : null
-                    }
-                    {
-                        +props.playerID === props.player0.id ?
-                            <div>
-                                {
-                                    props.G.showOrders[props.playerID] ?
-                                        <button className="button" onClick={onHideHandler}>Cacher</button>
-                                        :
-                                        <button className="button" onClick={onHideHandler}>Montrer</button>
-                                }
-                            </div>
-                            :
-                            null
-                    }
-                </div>
+                        {
+                            (+props.playerID === props.player0.id ||
+                                props.G.showOrders[props.topPlayer.id]) ?
+                                <OrdersProgramming
+                                    orders={props.G.availableOrders[0]}>
+                                </OrdersProgramming> : null
+                        }
+                        {
+                            +props.playerID === props.player0.id ?
+                                <div>
+                                    {
+                                        props.G.showOrders[props.playerID] ?
+                                            <button className="button" onClick={onHideHandler}>Cacher</button>
+                                            :
+                                            <button className="button" onClick={onHideHandler}>Montrer</button>
+                                    }
+                                </div>
+                                :
+                                null
+                        }
 
-                <div className={styles.OrdersBottom}>
+                        {
+                            props.ctx.phase === PHASES.DEPLOYMENT ?
+                                <div className={styles.EndDeployment}>
+                                    <button className="button" onClick={endDeploymentHandler}>
+                                        Valider le déploiement
+                                </button>
+                                </div>
+                                : null
+                        }
+                    </div>
 
-                    {
-                        (+props.playerID === props.player1.id ||
-                            props.G.showOrders[props.bottomPlayer.id]) ?
-                            <OrdersProgramming
-                                orders={props.G.availableOrders[1]}>
-                            </OrdersProgramming> : null
-                    }
-                    {
-                        +props.playerID === props.player1.id ?
-                            <div>
-                                {
-                                    props.G.showOrders[props.playerID] ?
-                                        <button className="button" onClick={onHideHandler}>Cacher</button>
-                                        :
-                                        <button className="button" onClick={onHideHandler}>Montrer</button>
-                                }
-                            </div>
-                            :
-                            null
-                    }
+                    <div className={styles.OrdersBottom}>
+
+                        {
+                            (+props.playerID === props.player1.id ||
+                                props.G.showOrders[props.bottomPlayer.id]) ?
+                                <OrdersProgramming
+                                    orders={props.G.availableOrders[1]}>
+                                </OrdersProgramming> : null
+                        }
+                        {
+                            +props.playerID === props.player1.id ?
+                                <div>
+                                    {
+                                        props.G.showOrders[props.playerID] ?
+                                            <button className="button" onClick={onHideHandler}>Cacher</button>
+                                            :
+                                            <button className="button" onClick={onHideHandler}>Montrer</button>
+                                    }
+                                </div>
+                                :
+                                null
+                        }
+                    </div>
                 </div>
 
 
@@ -174,35 +197,6 @@ function Area(props) {
                             {otherHand}
                         </div>
                 }
-
-                <div className={styles.PlayerBottom}>
-                    <p>{props.player1.name}</p>
-                    <p className={styles.FactionPlayer}>
-                        <span>{props.G.decks[1].cartes[0].carte.faction.nom}</span>
-                        <img src={process.env.PUBLIC_URL + 'assets/factions/logo-' + props.G.decks[1].cartes[0].carte.faction.image}
-                            alt={props.G.decks[1].cartes[0].carte.faction.nom + ' image'} />
-                    </p>
-                </div>
-
-                {
-                    props.ctx.phase === PHASES.DEPLOYMENT ?
-                        <div className={styles.EndDeployment}>
-                            <button className="button" onClick={endDeploymentHandler}>
-                                Valider le déploiement
-                                </button>
-                        </div>
-                        : null
-                }
-
-                {/* <div className={styles.CardHover}>
-                    {props.cardHover ?
-
-                        <CardUnit unit={props.cardHover}>
-                        </CardUnit>
-                        : null
-                    }
-
-                </div> */}
 
             </div >
         </React.Fragment>

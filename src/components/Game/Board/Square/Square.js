@@ -5,13 +5,13 @@ function Square(props) {
   const cellStyle = {
     border: '1px solid #555',
     width: '100px',
-    height: '150px',
+    height: '125px',
     textAlign: 'center',
-};
+  };
 
   return (
     <div style={cellStyle}>
-       { props.children }
+      {props.children}
     </div>
   )
 }
