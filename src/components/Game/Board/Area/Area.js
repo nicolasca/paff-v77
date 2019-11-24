@@ -101,6 +101,15 @@ function Area(props) {
                         </div>
                 }
 
+                <div className={styles.ZoneDeclaration}>
+                    <div> A1 </div>
+                    <div> B1 </div>
+                    <div> F1 </div>
+                    <div> F2 </div>
+                    <div> B2 </div>
+                    <div> A2 </div>
+                </div>
+
                 <div className={styles.GameInformation}>
 
                     <div className={styles.PlayerTop}>
