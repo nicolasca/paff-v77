@@ -44,6 +44,7 @@
 
 .CardUnit {
   position: relative;
+
 }
 
 .CardUnit.container {
@@ -52,6 +53,7 @@
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: 10% 10% 55% 17% 8%;
   height: 100%;
+
 }
 
 .name {

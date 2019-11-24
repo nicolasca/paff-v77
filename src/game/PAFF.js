@@ -16,7 +16,6 @@ const drop = (G, ctx, options) => {
 
     // Remove from hand if exists
     const hand = G.hands[ctx.playerID].filter((card) => {
-
         return card._id !== options.card._id;
     });
 
@@ -108,7 +107,13 @@ const PAFF = {
                             }
                         }
                     });
-                }
+                },
+                removeCardFromBoard: (G, ctx, options) => {
+                    // Remove from previous square
+                    if (options.previousSquareId) {
+                        G.squares[options.previousSquareId] = null;
+                    }
+                },
             },
             turn: {
                 activePlayers: { all: Stage.NULL },

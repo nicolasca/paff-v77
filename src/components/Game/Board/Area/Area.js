@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SquareDrop from './../Square/SquareDrop';
 import OrdersProgramming from './../OrdersProgramming/OrdersProgramming';
 import CardInGame from './../../CardInGame/CardInGame';
 import IntiativeModal from './../InitiativeModal/InitiativeModal';
 import { PHASES } from './../../../../game/PAFF';
 import styles from './Area.module.scss';
+import BlackHole from './BlackHole/BlackHole';
+import ReserveButton from './Reserve/ReserveButton';
+import Reserve from './Reserve/Reserve';
+import useComponentVisible from './../../../UI/clickOutsideHook';
+
 
 
 function Area(props) {
+
+    const [isReserveOpen, setReserveOpen] = useState(false);
+
+    const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(true);
+
 
     const renderSquare = (i, squareId) => {
 
@@ -74,10 +84,39 @@ function Area(props) {
         props.moves.hideShowOrders();
     }
 
+    const onRemoveCardHandler = (item) => {
+        props.moves.removeCardFromBoard({ card: item.card, previousSquareId: item.previousSquareId });
+    }
+
+    const onClickReserveHandler = () => {
+        setReserveOpen(true);
+        setIsComponentVisible(true);
+    };
+
     return (
         <React.Fragment>
 
             <div className={styles.ScreenGame}>
+
+
+                {
+                    isReserveOpen && isComponentVisible ?
+                        <div className={styles.Reserve} ref={ref}>
+                            {
+                                +props.playerID === props.topPlayer.id ?
+                                    <Reserve
+                                        topHand={playerHand}
+                                        bottomHand={otherHand}>
+                                    </Reserve> :
+                                    <Reserve
+                                        topHand={otherHand}
+                                        bottomHand={playerHand}>
+                                    </Reserve>
+                            }
+                        </div> : null
+                }
+
+
                 {props.ctx.phase === PHASES.INITIATIVE ?
                     <IntiativeModal
                         player0={props.player0.name}
@@ -89,17 +128,35 @@ function Area(props) {
                     >
                     </IntiativeModal> : null}
 
-                {
-                    +props.playerID === props.player0.id ?
+                {props.ctx.phase === PHASES.DEPLOYMENT ?
+                    <React.Fragment>
+                        {
+                            + props.playerID === props.player0.id ?
 
-                        <div className={`${styles.Hand} ${styles.HandTop}`} >
+                                <div className={`${styles.Hand} ${styles.HandTop}`} >
+                                    {playerHand}
+                                </div>
+                                :
+                                <div className={`${styles.Hand} ${styles.HandTop}`} >
+                                    {otherHand}
+                                </div>
+                        }
+                    </React.Fragment>
+                    : null
+                }
+
+                {
+                    +props.playerID === props.player1.id ?
+                        <div className={`${styles.Hand} ${styles.HandBottom}`}>
                             {playerHand}
                         </div>
                         :
-                        <div className={`${styles.Hand} ${styles.HandTop}`} >
+                        <div className={`${styles.Hand} ${styles.HandBottom}`}>
                             {otherHand}
                         </div>
                 }
+
+
 
                 <div className={styles.ZoneDeclaration}>
                     <div> A1 </div>
@@ -113,6 +170,7 @@ function Area(props) {
                 <div className={styles.GameInformation}>
 
                     <div className={styles.PlayerTop}>
+                        <input type="number" />
                         <p>{props.player0.name}</p>
                         <p className={styles.FactionPlayer}>
                             <span>{props.G.decks[0].cartes[0].carte.faction.nom}</span>
@@ -121,7 +179,20 @@ function Area(props) {
                         </p>
                     </div>
 
+                    <div className={styles.BlackHoleReserve}>
+                        <BlackHole
+                            removeCardFromBoard={(item) => onRemoveCardHandler(item)}>
+                        </BlackHole>
+                        <div>
+
+                        </div>
+                        <ReserveButton
+                            onClickReserve={onClickReserveHandler}>
+                        </ReserveButton>
+                    </div>
+
                     <div className={styles.PlayerBottom}>
+                        <input type="number" />
                         <p>{props.player1.name}</p>
                         <p className={styles.FactionPlayer}>
                             <span>{props.G.decks[1].cartes[0].carte.faction.nom}</span>
@@ -194,17 +265,6 @@ function Area(props) {
                 <div className={styles.Board}>
                     {tbody}
                 </div>
-
-                {
-                    +props.playerID === props.player1.id ?
-                        <div className={`${styles.Hand} ${styles.HandBottom}`}>
-                            {playerHand}
-                        </div>
-                        :
-                        <div className={`${styles.Hand} ${styles.HandBottom}`}>
-                            {otherHand}
-                        </div>
-                }
 
             </div >
         </React.Fragment>

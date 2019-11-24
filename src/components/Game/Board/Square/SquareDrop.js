@@ -1,11 +1,10 @@
 import React from 'react';
 import Square from './Square';
 import { ItemTypes } from './../../Drag/ItemTypes';
-import { useDrop } from 'react-dnd'
+import { useDrop } from 'react-dnd';
 
 function SquareDrop(props) {
 
-  // const [{ isOver, canDrop }, drop] = useDrop({
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: ItemTypes.CARD,
     drop: (item) => props.moveCard(item),
