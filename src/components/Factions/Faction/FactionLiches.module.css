@@ -1,34 +1,34 @@
 .Logo {
-    max-width: 200px;
+  max-width: 200px;
 }
 
 .BgImage {
-    height: calc(100vh - 60px);
-    background-size: cover;
-    background-position: 'top';
-    background-image: url(../../../assets/factions/liches.jpg);
+  height: calc(100vh - 60px);
+  background-size: cover;
+  background-position: 'top';
+  background-image: url(../../../assets/factions/liches.jpg);
 }
 
 .Description {
-    position: absolute;
-    width: 500px;
-    right: 10%;
-    bottom: 10%;
-    background: white;
-    padding: 1rem 3rem 5rem 3rem;
-    border: 1px solid #c0a13b;
+  position: absolute;
+  width: 500px;
+  right: 10%;
+  bottom: 10%;
+  background: white;
+  padding: 1rem 3rem 5rem 3rem;
+  border: 1px solid #c0a13b;
 }
 
 h2.Title {
-    text-align: center;
-    color: #c0a13b;
+  text-align: center;
+  color: #c0a13b;
 }
 
 .Lettrine p:first-of-type:first-letter {
-    font-family: 'Fantasy';
-    font-size: 5rem;
-    color: #c0a13b;
-    padding: 5px 10px 5px 0px;
-    margin-right: 5px;
-    float: left;
+  font-family: 'Fantasy';
+  font-size: 5rem;
+  color: #c0a13b;
+  padding: 5px 10px 5px 0px;
+  margin-right: 5px;
+  float: left;
 }

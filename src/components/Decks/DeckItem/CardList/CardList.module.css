@@ -5,7 +5,7 @@
   max-width: 250px;
 }
 
-.Unites .cardItem > div:first-of-type {
+.Unites .cardItem>div:first-of-type {
   height: 400px;
 }
 

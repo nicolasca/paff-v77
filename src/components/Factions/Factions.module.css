@@ -1,20 +1,20 @@
 .Logo {
-    max-width: 200px;
+  max-width: 200px;
 }
 
 .Faction {
-    margin-top: 3rem;
-    display: flex;
-    justify-content: space-evenly;
+  margin-top: 3rem;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .FactionItem {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 .FactionItem h3 {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }

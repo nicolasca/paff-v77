@@ -1,9 +1,9 @@
-.Battleground{
-    grid-column: 2 / 3;
-    grid-row: 2 / 3;
+.Battleground {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
 
-    display: grid;
-    grid-template-columns: repeat(2, 100px) 6px repeat(3, 100px) 6px repeat(2, 100px);
-    grid-template-rows: repeat(6, 125px);
-    grid-gap: 1rem 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 100px) 6px repeat(3, 100px) 6px repeat(2, 100px);
+  grid-template-rows: repeat(6, 125px);
+  grid-gap: 1rem 1rem;
 }

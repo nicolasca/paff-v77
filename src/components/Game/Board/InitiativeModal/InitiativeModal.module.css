@@ -1,23 +1,23 @@
 .Modal {
-    position: fixed;
+  position: fixed;
 }
 
 .Title {
-    text-align: center;
+  text-align: center;
 }
 
 .InitiativeScore {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 2rem;
 }
 
 .RollLife {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .Result {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }

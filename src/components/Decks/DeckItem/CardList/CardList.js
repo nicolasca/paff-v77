@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import CardUnit from '../CardUnit/CardUnit';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { config } from '../../../../config';
 import CardOrder from '../CardOrder/CardOrder';
+import CardUnit from '../CardUnit/CardUnit';
 import CardSelector from './../CardSelector/CardSelector';
 import styles from './CardList.module.css';
-import PropTypes from 'prop-types';
-import axios from 'axios';
-import { config } from '../../../../config';
 
 function CardList(props) {
   const [orders, setOrders] = useState([]);
@@ -24,10 +24,10 @@ function CardList(props) {
         </CardUnit>
 
         <CardSelector
-              count={props.cards[key].count}
-              name={props.cards[key].nom}
-            >
-            </CardSelector> 
+          count={props.cards[key].count}
+          name={props.cards[key].nom}
+        >
+        </CardSelector>
       </div>
     );
   });

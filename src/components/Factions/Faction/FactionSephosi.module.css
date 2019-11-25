@@ -1,34 +1,34 @@
 .Logo {
-    max-width: 200px;
+  max-width: 200px;
 }
 
 .BgImage {
-    height: calc(100vh - 60px);
-    background-size: cover;
-    background-position: 'top';
-    background-image: url(../../../assets/factions/sephosi.jpg);
+  height: calc(100vh - 60px);
+  background-size: cover;
+  background-position: 'top';
+  background-image: url(../../../assets/factions/sephosi.jpg);
 }
 
 .Description {
-    position: absolute;
-    width: 500px;
-    right: 10%;
-    bottom: 10%;
-    background: white;
-    padding: 1rem 3rem 5rem 3rem;
-    border: 1px solid #C00000;
+  position: absolute;
+  width: 500px;
+  right: 10%;
+  bottom: 10%;
+  background: white;
+  padding: 1rem 3rem 5rem 3rem;
+  border: 1px solid #C00000;
 }
 
 h2.Title {
-    text-align: center;
-    color: #C00000;
+  text-align: center;
+  color: #C00000;
 }
 
 .Lettrine p:first-of-type:first-letter {
-    font-family: 'Fantasy';
-    font-size: 5rem;
-    color: #C00000;
-    padding: 5px 10px 5px 0px;
-    margin-right: 5px;
-    float: left;
+  font-family: 'Fantasy';
+  font-size: 5rem;
+  color: #C00000;
+  padding: 5px 10px 5px 0px;
+  margin-right: 5px;
+  float: left;
 }

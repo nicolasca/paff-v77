@@ -1,33 +1,33 @@
 .DeployPoints {
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid black;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
 }
 
 .Card {
-    padding: 5px 0 5px 5px;
+  padding: 5px 0 5px 5px;
 }
 
 .troupe {
-    border-left: 5px solid #325080;
+  border-left: 5px solid #325080;
 }
 
 .tir {
-    border-left: 5px solid #16802D;
+  border-left: 5px solid #16802D;
 }
 
 .cavalerie {
-    border-left: 5px solid #771680;
+  border-left: 5px solid #771680;
 }
 
 .artillerie {
-    border-left: 5px solid red;
+  border-left: 5px solid red;
 }
 
 .elite {
-    border-left: 5px solid #FAC55D;
+  border-left: 5px solid #FAC55D;
 }
 
 .ordre {
-    border-left: 5px solid grey;
+  border-left: 5px solid grey;
 }
