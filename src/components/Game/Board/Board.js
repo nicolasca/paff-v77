@@ -1,111 +1,79 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { DndProvider } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import Draft from '../Draft/Draft';
 import { PHASES } from './../../../game/PAFF';
-import * as actionTypes from '../../../store/actions/actionTypes';
-import { connect } from 'react-redux';
-import { DndProvider } from 'react-dnd'
-import HTML5Backend from 'react-dnd-html5-backend'
-import Area from './Area/Area';
+import GameArea from './GameArea/GameArea';
 
 
 function Board(props) {
 
-    const [initiativeFinished, setInitiativeFinished] = useState(false);
-    const { G, events } = props;
+	const [initiativeFinished, setInitiativeFinished] = useState(false);
+	const { G, events } = props;
 
-    const selectedDeckHandler = (deck, orders) => {
-        props.moves.setDeck(deck, props.playerID, orders);
-    }
+	const selectedDeckHandler = (deck, orders) => {
+		props.moves.setDeck(deck, props.playerID, orders);
+	}
 
-    const getPlayer0 = () => {
-        return props.gameMetadata.find((player) => player.id === 0)
-    }
 
-    const getPlayer1 = () => {
-        return props.gameMetadata.find((player) => player.id === 1)
-    }
 
-    const topPlayer = () => {
-        return props.gameMetadata.find((player) => player.id === 0)
-    }
+	const onRollDiceHandler = () => {
+		props.moves.rollDice(props.playerID);
+	}
 
-    const bottomPlayer = () => {
-        return props.gameMetadata.find((player) => player.id === 1)
-    }
+	useEffect(() => {
+		setInitiativeFinished(G.initiativeScore[0] !== null && G.initiativeScore[1] !== null);
+		if (G.initiativeScore[0] !== null && G.initiativeScore[1] !== null
+			&& props.ctx.phase === PHASES.INITIATIVE) {
+			setTimeout(() => {
+				events.setPhase(PHASES.DEPLOYMENT);
+			}, 5000);
+		}
+	}, [G.initiativeScore, props.ctx.phase, events]);
 
-    const onRollDiceHandler = () => {
-        props.moves.rollDice(props.playerID);
-    }
+	const onDropHandler = (item, squareId) => {
+		props.moves.drop({ card: item.card, squareId: squareId, previousSquareId: item.previousSquareId });
+	}
 
-    useEffect(() => {
-        setInitiativeFinished(G.initiativeScore[0] !== null && G.initiativeScore[1] !== null);
-        if (G.initiativeScore[0] !== null && G.initiativeScore[1] !== null
-            && props.ctx.phase === PHASES.INITIATIVE) {
-            setTimeout(() => {
-                events.setPhase(PHASES.DEPLOYMENT);
-            }, 5000);
-        }
-    }, [G.initiativeScore, props.ctx.phase, events]);
+	let screenPhase = '';
 
-    const onDropHandler = (item, squareId) => {
-        props.moves.drop({ card: item.card, squareId: squareId, previousSquareId: item.previousSquareId });
-    }
+	switch (props.ctx.phase) {
+		case PHASES.DRAFT:
+			screenPhase = (<Draft onClickHandler={selectedDeckHandler}></Draft>);
+			break;
+		case PHASES.INITIATIVE:
+		case PHASES.DEPLOYMENT:
+		case PHASES.CHOOSE_ORDERS:
 
-    let screenPhase = '';
+			screenPhase = (
+				<GameArea
+					G={G}
+					ctx={props.ctx}
+					moves={props.moves}
+					events={events}
+					onDrop={(item, squareId) => onDropHandler(item, squareId)}
+					onRollDice={onRollDiceHandler}
+					gameMetadata={props.gameMetadata}
+					initiativeFinished={initiativeFinished}
+					playerID={props.playerID}
+					cardHover={props.cardHover}
+				>
+				</GameArea>)
 
-    switch (props.ctx.phase) {
-        case PHASES.DRAFT:
-            screenPhase = (<Draft onClickHandler={selectedDeckHandler}></Draft>);
-            break;
-        case PHASES.INITIATIVE:
-        case PHASES.DEPLOYMENT:
-        case PHASES.CHOOSE_ORDERS:
+			break;
+		default:
+			console.log('No phase');
+	}
 
-            screenPhase = (
-                <Area
-                    G={G}
-                    ctx={props.ctx}
-                    moves={props.moves}
-                    events={events}
-                    onDrop={(item, squareId) => onDropHandler(item, squareId)}
-                    onRollDice={onRollDiceHandler}
-                    player0={getPlayer0()}
-                    player1={getPlayer1()}
-                    topPlayer={topPlayer()}
-                    bottomPlayer={bottomPlayer()}
-                    initiativeFinished={initiativeFinished}
-                    playerID={props.playerID}
-                    cardHover={props.cardHover}
-                >
-                </Area>)
+	return (
+		<DndProvider backend={HTML5Backend}>
+			<div>
+				{screenPhase}
+			</div>
+		</DndProvider>
 
-            break;
-        default:
-            console.log('No phase');
-    }
-
-    return (
-        <DndProvider backend={HTML5Backend}>
-            <div>
-                {screenPhase}
-            </div>
-        </DndProvider>
-
-    );
-}
-
-const mapStateToProps = (state) => {
-    return {
-        cardHover: state.gameReducer.cardHover,
-    }
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        showCardHover: (card) => dispatch({ type: actionTypes.CARD_MOUSE_ENTER, card: card }),
-        hideCardHover: () => dispatch({ type: actionTypes.CARD_MOUSE_LEAVE })
-    }
+	);
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Board);
+export default Board;
