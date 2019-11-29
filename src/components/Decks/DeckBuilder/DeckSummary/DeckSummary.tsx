@@ -1,8 +1,12 @@
-import React from 'react';
-import styles from './DeckSummary.module.css';
 import PropTypes from 'prop-types';
+import * as React from 'react';
+import styles from './DeckSummary.module.css';
 
-function DeckSummary(props) {
+interface DeckSummaryProps {
+  cards: any,
+}
+
+const DeckSummary: React.SFC<DeckSummaryProps> = (props) => {
 
   let pts_depl = 0;
   let nombreCartes = 0;

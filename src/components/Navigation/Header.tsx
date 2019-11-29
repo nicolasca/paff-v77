@@ -2,7 +2,12 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Header.module.scss';
 
-function Header(props) {
+interface HeaderProps {
+  isAuthenticated: boolean;
+  username: string;
+}
+
+const Header: React.SFC<HeaderProps & React.HTMLAttributes<HTMLDivElement>> = (props) => {
 
   return (
     <header className={styles.Header}>

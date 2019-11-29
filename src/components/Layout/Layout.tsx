@@ -1,22 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Redirect, Switch } from 'react-router-dom';
-import styles from './Layout.module.css';
-import Home from '../Home/Home';
-import Header from '../Navigation/Header';
-import Factions from '../Factions/Factions';
-import FactionPeauxVertes from '../Factions/Faction/FactionPeauxVertes';
-import FactionSephosi from '../Factions/Faction/FactionSephosi';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import Auth from '../Auth/Auth';
+import Logout from '../Auth/Logout/Logout';
+import SignIn from '../Auth/SignIn';
+import DeckBuilder from '../Decks/DeckBuilder/DeckBuilder';
+import DeckList from '../Decks/DeckList/DeckList';
 import FactionGaeli from '../Factions/Faction/FactionGaeli';
 import FactionLiches from '../Factions/Faction/FactionLiches';
-import Auth from '../Auth/Auth';
-import SignIn from '../Auth/SignIn';
-import Logout from '../Auth/Logout/Logout';
-import DeckList from '../Decks/DeckList/DeckList';
-import DeckBuilder from '../Decks/DeckBuilder/DeckBuilder';
+import FactionPeauxVertes from '../Factions/Faction/FactionPeauxVertes';
+import FactionSephosi from '../Factions/Faction/FactionSephosi';
+import Factions from '../Factions/Factions';
+import Home from '../Home/Home';
+import Header from '../Navigation/Header';
+import styles from './Layout.module.css';
 
+interface LayoutProps {
+  isAuthenticated: boolean;
+  username: string;
+}
 
-function Layout(props) {
+const Layout: React.SFC<LayoutProps & React.HTMLAttributes<HTMLDivElement>> = (props) => {
 
   let content;
 
@@ -66,7 +70,7 @@ function Layout(props) {
 }
 
 
-const mapStateToProps = state => {
+const mapStateToProps = (state:any) => {
   return {
     isAuthenticated: state.authReducer.token !== null,
     username: state.authReducer.username,

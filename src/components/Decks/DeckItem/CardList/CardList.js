@@ -55,7 +55,7 @@ function CardList(props) {
 
   return (
     <div className={styles.CardList}>
-      <h3 className="title">Unités</h3>
+      <h3>Unités</h3>
       <div className={styles.Unites}>{cardsUnites}</div>
       <h3 className="title">Ordres</h3>
       <div className={styles.Ordres}>{orders}</div>

@@ -1,43 +1,68 @@
 import axios from 'axios';
-import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { config } from '../../../config';
+import { ICard, IOrder, IUnite } from '../../../models/ICard';
+import { IDeck } from '../../../models/IDeck';
+import { IFaction } from '../../../models/IFaction';
 import * as actionTypes from '../../../store/actions/actionTypes';
 import DeckItem from '../DeckItem/DeckItem';
 import styles from "./DeckBuilder.module.css";
 import DeckSummary from './DeckSummary/DeckSummary';
 
-function DeckBuilder(props) {
+interface DeckBuilderProps {
+  cardsToDisplay: any;
+  setInitCards: any;
+  username: string;
+  token: string;
+  history: any;
+  resetCount: any;
+}
+
+const DeckBuilder: React.SFC<DeckBuilderProps> = (props) => {
 
   const { setInitCards } = props;
-  const [selectedFaction, setSelectedFaction] = useState(null);
-  const [nom, setNom] = useState('');
-  const [description, setDescription] = useState('');
-  const [unites, setUnites] = useState([]);
-  const [ordres, setOrdres] = useState([]);
+  const [selectedFaction, setSelectedFaction] = React.useState<IFaction>(null!);
+  const [nom, setNom] = React.useState('');
+  const [description, setDescription] = React.useState('');
+  const [unites, setUnites] = React.useState<IUnite[]>([]);
+  const [ordres, setOrdres] = React.useState<IOrder[]>([]);
+  const [factions, setFactions] = React.useState<IFaction[]>([]);
+  const [factionsOptions, setFactionsOptions] = React.useState([]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     axios.all([
       axios.get(config.host + ":3008/unites"),
+      axios.get(config.host + ":3008/factions"),
       axios.get(config.host + ":3008/ordres")])
-      .then(axios.spread((unitesHttp, ordresHttp) => {
+      .then(axios.spread((unitesHttp, factionsHttp, ordresHttp) => {
 
         setUnites(unitesHttp.data);
         setOrdres(ordresHttp.data);
 
-        setSelectedFaction(unitesHttp.data[0].faction.slug);
+        // Factions
+        const factionOptions = factionsHttp.data.map((faction: IFaction) => {
+          return (
+          <option value={faction.slug}>{faction.nom}</option>
+          )
+
+        })
+        setFactionsOptions(factionOptions);
+        setFactions(factionsHttp.data);
+        setSelectedFaction(factionsHttp.data[0]);
+
+
       }));
   }, [])
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (selectedFaction) {
 
-      const cards = [];
+      const cards: any = {};
       // Populate les unites
       unites.forEach((unite) => {
-        if (unite.faction.slug === selectedFaction) {
+        if (unite.faction.slug === selectedFaction.slug) {
           cards[unite.nom] = {
             ...unite,
             count: 0,
@@ -47,7 +72,8 @@ function DeckBuilder(props) {
 
       // Populate les ordres
       ordres.forEach((ordre) => {
-        if (ordre.faction.slug === selectedFaction.slug || ordre.faction === 'commun') {
+        if ((typeof ordre.faction === 'object' && ordre.faction.slug === selectedFaction.slug) ||
+          ordre.faction === 'commun') {
           // Faire une copie de l'ordre
           cards[ordre.nom] = {
             ...ordre,
@@ -62,17 +88,17 @@ function DeckBuilder(props) {
 
   }, [selectedFaction, unites, ordres, setInitCards]);
 
-  const changeFactionHandler = (event) => {
-    setSelectedFaction(event.target.value);
+  const changeFactionHandler = (event: any) => {
+    const faction: IFaction = factions.find((faction) => faction.slug === event.target.value)!;
+    setSelectedFaction(faction);
   }
 
-
-  const nomChangeHandler = (event) => {
+  const nomChangeHandler = (event: any) => {
     const value = event.target.value;
     setNom(value);
   }
 
-  const descriptionChangeHandler = (event) => {
+  const descriptionChangeHandler = (event: any) => {
     const value = event.target.value;
     setDescription(value);
   }
@@ -83,11 +109,12 @@ function DeckBuilder(props) {
       description: description,
       faction: selectedFaction,
       joueur: props.username,
+      cartes: [],
       createDate: new Date().toISOString(),
       updateDate: new Date().toISOString(),
-    };
+    } as IDeck;
 
-    const cardsToSave = [];
+    const cardsToSave: ICard[] = [];
 
     Object.keys(props.cardsToDisplay).forEach((key, index) => {
       if (props.cardsToDisplay[key].count > 0) {
@@ -115,7 +142,6 @@ function DeckBuilder(props) {
       .catch((error) => {
         console.log(error);
       })
-
   }
 
 
@@ -159,12 +185,8 @@ function DeckBuilder(props) {
               <div className="control">
                 <div className="select">
                   <select onChange={changeFactionHandler}
-                    value={selectedFaction}
                     id="TheSelect">
-                    <option value="peaux-vertes">Peaux Vertes</option>
-                    <option value="sephosi">Sephosi</option>
-                    <option value="gaeli">Gaeli</option>
-                    <option value="liches">Liches</option>
+                      {factionsOptions}
                   </select>
                 </div>
               </div>
@@ -194,7 +216,7 @@ function DeckBuilder(props) {
 
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: any) => {
   return {
     cardsToDisplay: state.deckReducer.cardsToDisplay,
     token: state.authReducer.token,
@@ -202,17 +224,11 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
-    setInitCards: (cards) => dispatch({ type: actionTypes.INIT_CARD_DISPLAY, cards: cards }),
+    setInitCards: (cards: ICard[]) => dispatch({ type: actionTypes.INIT_CARD_DISPLAY, cards: cards }),
     resetCount: () => dispatch({ type: actionTypes.RESET_COUNT })
   }
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DeckBuilder));
-
-DeckBuilder.propTypes = {
-  cardsToDisplay: PropTypes.object,
-  username: PropTypes.string,
-  token: PropTypes.string,
-};
