@@ -16,12 +16,13 @@ const drop = (G, ctx, options) => {
 
   // Remove from hand if exists
   const hand = G.hands[ctx.playerID].filter((card) => {
-    return card._id !== options.card._id;
+    return card.gameCardId !== options.card.gameCardId;
   });
 
   G.hands[ctx.playerID] = hand
   G.squares[options.squareId] = options.card;
 }
+
 
 const PAFF = {
   name: 'PAFF',
@@ -49,8 +50,14 @@ const PAFF = {
           G.availableOrders[playerID] = orders;
 
           const hand = [];
+
           deck.cartes.forEach((item) => {
             for (let number = 0; number < item.nbExemplaires; number++) {
+              item.carte['gameCardId'] = function () {
+                return Math.random() * 100;
+              }();
+              console.log(item.carte.gameCardId);
+
               hand.push(item.carte);
             }
           });

@@ -12,4 +12,12 @@
 
 .Hand {
   display: flex;
+  flex-wrap: wrap;
+  overflow: scroll;
+}
+
+.Other {
+  display: flex;
+  background: white;
+  padding: 1rem;
 }

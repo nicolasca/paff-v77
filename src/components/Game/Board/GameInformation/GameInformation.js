@@ -39,9 +39,13 @@ function GameInformation(props) {
         <div>
 
         </div>
-        <ReserveButton
-          onClickReserve={props.onClickReserveHandler}>
-        </ReserveButton>
+
+        {props.ctx.phase === PHASES.CHOOSE_ORDERS ?
+          <ReserveButton
+            onClickReserve={props.onClickReserveHandler}>
+          </ReserveButton>
+          : null
+        }
       </div>
 
       <div className={styles.PlayerBottom}>
@@ -53,6 +57,16 @@ function GameInformation(props) {
             alt={props.G.decks[1].cartes[0].carte.faction.nom + ' image'} />
         </p>
       </div>
+
+      {
+        props.ctx.phase === PHASES.DEPLOYMENT ?
+          <div className={styles.EndDeployment}>
+            <button className="button" onClick={endDeploymentHandler}>
+              Valider le déploiement
+                                </button>
+          </div>
+          : null
+      }
 
 
       <div className={styles.OrdersTop}>
@@ -78,15 +92,6 @@ function GameInformation(props) {
             null
         }
 
-        {
-          props.ctx.phase === PHASES.DEPLOYMENT ?
-            <div className={styles.EndDeployment}>
-              <button className="button" onClick={endDeploymentHandler}>
-                Valider le déploiement
-                                </button>
-            </div>
-            : null
-        }
       </div>
 
       <div className={styles.OrdersBottom}>

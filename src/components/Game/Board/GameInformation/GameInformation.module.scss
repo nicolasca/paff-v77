@@ -1,6 +1,7 @@
 .GameInformation {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  height: 100%;
 
   .PlayerTop {
     display: flex;
@@ -38,7 +39,8 @@
 
   .EndDeployment {
     grid-column: 8 / 10;
-    grid-row: 4 / 5;
+    grid-row: 3 / 4;
+    align-self: center;
   }
 
   .FactionPlayer {

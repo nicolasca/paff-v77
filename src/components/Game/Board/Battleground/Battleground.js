@@ -10,6 +10,7 @@ function Battleground(props) {
 
     return (
       <SquareDrop
+        G={props.G}
         key={i}
         square={squareId}
         moveCard={(item) => props.onDrop(item, squareId)}>

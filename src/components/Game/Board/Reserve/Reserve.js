@@ -12,8 +12,8 @@ function Reserve(props) {
           {props.topHand}
         </div>
 
-        <div className={`${styles.Hand}`} >
-          {props.bottomHand}
+        <div className={`${styles.Other}`} >
+          Votre adversaire a {props.bottomHand.length} cartes dans sa réserve
         </div>
       </div>
 
