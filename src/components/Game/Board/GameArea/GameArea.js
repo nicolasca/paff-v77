@@ -41,9 +41,6 @@ function GameArea(props) {
     );
   });
 
-  console.log(props.G.hands[props.playerID]);
-
-
   const otherPlayerID = +props.playerID === 0 ? 1 : 0;
   const otherHand = props.G.hands[otherPlayerID].map((card, index) => {
     return (

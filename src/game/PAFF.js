@@ -51,17 +51,15 @@ const PAFF = {
 
           const hand = [];
 
-          deck.cartes.forEach((item) => {
+          for (let itemNumber = 0; itemNumber < deck.cartes.length; itemNumber++) {
+            const item = deck.cartes[itemNumber];
             for (let number = 0; number < item.nbExemplaires; number++) {
-              item.carte['gameCardId'] = function () {
-                return Math.random() * 100;
-              }();
-              console.log(item.carte.gameCardId);
-
-              hand.push(item.carte);
+              const cardCopy = { ...item.carte };
+              let carteGameId = `${itemNumber}-${number}`;
+              cardCopy['gameCardId'] = carteGameId;
+              hand.push(cardCopy);
             }
-          });
-
+          };
           G.hands[playerID] = hand;
         },
       },
