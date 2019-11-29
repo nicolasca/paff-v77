@@ -1,9 +1,12 @@
-import React from 'react';
-import styles from './CardUnit.module.scss';
+import React, { FunctionComponent } from 'react';
 import { config } from '../../../../config';
-import PropTypes from 'prop-types';
+import { IUnite } from '../../../../models/ICard';
+import styles from './CardUnit.module.scss';
 
-function CardUnit(props) {
+interface CardUnitProps {
+  unit: IUnite;
+}
+const CardUnit: FunctionComponent<CardUnitProps> = (props) => {
 
 	let type = '';
 
@@ -82,7 +85,3 @@ function CardUnit(props) {
 }
 
 export default CardUnit;
-
-CardUnit.propTypes = {
-	card: PropTypes.object,
-} 

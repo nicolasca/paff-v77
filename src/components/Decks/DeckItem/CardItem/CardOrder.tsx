@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
+import { IOrder } from '../../../../models/ICard';
 import styles from './CardOrder.module.scss';
 
-function CardOrder(props) {
+interface CardOrderProps {
+  order: IOrder;
+}
 
+const CardOrder: FunctionComponent<CardOrderProps> = (props) => {
+
+  const slug = typeof props.order.faction === 'object' ? props.order.faction.slug : props.order.faction;
     return (
-        <div className={[styles.container, styles[props.order.faction.slug]].join(' ')}>
+      <div className={[styles.container, styles[slug]].join(' ')}>
             <div className={styles.recuperable}>
                 {props.order.recuperable ? 'R' : ' '}
             </div>

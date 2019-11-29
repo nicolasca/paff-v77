@@ -10,6 +10,7 @@ export interface IUnite {
   _id: string;
   nom: string;
   slug: string;
+  type: string;
   faction: IFaction;
   deploy: number;
   regiment: number;
@@ -20,7 +21,8 @@ export interface IUnite {
   defCac: number;
   defTir: number;
   image: string;
-  capacites: ICapacity[]
+  capacites: ICapacity[];
+  count?: number;
 }
 
 export interface IOrder {

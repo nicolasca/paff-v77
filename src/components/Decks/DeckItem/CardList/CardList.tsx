@@ -1,11 +1,18 @@
 import axios from 'axios';
-import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { config } from '../../../../config';
+import { IOrder } from '../../../../models/ICard';
+import { IFaction } from '../../../../models/IFaction';
 import CardItem from '../CardItem/CardItem';
+import CardOrder from '../CardItem/CardOrder';
 import styles from './CardList.module.css';
 
-function CardList(props) {
+interface CardListProps {
+  cards: any;
+  faction: IFaction;
+}
+
+const CardList: FunctionComponent<CardListProps> = (props) => {
   const [orders, setOrders] = useState([]);
 
   // Separer les unites et ordres
@@ -13,7 +20,7 @@ function CardList(props) {
     return props.cards[key].type !== 'ordre';
   });
 
-  const cardsUnites = unites.map((key, index) => {
+  const cardsUnites = unites.map((key: string, index: number) => {
 
     return (
       <div className={styles.cardItem} key={index}>
@@ -29,17 +36,17 @@ function CardList(props) {
       const ordresAll = await axios.get(config.host + ":3008/ordres");
 
       // Populate les ordres
-      const ordres = ordresAll.data.filter((ordre) => {
-        return ordre.faction === 'commun' || ordre.faction.slug === props.faction;
+      const ordres = ordresAll.data.filter((order: IOrder) => {
+        return (typeof order.faction === 'object' && order.faction.slug === props.faction.slug) || order.faction === 'commun';
       });
 
 
-      const cardsOrdres = ordres.map((ordre, index) => {
+      const cardsOrdres = ordres.map((ordre: IOrder, index: number) => {
         return (
           <div className={styles.cardItem} key={index}>
-            <CardItem
-              card={ordre}>
-            </CardItem>
+            <CardOrder
+              order={ordre}>
+            </CardOrder>
           </div>
         )
       });
@@ -64,8 +71,3 @@ function CardList(props) {
 }
 
 export default CardList;
-
-CardList.propTypes = {
-  cards: PropTypes.object,
-  faction: PropTypes.string,
-} 

@@ -44,7 +44,7 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = (props) => {
         // Factions
         const factionOptions = factionsHttp.data.map((faction: IFaction) => {
           return (
-          <option value={faction.slug}>{faction.nom}</option>
+          <option key={faction.slug} value={faction.slug}>{faction.nom}</option>
           )
 
         })
