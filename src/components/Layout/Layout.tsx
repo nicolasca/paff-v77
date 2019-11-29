@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Auth from '../Auth/Auth';
@@ -20,7 +20,7 @@ interface LayoutProps {
   username: string;
 }
 
-const Layout: React.SFC<LayoutProps & React.HTMLAttributes<HTMLDivElement>> = (props) => {
+const Layout: FunctionComponent<LayoutProps> = (props) => {
 
   let content;
 
@@ -28,7 +28,6 @@ const Layout: React.SFC<LayoutProps & React.HTMLAttributes<HTMLDivElement>> = (p
     content = (
       <React.Fragment>
         <Header
-          className={styles.Header}
           username={props.username}
           isAuthenticated={props.isAuthenticated}></Header>
         <main className={styles.Main}>

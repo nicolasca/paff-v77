@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Header.module.scss';
 
@@ -7,7 +7,7 @@ interface HeaderProps {
   username: string;
 }
 
-const Header: React.SFC<HeaderProps & React.HTMLAttributes<HTMLDivElement>> = (props) => {
+const Header: FunctionComponent<HeaderProps> = (props) => {
 
   return (
     <header className={styles.Header}>

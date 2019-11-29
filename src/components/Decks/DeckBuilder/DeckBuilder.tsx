@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as React from 'react';
+import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { config } from '../../../config';
@@ -20,7 +20,7 @@ interface DeckBuilderProps {
   resetCount: any;
 }
 
-const DeckBuilder: React.SFC<DeckBuilderProps> = (props) => {
+const DeckBuilder: FunctionComponent<DeckBuilderProps> = (props) => {
 
   const { setInitCards } = props;
   const [selectedFaction, setSelectedFaction] = React.useState<IFaction>(null!);
