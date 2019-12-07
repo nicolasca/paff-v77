@@ -64,7 +64,7 @@ function Draft(props) {
   return (
     <div>
       {options ?
-        <div>
+        <React.Fragment>
           <label className="label">Tes decks</label>
           <div className="control" >
             <div className="select">
@@ -76,7 +76,7 @@ function Draft(props) {
             </div>
           </div>
           <button className="button" onClick={validateDeckHandler}>Choisir</button>
-        </div> : null}
+        </React.Fragment> : null}
     </div>
   );
 }
