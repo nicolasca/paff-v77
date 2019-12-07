@@ -9,29 +9,30 @@ import Reserve from '../Reserve/Reserve';
 import styles from './GameArea.module.scss';
 
 
-function GameArea(props) {
+function GameArea({ G, ctx, gameMetadata, onRollDice, initiativeFinished, moves, events, onDrop, playerID }) {
+  console.log(ctx);
 
   const [isReserveOpen, setReserveOpen] = useState(false);
   const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(true);
 
   const getPlayer0 = () => {
-    return props.gameMetadata.find((player) => player.id === 0)
+    return gameMetadata.find((player) => player.id === 0)
   }
 
   const getPlayer1 = () => {
-    return props.gameMetadata.find((player) => player.id === 1)
+    return gameMetadata.find((player) => player.id === 1)
   }
 
   const topPlayer = () => {
-    return props.gameMetadata.find((player) => player.id === 0)
+    return gameMetadata.find((player) => player.id === 0)
   }
 
   const bottomPlayer = () => {
-    return props.gameMetadata.find((player) => player.id === 1)
+    return gameMetadata.find((player) => player.id === 1)
   }
 
 
-  const playerHand = props.G.hands[props.playerID].map((card, index) => {
+  const playerHand = G.hands[playerID].map((card, index) => {
     return (
 
       <div className={styles.Card} key={index}>
@@ -41,8 +42,8 @@ function GameArea(props) {
     );
   });
 
-  const otherPlayerID = +props.playerID === 0 ? 1 : 0;
-  const otherHand = props.G.hands[otherPlayerID].map((card, index) => {
+  const otherPlayerID = +playerID === 0 ? 1 : 0;
+  const otherHand = G.hands[otherPlayerID].map((card, index) => {
     return (
       <div className={styles.HiddenCard} key={index}>
       </div>
@@ -61,7 +62,7 @@ function GameArea(props) {
       <div className={styles.ScreenGame}>
 
         {/* Cards inside the reserve. Can be dropped into the battleground */}
-        {props.ctx.phase === PHASES.CHOOSE_ORDERS ?
+        {ctx.phase === PHASES.CHOOSE_ORDERS ?
           <React.Fragment>
             {
               isReserveOpen && isComponentVisible ?
@@ -80,22 +81,22 @@ function GameArea(props) {
 
 
         {/* During the initiative phase, display the modal to roll the dices */}
-        {props.ctx.phase === PHASES.INITIATIVE ?
+        {ctx.phase === PHASES.INITIATIVE ?
           <IntiativeModal
             player0={getPlayer0().name}
             player1={getPlayer1().name}
-            score0={props.G.initiativeScore[0]}
-            score1={props.G.initiativeScore[1]}
-            onRollDiceHandler={props.onRollDice}
-            hasResult={props.initiativeFinished}
+            score0={G.initiativeScore[0]}
+            score1={G.initiativeScore[1]}
+            onRollDiceHandler={onRollDice}
+            hasResult={initiativeFinished}
           >
           </IntiativeModal> : null}
 
         {/* Both top and bottom hands displayed during the deployment phase */}
-        {props.ctx.phase === PHASES.DEPLOYMENT ?
+        {ctx.phase === PHASES.DEPLOYMENT ?
           <React.Fragment>
             {
-              + props.playerID === getPlayer0().id ?
+              + playerID === getPlayer0().id ?
 
                 <div className={`${styles.Hand} ${styles.HandTop}`} >
                   {playerHand}
@@ -107,7 +108,7 @@ function GameArea(props) {
             }
 
             {
-              +props.playerID === getPlayer1().id ?
+              +playerID === getPlayer1().id ?
                 <div className={`${styles.Hand} ${styles.HandBottom}`}>
                   {playerHand}
                 </div>
@@ -134,14 +135,15 @@ function GameArea(props) {
         {/* Game information with: player names, score, orders */}
         <div className={styles.GameInformationContainer}>
           <GameInformation
-            G={props.G}
-            ctx={props.ctx}
+            G={G}
+            ctx={ctx}
+            playerID={playerID}
             player0={getPlayer0()}
             player1={getPlayer1()}
             topPlayer={topPlayer()}
             bottomPlayer={bottomPlayer()}
-            moves={props.moves}
-            events={props.events}
+            moves={moves}
+            events={events}
             onClickReserveHandler={onClickReserveHandler}>
           </GameInformation>
 
@@ -150,8 +152,8 @@ function GameArea(props) {
         {/* Battleground area. Where the action takes place */}
         <div className={styles.BattlegroundContainer}>
           <Battleground
-            G={props.G}
-            onDrop={props.onDrop}
+            G={G}
+            onDrop={onDrop}
           >
           </Battleground>
         </div>

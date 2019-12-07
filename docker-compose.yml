@@ -2,16 +2,13 @@ version: '3.7'
 
 services:
 
-  sample:
-    container_name: paff-v77
+  webapp:
     restart: unless-stopped
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
-      - '.:/app'
-      - '/app/node_modules'
-    ports:
-      - '3001:3000'
     environment:
       - NODE_ENV=development
+    ports:
+      - '8000:80'
+

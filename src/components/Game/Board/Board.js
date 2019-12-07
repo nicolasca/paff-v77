@@ -6,38 +6,37 @@ import { PHASES } from './../../../game/PAFF';
 import GameArea from './GameArea/GameArea';
 
 
-function Board(props) {
+function Board({ G, events, moves, playerID, ctx, gameMetadata }) {
 
   const [initiativeFinished, setInitiativeFinished] = useState(false);
-  const { G, events } = props;
 
   const selectedDeckHandler = (deck, orders) => {
-    props.moves.setDeck(deck, props.playerID, orders);
+    moves.setDeck(deck, playerID, orders);
   }
 
 
 
   const onRollDiceHandler = () => {
-    props.moves.rollDice(props.playerID);
+    moves.rollDice(playerID);
   }
 
   useEffect(() => {
     setInitiativeFinished(G.initiativeScore[0] !== null && G.initiativeScore[1] !== null);
     if (G.initiativeScore[0] !== null && G.initiativeScore[1] !== null
-      && props.ctx.phase === PHASES.INITIATIVE) {
+      && ctx.phase === PHASES.INITIATIVE) {
       setTimeout(() => {
         events.setPhase(PHASES.DEPLOYMENT);
       }, 5000);
     }
-  }, [G.initiativeScore, props.ctx.phase, events]);
+  }, [G.initiativeScore, ctx.phase, events]);
 
   const onDropHandler = (item, squareId) => {
-    props.moves.drop({ card: item.card, squareId: squareId, previousSquareId: item.previousSquareId });
+    moves.drop({ card: item.card, squareId: squareId, previousSquareId: item.previousSquareId });
   }
 
   let screenPhase = '';
 
-  switch (props.ctx.phase) {
+  switch (ctx.phase) {
     case PHASES.DRAFT:
       screenPhase = (<Draft onClickHandler={selectedDeckHandler}></Draft>);
       break;
@@ -48,15 +47,14 @@ function Board(props) {
       screenPhase = (
         <GameArea
           G={G}
-          ctx={props.ctx}
-          moves={props.moves}
+          ctx={ctx}
+          moves={moves}
           events={events}
           onDrop={(item, squareId) => onDropHandler(item, squareId)}
           onRollDice={onRollDiceHandler}
-          gameMetadata={props.gameMetadata}
+          gameMetadata={gameMetadata}
+          playerID={playerID}
           initiativeFinished={initiativeFinished}
-          playerID={props.playerID}
-          cardHover={props.cardHover}
         >
         </GameArea>)
 

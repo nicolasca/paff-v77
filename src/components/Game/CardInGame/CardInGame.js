@@ -25,11 +25,13 @@ function CardInGame(props) {
   }
 
   const onClickPlusHandler = () => {
-    props.moves.changeRegimentNumber(props.previousSquareId, '+');
+    if (props.moves)
+      props.moves.changeRegimentNumber(props.previousSquareId, '+');
   }
 
   const onClickLessHandler = () => {
-    props.moves.changeRegimentNumber(props.previousSquareId, '-');
+    if (props.moves)
+      props.moves.changeRegimentNumber(props.previousSquareId, '-');
   }
 
   const imageUrl = !props.unit.image ? require(`../../../assets/logo.jpg`) :

@@ -26,6 +26,7 @@ const drop = (G, ctx, options) => {
 
 const PAFF = {
   name: 'PAFF',
+  numPlayers: 2,
   setup: (ctx) => ({
 
     decks: Array(2).fill(null),
