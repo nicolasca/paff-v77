@@ -1,0 +1,125 @@
+@import './../../../colors.scss';
+
+
+@mixin setColorsFaction($colorName, $colorBgName, $colorBg) {
+
+  // border: 15px solid lighten($colorBg, 15%);
+  border: 2px solid darken($colorBg, 10%);
+
+  .name {
+    color: $colorName;
+    background-color: $colorBgName;
+  }
+}
+
+/* Set colors for each faction */
+
+.CardUnit.container.peaux-vertes {
+  @include setColorsFaction($peaux-vertes-name-color, $peaux-vertes-bg-name-color, $peaux-vertes-bg-color);
+
+}
+
+.CardUnit.container.sephosi {
+  @include setColorsFaction($sephosi-name-color, $sephosi-bg-name-color, $sephosi-bg-color);
+}
+
+.CardUnit.container.gaeli {
+  @include setColorsFaction($gaeli-name-color, $gaeli-bg-name-color, $gaeli-bg-color);
+
+  .name span {
+    padding: 5px;
+    background: linear-gradient(to bottom, transparent 20%, $gaeli-name-surline-color 20%, $gaeli-name-surline-color 85%, transparent 85%);
+  }
+}
+
+.CardUnit.container.liches {
+  @include setColorsFaction($liches-name-color, $liches-bg-name-color, $liches-bg-color);
+
+  // &>.type,
+  // &>.deploy,
+  &>.Faction {
+    color: unset;
+  }
+}
+
+.CardUnit {
+  position: relative;
+
+}
+
+.CardUnit.container {
+  font-family: 'Helvetica';
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: 10% 10% 55% 17% 8%;
+
+  border: 2px solid #702827;
+  height: 125px;
+  width: 100px;
+}
+
+.name {
+  grid-column: 1 / 11;
+  grid-row: 1 / 2;
+  font-size: 0.7rem;
+  padding: 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.Regiment {
+  grid-column: 1 / 6;
+  grid-row: 4 / 6;
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  background-color: white;
+}
+
+.RegimentButtons {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  border-top: 1px solid black;
+  color: #4a4a4a;
+  background-color: white;
+  grid-column: 6 / 11;
+  grid-row: 4 / 6;
+  cursor: pointer;
+}
+
+.Image {
+  grid-column: 1 / 11;
+  grid-row: 2 / 4;
+  background-position: center;
+  background-size: cover;
+  border-top: 1px solid black;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: 'none'
+  }
+}
+
+.CardHover {
+  height: 400px;
+  width: 250px;
+  position: absolute;
+  left: 100px;
+  z-index: 5;
+}

@@ -1,18 +1,14 @@
 .DeckList {
-    display: flex;
+  display: flex;
 }
 
 .Wrapper {
-    width: 80%;
+  width: 80%;
 }
 
 .DeckSummary {
-    width: 20%;
-    position: sticky;
-    top: 50px;
-    height: 100%;
-}
-
-.SelectDecks {
-    margin-bottom: 1rem;
+  width: 20%;
+  position: sticky;
+  top: 50px;
+  height: 100%;
 }

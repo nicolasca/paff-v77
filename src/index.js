@@ -5,13 +5,14 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import './index.scss';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 import deckReducer from './store/reducers/deckReducer';
 import authReducer from './store/reducers/authReducer';
+import gameReducer from './store/reducers/gameReducer';
 
 const rootReducer = combineReducers({
-    deckReducer: deckReducer,
-    authReducer: authReducer,
+  deckReducer: deckReducer,
+  authReducer: authReducer,
+  gameReducer: gameReducer,
 })
 /* const logger = store => {
     return next => {
@@ -30,4 +31,3 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
-registerServiceWorker();

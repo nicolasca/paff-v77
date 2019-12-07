@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+// import { Client } from 'boardgame.io/react';
+
 import { BrowserRouter } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import * as actions from './store/actions/index'
@@ -11,20 +13,20 @@ class App extends Component {
   }
 
   render() {
-  return (
-    <BrowserRouter>
-      <div>
-        <Layout></Layout>
-      </div>
-    </BrowserRouter>
-  );
+    return (
+      <BrowserRouter>
+        <div>
+          <Layout></Layout>
+        </div>
+      </BrowserRouter>
+    );
   }
 
 }
 
-export const mapDispatchToProps = dispatch =>{
+export const mapDispatchToProps = dispatch => {
   return {
-    onTryAutoSignUp :() => dispatch(actions.checkAuthState()),
+    onTryAutoSignUp: () => dispatch(actions.checkAuthState()),
   }
 };
 

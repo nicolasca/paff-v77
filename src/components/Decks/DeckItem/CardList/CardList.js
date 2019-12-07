@@ -2,7 +2,9 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { config } from '../../../../config';
-import CardItem from '../CardItem/CardItem';
+import CardOrder from '../CardOrder/CardOrder';
+import CardUnit from '../CardUnit/CardUnit';
+import CardSelector from './../CardSelector/CardSelector';
 import styles from './CardList.module.css';
 
 function CardList(props) {
@@ -17,9 +19,15 @@ function CardList(props) {
 
     return (
       <div className={styles.cardItem} key={index}>
-        <CardItem
-          card={props.cards[key]}>
-        </CardItem>
+        <CardUnit
+          unit={props.cards[key]}>
+        </CardUnit>
+
+        <CardSelector
+          count={props.cards[key].count}
+          name={props.cards[key].nom}
+        >
+        </CardSelector>
       </div>
     );
   });
@@ -37,9 +45,9 @@ function CardList(props) {
       const cardsOrdres = ordres.map((ordre, index) => {
         return (
           <div className={styles.cardItem} key={index}>
-            <CardItem
-              card={ordre}>
-            </CardItem>
+            <CardOrder
+              order={ordre}>
+            </CardOrder>
           </div>
         )
       });

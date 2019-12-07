@@ -1,42 +1,42 @@
-import React, { Component } from 'react';
 import axios from 'axios';
+import React, { Component } from 'react';
 import { config } from '../../../config';
 import styles from './FactionSephosi.module.css';
 
 class FactionSephosi extends Component {
 
-    state = {
-        faction: null,
-    };
+  state = {
+    faction: null,
+  };
 
-    componentDidMount() {
-        
-        axios.get(config.host + ':3008/factions/sephosi').then((response) => {
+  componentDidMount() {
 
-            this.setState({
-                faction: response.data,
-            });
-        });
-        
-    }
+    axios.get(config.host + ':3008/factions/sephosi').then((response) => {
 
-    render() {
-        return (
-            <div>
-                {this.state.faction ?
-                    <div>
-                        <div className={styles.BgImage}
-                            alt={this.state.faction.nom} />
-                        <div className={styles.Description}>
-                            <h2 className={styles.Title}>{this.state.faction.nom}</h2>
-                            <div className={styles.Lettrine}
-                            dangerouslySetInnerHTML={{ __html: this.state.faction.description }} />
-                        </div>
+      this.setState({
+        faction: response.data,
+      });
+    });
 
-                    </div> : null}
+  }
+
+  render() {
+    return (
+      <div>
+        {this.state.faction ?
+          <div>
+            <div className={styles.BgImage}
+              alt={this.state.faction.nom} />
+            <div className={styles.Description}>
+              <h2 className={styles.Title}>{this.state.faction.nom}</h2>
+              <div className={styles.Lettrine}
+                dangerouslySetInnerHTML={{ __html: this.state.faction.description }} />
             </div>
-        );
-    }
+
+          </div> : null}
+      </div>
+    );
+  }
 }
 
 

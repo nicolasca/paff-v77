@@ -1,37 +1,37 @@
 .Logo {
-    max-width: 200px;
+  max-width: 200px;
 }
 
 .BgImage {
-    height: calc(100vh - 60px);
-    background-size: 35%;
-    background-position: 21% -24%;
-    background-image: url(../../../assets/factions/gaeli.png);
-    background-repeat: no-repeat;
-    background-color: #7D7D7D;
+  height: calc(100vh - 60px);
+  background-size: 35%;
+  background-position: 21% -24%;
+  background-image: url(../../../assets/factions/gaeli.png);
+  background-repeat: no-repeat;
+  background-color: #7D7D7D;
 }
 
 .Description {
-    position: absolute;
-    width: 500px;
-    right: 10%;
-    bottom: 10%;
-    background: white;
-    padding: 1rem 3rem 5rem 3rem;
-    border: 1px solid #05467E;
-    opacity: 0.85;
+  position: absolute;
+  width: 500px;
+  right: 10%;
+  bottom: 10%;
+  background: white;
+  padding: 1rem 3rem 5rem 3rem;
+  border: 1px solid #05467E;
+  opacity: 0.85;
 }
 
 h2.Title {
-    text-align: center;
-    color: #05467E;
+  text-align: center;
+  color: #05467E;
 }
 
 .Lettrine p:first-of-type:first-letter {
-    font-family: 'Fantasy';
-    font-size: 5rem;
-    color: #05467E;
-    padding: 5px 10px 5px 0px;
-    margin-right: 5px;
-    float: left;
+  font-family: 'Fantasy';
+  font-size: 5rem;
+  color: #05467E;
+  padding: 5px 10px 5px 0px;
+  margin-right: 5px;
+  float: left;
 }
