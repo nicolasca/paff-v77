@@ -35,11 +35,11 @@ li {
 }
 
 a:hover {
-  color: #D99A4E;
+  color: $secondary-color;
 }
 
 .Header a:hover,
 .Header a:active,
 a.ActiveNavLink {
-  color: #D99A4E;
+  color: $secondary-color;
 }
