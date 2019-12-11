@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import styles from './Layout.module.css';
 import Home from '../Home/Home';
-import Header from '../Navigation/Header';
+import Header from './Header/Header';
 import Factions from '../Factions/Factions';
 import FactionPeauxVertes from '../Factions/Faction/FactionPeauxVertes';
 import FactionSephosi from '../Factions/Faction/FactionSephosi';
