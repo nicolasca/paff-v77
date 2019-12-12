@@ -6,10 +6,11 @@
  * https://opensource.org/licenses/MIT.
  */
 
-import { Server, FlatFile } from 'boardgame.io/dist/server';
+import { FlatFile, Server } from 'boardgame.io/dist/server';
 // const PAFF = require('./src/game').PAFF;
 import PAFF from './game/PAFF';
 
+console.log('Run server boardgame js');
 
 const PORT = process.env.PORT || 8000;
 const server = Server({

@@ -8,11 +8,13 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - '8000:80'
+      - '3001:80'
 
-  board-server:
+  server:
     restart: unless-stopped
+    ports:
+      - '8000:8000'
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-server
 
