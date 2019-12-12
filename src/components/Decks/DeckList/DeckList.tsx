@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { config } from '../../../config';
-import { ICard, IUnite } from '../../../models/ICard';
+import { ICard } from '../../../models/ICard';
 import { IDeck } from '../../../models/IDeck';
 import * as actionTypes from '../../../store/actions/actionTypes';
 import DeckSummary from '../DeckBuilder/DeckSummary/DeckSummary';
@@ -12,7 +12,7 @@ import styles from './DeckList.module.scss';
 interface DeckListProps {
   token: string;
   setInitCards: any;
-  cardsToDisplay: IUnite[];
+  cardsToDisplay: any;
 }
 
 const DeckList: FunctionComponent<DeckListProps> = (props) => {
@@ -39,7 +39,6 @@ const DeckList: FunctionComponent<DeckListProps> = (props) => {
         setDeckList(response.data);
         setDeckSelected(response.data[0]);
         setDeckSelectedId(response.data[0]._id);
-
       }
     })
       .catch(error => {
@@ -50,7 +49,7 @@ const DeckList: FunctionComponent<DeckListProps> = (props) => {
   useEffect(() => {
     const cards: any = {};
     if (deckSelected) {
-      
+
       deckSelected.cartes.forEach((card: ICard) => {
         cards[card.carte.nom] = card.carte;
       });
@@ -59,6 +58,33 @@ const DeckList: FunctionComponent<DeckListProps> = (props) => {
 
   }, [deckSelected, setInitCards])
 
+  const saveDeckhandler = () => {
+    deckSelected.updateDate = new Date().toISOString();
+
+    const cardsToSave: ICard[] = [];
+
+    Object.keys(props.cardsToDisplay).forEach((key, index) => {
+      if (props.cardsToDisplay[key].count > 0) {
+        cardsToSave.push({
+          carte: props.cardsToDisplay[key],
+          nbExemplaires: props.cardsToDisplay[key].count,
+        });
+      }
+    });
+
+    deckSelected['cartes'] = cardsToSave;
+
+    var headers = {
+      'Authorization': 'Bearer ' + props.token,
+    }
+    axios.put(config.host + ":3008/decks/" + deckSelected._id, deckSelected, { headers: headers })
+      .then(() => {
+
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
 
   const deleteDeck = () => {
     var headers = {
@@ -78,10 +104,6 @@ const DeckList: FunctionComponent<DeckListProps> = (props) => {
           )
         });
         setDeckListOptions(options);
-
-
-   
-
       })
       .catch((error) => {
         console.log(error);
@@ -90,11 +112,9 @@ const DeckList: FunctionComponent<DeckListProps> = (props) => {
 
   const changeDeck = (event: any) => {
     const selectedDeck: IDeck = deckList.find((deck: IDeck) => deck._id === event.target.value) || null!;
-    
     setDeckSelected(selectedDeck);
     setDeckSelectedId(event.target.value);
   }
-
 
   return (
     <div className={styles.DeckList + " container"}>
@@ -112,6 +132,7 @@ const DeckList: FunctionComponent<DeckListProps> = (props) => {
             </div>
             <div className="control">
               < button className="button is-paff" onClick={deleteDeck}>Supprimer</button>
+              <button className="button is-paff" onClick={saveDeckhandler}>Save</button>
             </div>
           </div> : null}
 
@@ -132,7 +153,6 @@ const DeckList: FunctionComponent<DeckListProps> = (props) => {
         </div> : null}
     </div >
   );
-
 }
 
 const mapStateToProps = (state: any) => {
