@@ -197,27 +197,45 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = (props) => {
                 </div>
               </div> : null
             }
-          </div> : null
+          </div> :
+          <React.Fragment>
+            {
+              selectedFaction ?
+                <div className="control">
+                  <div className="select">
+                    <select onChange={changeFactionHandler}
+                      id="TheSelect">
+                      {factionsOptions}
+                    </select>
+                  </div>
+                </div> : null
+            }
+          </React.Fragment>
+
         }
 
-        {props.cardsToDisplay ?
+        {
+          props.cardsToDisplay ?
 
-          <DeckItem
-            cardsToDisplay={props.cardsToDisplay}
-            faction={selectedFaction}
-          >
+            <DeckItem
+              cardsToDisplay={props.cardsToDisplay}
+              faction={selectedFaction}
+            >
 
-          </DeckItem>
-          : null}
-      </div>
+            </DeckItem>
+            : null
+        }
+      </div >
 
-      {props.cardsToDisplay ?
+      {
+        props.cardsToDisplay ?
 
-        <div className={styles.DeckSummary}>
-          <DeckSummary cards={props.cardsToDisplay}>
-          </DeckSummary>
-        </div> : null}
-    </div>
+          <div className={styles.DeckSummary}>
+            <DeckSummary cards={props.cardsToDisplay}>
+            </DeckSummary>
+          </div> : null
+      }
+    </div >
   );
 
 }
