@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { config } from '../../../config';
@@ -7,6 +7,7 @@ import { ICard, IOrder, IUnite } from '../../../models/ICard';
 import { IDeck } from '../../../models/IDeck';
 import { IFaction } from '../../../models/IFaction';
 import * as actionTypes from '../../../store/actions/actionTypes';
+import { UserContext } from '../../Layout/Layout';
 import DeckItem from '../DeckItem/DeckItem';
 import styles from "./DeckBuilder.module.css";
 import DeckSummary from './DeckSummary/DeckSummary';
@@ -21,6 +22,9 @@ interface DeckBuilderProps {
 }
 
 const DeckBuilder: FunctionComponent<DeckBuilderProps> = (props) => {
+
+
+  const isAuthenticated = useContext(UserContext);
 
   const { setInitCards } = props;
   const [selectedFaction, setSelectedFaction] = React.useState<IFaction>(null!);
@@ -144,55 +148,57 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = (props) => {
       })
   }
 
-
-
   return (
     <div className={styles.DeckBuilder + " container"}>
+
       <div className={styles.Wrapper}>
-        <div className={styles.Title}>
-          <div className="field">
-            <label className="label">Nom</label>
-            <div className="control">
-              <input
-                name="nom"
-                className="input"
-                type="text"
-                placeholder="Les Chevaucheurs de Zarn"
-                value={nom}
-                onChange={nomChangeHandler}
-                id="deckName" />
-            </div>
-          </div>
 
-          <div className="field">
-            <label className="label">Description</label>
-            <div className="control">
-              <textarea
-                name="description"
-                className="textarea"
-                placeholder="Ah que ouai"
-                value={description}
-                onChange={descriptionChangeHandler}
-                id="description" />
-            </div>
-          </div>
-
-          {selectedFaction ?
-            <div className={[styles.SelectFaction, "field", "is-grouped"].join(' ')}>
+        {isAuthenticated ?
+          <div className={styles.Title}>
+            <div className="field">
+              <label className="label">Nom</label>
               <div className="control">
-                <button className="button is-paff" onClick={saveDeckhandler}>A la guerre !</button>
+                <input
+                  name="nom"
+                  className="input"
+                  type="text"
+                  placeholder="Les Chevaucheurs de Zarn"
+                  value={nom}
+                  onChange={nomChangeHandler}
+                  id="deckName" />
               </div>
+            </div>
+
+            <div className="field">
+              <label className="label">Description</label>
               <div className="control">
-                <div className="select">
-                  <select onChange={changeFactionHandler}
-                    id="TheSelect">
-                    {factionsOptions}
-                  </select>
+                <textarea
+                  name="description"
+                  className="textarea"
+                  placeholder="Ah que ouai"
+                  value={description}
+                  onChange={descriptionChangeHandler}
+                  id="description" />
+              </div>
+            </div>
+
+            {selectedFaction ?
+              <div className={[styles.SelectFaction, "field", "is-grouped"].join(' ')}>
+                <div className="control">
+                  <button className="button is-paff" onClick={saveDeckhandler}>A la guerre !</button>
                 </div>
-              </div>
-            </div> : null}
-        </div>
-
+                <div className="control">
+                  <div className="select">
+                    <select onChange={changeFactionHandler}
+                      id="TheSelect">
+                      {factionsOptions}
+                    </select>
+                  </div>
+                </div>
+              </div> : null
+            }
+          </div> : null
+        }
 
         {props.cardsToDisplay ?
 

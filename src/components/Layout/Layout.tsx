@@ -6,15 +6,13 @@ import Logout from '../Auth/Logout/Logout';
 import SignIn from '../Auth/SignIn';
 import DeckBuilder from '../Decks/DeckBuilder/DeckBuilder';
 import DeckList from '../Decks/DeckList/DeckList';
-import FactionGaeli from '../Factions/Faction/FactionGaeli';
-import FactionLiches from '../Factions/Faction/FactionLiches';
-import FactionPeauxVertes from '../Factions/Faction/FactionPeauxVertes';
-import FactionSephosi from '../Factions/Faction/FactionSephosi';
 import Factions from '../Factions/Factions';
 import Home from '../Home/Home';
-import styles from './Layout.module.css';
 import LobbyView from '../Lobby/Lobby';
 import Header from './Header/Header';
+import styles from './Layout.module.css';
+
+export const UserContext = React.createContext(false);
 
 interface LayoutProps {
   isAuthenticated: boolean;
@@ -23,50 +21,54 @@ interface LayoutProps {
 
 const Layout: FunctionComponent<LayoutProps> = (props) => {
 
-  let content;
+  let content = (
+    <React.Fragment>
+      <Route path="/home" component={Home} />
+      <Route path="/" exact component={Home} />
+      <Route path="/auth" exact component={Auth} />
+      <Route path="/liste-decks" exact component={DeckList} />
+      <Route path="/signin" exact component={SignIn} />
+      <Route path="/creer-deck" exact component={DeckBuilder} />
+      <Route path="/factions" exact component={Factions} />
+      <Route render={() => <Redirect to="/" />} />
+    </React.Fragment>
+
+  );
 
   if (props.isAuthenticated) {
 
     content = (
       <React.Fragment>
-        <Header
-          username={props.username}
-          isAuthenticated={props.isAuthenticated}></Header>
-        <main className={styles.Main}>
-          <Switch>
-            <Route path="/home" component={Home} />
-            <Route path="/" exact component={Home} />
-            <Route path="/logout" exact component={Logout} />
-            <Route path="/deck" exact component={DeckBuilder} />
-            <Route path="/signin" exact component={SignIn} />
-            <Route path="/liste-decks" exact component={DeckList} />
-            <Route path="/creer-deck" exact component={DeckBuilder} />
-            <Route path="/factions" exact component={Factions} />
-            <Route path="/factions/peaux-vertes" exact component={FactionPeauxVertes} />
-            <Route path="/factions/sephosi" exact component={FactionSephosi} />
-            <Route path="/factions/gaeli" exact component={FactionGaeli} />
-            <Route path="/factions/liches" exact component={FactionLiches} />
-            <Route path="/jouer" exact component={LobbyView} />
-            <Route render={() => <Redirect to="/" />} />
-          </Switch>
-
-        </main>
+        <Route path="/home" component={Home} />
+        <Route path="/" exact component={Home} />
+        <Route path="/auth" exact component={Auth} />
+        <Route path="/liste-decks" exact component={DeckList} />
+        <Route path="/signin" exact component={SignIn} />
+        <Route path="/creer-deck" exact component={DeckBuilder} />
+        <Route path="/factions" exact component={Factions} />
+        <Route render={() => <Redirect to="/" />} />
+        <Route path="/logout" exact component={Logout} />
+        <Route path="/deck" exact component={DeckBuilder} />
+        <Route path="/liste-decks" exact component={DeckList} />
+        <Route path="/jouer" exact component={LobbyView} />
       </React.Fragment>
     );
-  } else {
-    content = (
-      <main className={styles.Main}>
-        <Route path="/auth" exact component={Auth} />
-        <Route path="/signin" exact component={SignIn} />
-        <Redirect to="/auth"></Redirect>
-      </main>
-
-    )
   }
 
   return (
     <div className={styles.Site}>
-      {content}
+      <UserContext.Provider value={props.isAuthenticated}>
+
+        <main className={styles.Main}>
+          <Header
+            username={props.username}
+            isAuthenticated={props.isAuthenticated}></Header>
+          <Switch>
+            {content}
+          </Switch>
+        </main>
+      </UserContext.Provider>
+
     </div>
   );
 }

@@ -1,40 +1,58 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { UserContext } from '../Layout';
 import styles from './Header.module.css';
 
 function Header(props) {
 
+  const isAuthenticated = React.useContext(UserContext);
+
   return (
     <header className={styles.Header}>
+
       <ul>
-        <li><NavLink
-          exact to="/"
-          activeClassName={styles.ActiveNavLink}>
-          Home
-        </NavLink></li>
-        <li><NavLink
-          exact to="/liste-decks"
-          activeClassName={styles.ActiveNavLink}>
-          Mes decks
-        </NavLink></li>
-        <li><NavLink
-          exact to="/creer-deck"
-          activeClassName={styles.ActiveNavLink}>
-          Créer un deck
-        </NavLink></li>
-        <li><NavLink
-          to="/factions"
-          activeClassName={styles.ActiveNavLink}>
-          Factions
-        </NavLink></li>
-        <li><NavLink
-          to="/jouer"
-          activeClassName={styles.ActiveNavLink}>
-          Jouer
-        </NavLink></li>
+        <li>
+          <NavLink
+            exact to="/"
+            activeClassName={styles.ActiveNavLink}>
+            Home
+        </NavLink>
+        </li>
+        {isAuthenticated ?
+          <li>
+            <NavLink
+              exact to="/liste-decks"
+              activeClassName={styles.ActiveNavLink}>
+              Mes decks
+        </NavLink>
+          </li> : null
+        }
+        <li>
+          <NavLink
+            exact to="/creer-deck"
+            activeClassName={styles.ActiveNavLink}>
+            Les cartes
+        </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/factions"
+            activeClassName={styles.ActiveNavLink}>
+            Factions
+        </NavLink>
+        </li>
+        {isAuthenticated ?
+          <li>
+            <NavLink
+              to="/jouer"
+              activeClassName={styles.ActiveNavLink}>
+              Jouer
+        </NavLink>
+          </li> : null
+        }
       </ul>
       <ul>
-        {!props.isAuthenticated ?
+        {!isAuthenticated ?
 
           <li><NavLink
             exact to="/auth"
