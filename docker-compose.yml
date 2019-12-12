@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.3'
 
 services:
 
@@ -7,8 +7,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    environment:
-      - NODE_ENV=development
     ports:
       - '8000:80'
+
+  board-server:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
 
