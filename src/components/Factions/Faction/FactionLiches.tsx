@@ -1,24 +1,18 @@
-import axios from 'axios';
 import React, { FunctionComponent } from 'react';
-import { config } from '../../../config';
 import { IFaction } from '../../../models/IFaction';
 import styles from './FactionLiches.module.css';
 
-const FactionLiches: FunctionComponent = () => {
 
-  const [faction, setFaction] = React.useState<IFaction>(null!);
+interface FactionLichesProps {
+  faction: IFaction;
+}
 
-  React.useEffect(() => {
-    axios.get(config.host + ':3008/factions/liches').then((response) => {
-      setFaction(response.data);
-    });
-  })
-
+const FactionLiches: FunctionComponent<FactionLichesProps> = ({ faction }) => {
 
   return (
-    <div>
+    <div className={styles.Faction}>
       {faction ?
-        <div>
+        <React.Fragment>
           <div className={styles.BgImage}
             title={faction.nom} />
           <div className={styles.Description}>
@@ -27,11 +21,9 @@ const FactionLiches: FunctionComponent = () => {
               dangerouslySetInnerHTML={{ __html: faction.description }} />
           </div>
 
-        </div> : null}
+        </React.Fragment> : null}
     </div>
   );
-
 }
-
 
 export default FactionLiches;

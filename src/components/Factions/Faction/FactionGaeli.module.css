@@ -1,9 +1,14 @@
+.Faction {
+  position: relative;
+}
+
 .Logo {
   max-width: 200px;
 }
 
 .BgImage {
   height: calc(100vh - 60px);
+  width: 100%;
   background-size: 35%;
   background-position: 21% -24%;
   background-image: url(../../../assets/factions/gaeli.png);

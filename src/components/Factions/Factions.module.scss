@@ -5,9 +5,8 @@
 }
 
 .Faction {
-  margin-top: 3rem;
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
 }
 
 .FactionItem a {

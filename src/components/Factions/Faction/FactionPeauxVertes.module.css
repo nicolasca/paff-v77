@@ -1,4 +1,6 @@
-.Main {}
+.Faction {
+  position: relative;
+}
 
 .SecondPart {
   margin-top: 5rem;

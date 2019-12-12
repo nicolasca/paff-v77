@@ -1,3 +1,7 @@
+.Faction {
+  position: relative;
+}
+
 .Logo {
   max-width: 200px;
 }

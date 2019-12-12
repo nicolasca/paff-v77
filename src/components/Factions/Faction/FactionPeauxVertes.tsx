@@ -1,24 +1,16 @@
-import axios from 'axios';
 import React, { FunctionComponent } from 'react';
-import bossOrc from '../../../assets/factions/boss-orc.jpg';
-import shamanOrc from '../../../assets/factions/shaman-orc.jpg';
-import { config } from '../../../config';
 import { IFaction } from '../../../models/IFaction';
 import styles from './FactionPeauxVertes.module.css';
 
-const FactionPeauxVertes: FunctionComponent = () => {
 
-  const [faction, setFaction] = React.useState<IFaction>(null!);
+interface FactionPeauxVertesProps {
+  faction: IFaction;
+}
 
-  React.useEffect(() => {
-    axios.get(config.host + ':3008/factions/peaux-vertes').then((response) => {
-      setFaction(response.data);
-    });
-  })
-
+const FactionPeauxVertes: FunctionComponent<FactionPeauxVertesProps> = ({ faction }) => {
 
   return (
-    <div>
+    <div className={styles.Faction}>
       {faction ?
         <React.Fragment>
           <div className={styles.Main}>
@@ -31,7 +23,7 @@ const FactionPeauxVertes: FunctionComponent = () => {
             </div>
 
           </div>
-          <div className={styles.SecondPart}>
+          {/* <div className={styles.SecondPart}>
             <div className={styles.BossOrcImg}>
               <img src={bossOrc} alt="" />
             </div>
@@ -45,7 +37,7 @@ const FactionPeauxVertes: FunctionComponent = () => {
             <div className={styles.ShamanOrcDesc}>
               <h3 className="title is-2"> Shaman Orc</h3>
             </div>
-          </div>
+          </div> */}
         </React.Fragment> : null}
     </div>
   );
