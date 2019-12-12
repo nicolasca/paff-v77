@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as actionTypes from '../../../../store/actions/actionTypes';
 import { ReactComponent as MinusSign } from './../../../../assets/minus.svg';
 import { ReactComponent as PlusSign } from './../../../../assets/plus.svg';
-import styles from './CardSelector.module.css';
+import styles from './CardSelector.module.scss';
 
 interface CardSelectorProps {
   count: number;

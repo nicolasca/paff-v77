@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid grey;
   background-color: #191726;
   color: white;
   /* font-weight: 600; */
@@ -35,11 +34,11 @@ li {
 }
 
 a:hover {
-  color: $secondary-color;
+  text-decoration: underline;
 }
 
 .Header a:hover,
 .Header a:active,
 a.ActiveNavLink {
-  color: $secondary-color;
+  text-decoration: underline;
 }

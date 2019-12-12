@@ -216,12 +216,10 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = (props) => {
 
         {
           props.cardsToDisplay ?
-
             <DeckItem
               cardsToDisplay={props.cardsToDisplay}
               faction={selectedFaction}
             >
-
             </DeckItem>
             : null
         }

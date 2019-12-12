@@ -5,6 +5,8 @@ $family-primary: $family-sans-serif;
 $body-family: 'Monda',
 sans-serif;
 
+$red: #830303;
+
 // Import only what you need from Bulma
 @import "../node_modules/bulma/sass/utilities/_all.sass";
 @import "../node_modules/bulma/sass/base/_all.sass";

@@ -71,7 +71,7 @@ const CardList: FunctionComponent<CardListProps> = (props) => {
     <div className={styles.CardList}>
       <h3>Unités</h3>
       <div className={styles.Unites}>{cardsUnites}</div>
-      <h3 className="title">Ordres</h3>
+      <h3>Ordres</h3>
       <div className={styles.Ordres}>{orders}</div>
     </div>
   );
