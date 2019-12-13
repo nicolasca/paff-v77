@@ -122,7 +122,7 @@ const DeckList: FunctionComponent<DeckListProps> = (props) => {
         {deckListOptions ?
           <div className="field is-grouped">
             <div className="control" >
-              <div className={styles.SelectDecks + " select "}>
+              <div className={styles.SelectDecks + " select is-primary"}>
                 <select onChange={changeDeck}
                   value={deckSelectedId}
                   id="TheSelect">
@@ -131,10 +131,10 @@ const DeckList: FunctionComponent<DeckListProps> = (props) => {
               </div>
             </div>
             <div className="control">
-              < button className="button is-danger" onClick={deleteDeck}>Supprimer</button>
+              < button className="button is-primary" onClick={deleteDeck}>Supprimer</button>
             </div>
             <div className="control">
-              <button className="button is-paff" onClick={saveDeckhandler}>Enregistrer</button>
+              <button className="button is-primary is-outlined" onClick={saveDeckhandler}>Enregistrer</button>
             </div>
           </div> : null}
 

@@ -60,10 +60,12 @@ h2.Title {
 }
 
 .Lettrine p:first-of-type:first-letter {
+  display: flex;
+
   font-family: 'Fantasy';
   font-size: 5rem;
   color: #45742D;
-  padding: 5px 10px 5px 0px;
+  padding: 5px 0 5px 0px;
   margin-right: 5px;
   float: left;
 }

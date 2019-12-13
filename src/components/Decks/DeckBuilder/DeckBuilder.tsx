@@ -185,10 +185,10 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = (props) => {
             {selectedFaction ?
               <div className={[styles.SelectFaction, "field", "is-grouped"].join(' ')}>
                 <div className="control">
-                  <button className="button is-paff" onClick={saveDeckhandler}>A la guerre !</button>
+                  <button className="button is-primary" onClick={saveDeckhandler}>A la guerre !</button>
                 </div>
                 <div className="control">
-                  <div className="select">
+                  <div className="select is-primary">
                     <select onChange={changeFactionHandler}
                       id="TheSelect">
                       {factionsOptions}
