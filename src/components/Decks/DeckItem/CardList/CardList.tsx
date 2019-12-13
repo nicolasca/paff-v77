@@ -4,9 +4,9 @@ import { config } from '../../../../config';
 import { IOrder } from '../../../../models/ICard';
 import { IFaction } from '../../../../models/IFaction';
 import CardOrder from '../CardItem/CardOrder';
-import styles from './CardList.module.css';
 import CardUnit from '../CardItem/CardUnit';
 import CardSelector from '../CardSelector/CardSelector';
+import styles from './CardList.module.css';
 
 interface CardListProps {
   cards: any;

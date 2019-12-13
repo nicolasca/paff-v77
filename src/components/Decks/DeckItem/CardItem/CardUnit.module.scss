@@ -21,7 +21,7 @@
 
   .name {
     color: $colorName;
-    background-color: $colorBgName;
+    background-color: darken($colorBg, 15%);
   }
 }
 
@@ -33,16 +33,16 @@
 }
 
 .CardUnit.container.sephosi {
-  @include setColorsFaction($sephosi-name-color, $sephosi-bg-name-color, $sephosi-bg-color);
+  @include setColorsFaction(white, $sephosi-bg-name-color, $sephosi-bg-color);
 }
 
 .CardUnit.container.gaeli {
   @include setColorsFaction($gaeli-name-color, $gaeli-bg-name-color, $gaeli-bg-color);
 
-  .name span {
-    padding: 5px;
-    background: linear-gradient(to bottom, transparent 20%, $gaeli-name-surline-color 20%, $gaeli-name-surline-color 85%, transparent 85%);
-  }
+  // .name span {
+  //   padding: 5px;
+  //   background: linear-gradient(to bottom, transparent 20%, $gaeli-name-surline-color 20%, $gaeli-name-surline-color 85%, transparent 85%);
+  // }
 }
 
 .CardUnit.container.liches {
@@ -53,6 +53,14 @@
   &>.Faction {
     color: unset;
   }
+
+  .name {
+    background-color: darken($liches-bg-color, 35%);
+  }
+
+  svg {
+    fill: rgb(74, 74, 74);
+  }
 }
 
 .CardUnit.container {
@@ -62,6 +70,11 @@
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: 10% 10% 55% 17% 8%;
   height: 100%;
+}
+
+svg {
+  height: 25px;
+  fill: white;
 }
 
 
