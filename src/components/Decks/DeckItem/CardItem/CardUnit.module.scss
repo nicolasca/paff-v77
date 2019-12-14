@@ -1,14 +1,16 @@
 @import './../../../../colors.scss';
 
 
-@mixin setColorsFaction($colorName, $colorBgName, $colorBg) {
+@mixin setColorsFaction($colorName, $colorBg) {
   &>* {
     background-image: url(./../../../../assets/textures/asfalt-dark.png);
   }
 
   &>.type,
   &>.deploy,
-  &>.Faction {
+  &>.Regiment,
+  &>.Capacites,
+  &>.name {
     background-color: $colorBg;
     // background-color: #c97928;
     background-image: url(./../../../../assets/textures/light-paper-fibers.png);
@@ -19,7 +21,7 @@
   // border: 15px solid lighten($colorBg, 15%);
   border: 10px solid darken($colorBg, 10%);
 
-  .name {
+  .Faction {
     color: $colorName;
     background-color: darken($colorBg, 15%);
   }
@@ -28,35 +30,46 @@
 /* Set colors for each faction */
 
 .CardUnit.container.peaux-vertes {
-  @include setColorsFaction($peaux-vertes-name-color, $peaux-vertes-bg-name-color, $peaux-vertes-bg-color);
+  @include setColorsFaction($peaux-vertes-name-color, $peaux-vertes-bg-color);
 
 }
 
 .CardUnit.container.sephosi {
-  @include setColorsFaction(white, $sephosi-bg-name-color, $sephosi-bg-color);
+  @include setColorsFaction($sephosi-bg-name-color, $sephosi-bg-color);
 }
 
 .CardUnit.container.gaeli {
-  @include setColorsFaction($gaeli-name-color, $gaeli-bg-name-color, $gaeli-bg-color);
-
-  // .name span {
-  //   padding: 5px;
-  //   background: linear-gradient(to bottom, transparent 20%, $gaeli-name-surline-color 20%, $gaeli-name-surline-color 85%, transparent 85%);
-  // }
-}
-
-.CardUnit.container.liches {
-  @include setColorsFaction($liches-name-color, $liches-bg-name-color, $liches-bg-color);
+  @include setColorsFaction($gaeli-name-color, $gaeli-bg-color);
 
   &>.type,
   &>.deploy,
-  &>.Faction {
+  &>.Regiment,
+  &>.Capacites,
+  &>.name {
+    // color: unset;
+  }
+
+  svg {
+    // fill: rgb(74, 74, 74);
+  }
+}
+
+.CardUnit.container.liches {
+  @include setColorsFaction($liches-name-color, $liches-bg-color);
+
+  &>.type,
+  &>.deploy,
+  &>.Regiment,
+  &>.Capacites,
+  &>.name {
     color: unset;
   }
 
-  .name {
+  .Faction {
     background-color: darken($liches-bg-color, 35%);
   }
+
+  border: 10px solid darken($liches-bg-name-color, 10%);
 
   svg {
     fill: rgb(74, 74, 74);
@@ -70,11 +83,12 @@
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: 10% 10% 55% 17% 8%;
   height: 100%;
-}
 
-svg {
-  height: 25px;
-  fill: white;
+  svg {
+    height: 25px;
+    width: 25px;
+    fill: white;
+  }
 }
 
 
@@ -121,6 +135,7 @@ svg {
   grid-column: 3 / 9;
   grid-row: 2 / 3;
   font-size: 0.8rem;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -132,7 +147,7 @@ svg {
 .Regiment {
   grid-column: 1 / 6;
   grid-row: 4 / 5;
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 600;
   display: flex;
   align-items: center;
