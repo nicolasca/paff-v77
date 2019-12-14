@@ -1,50 +1,41 @@
 @import './../../../colors.scss';
 
 
-@mixin setColorsFaction($colorName, $colorBgName, $colorBg) {
+@mixin setColorsFaction($colorName, $colorBg) {
 
-  // border: 15px solid lighten($colorBg, 15%);
   border: 2px solid darken($colorBg, 10%);
 
   .name {
     color: $colorName;
-    background-color: $colorBgName;
+    background-color: darken($colorBg, 15%);
   }
 }
 
 /* Set colors for each faction */
 
 .CardUnit.container.peaux-vertes {
-  @include setColorsFaction($peaux-vertes-name-color, $peaux-vertes-bg-name-color, $peaux-vertes-bg-color);
-
+  @include setColorsFaction($peaux-vertes-name-color, $peaux-vertes-bg-color);
 }
 
 .CardUnit.container.sephosi {
-  @include setColorsFaction($sephosi-name-color, $sephosi-bg-name-color, $sephosi-bg-color);
+  @include setColorsFaction($sephosi-name-color, $sephosi-bg-color);
 }
 
 .CardUnit.container.gaeli {
-  @include setColorsFaction($gaeli-name-color, $gaeli-bg-name-color, $gaeli-bg-color);
-
-  .name span {
-    padding: 5px;
-    background: linear-gradient(to bottom, transparent 20%, $gaeli-name-surline-color 20%, $gaeli-name-surline-color 85%, transparent 85%);
-  }
+  @include setColorsFaction($gaeli-name-color, $gaeli-bg-color);
 }
 
 .CardUnit.container.liches {
-  @include setColorsFaction($liches-name-color, $liches-bg-name-color, $liches-bg-color);
+  @include setColorsFaction($liches-name-color, $liches-bg-color);
+  border: 2px solid darken($liches-bg-color, 10%);
 
-  // &>.type,
-  // &>.deploy,
-  &>.Faction {
-    color: unset;
+  .name {
+    background-color: darken($liches-bg-color, 35%);
   }
 }
 
 .CardUnit {
   position: relative;
-
 }
 
 .CardUnit.container {

@@ -10,6 +10,7 @@
   &>.deploy,
   &>.Regiment,
   &>.Capacites,
+  &>.DetailCarac,
   &>.name {
     background-color: $colorBg;
     // background-color: #c97928;
@@ -17,6 +18,12 @@
     /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
     color: white;
   }
+
+  // &>.DetailCarac {
+  //   $light: 
+  //   background-color: filter()
+
+  // }
 
   // border: 15px solid lighten($colorBg, 15%);
   border: 10px solid darken($colorBg, 10%);
@@ -40,18 +47,6 @@
 
 .CardUnit.container.gaeli {
   @include setColorsFaction($gaeli-name-color, $gaeli-bg-color);
-
-  &>.type,
-  &>.deploy,
-  &>.Regiment,
-  &>.Capacites,
-  &>.name {
-    // color: unset;
-  }
-
-  svg {
-    // fill: rgb(74, 74, 74);
-  }
 }
 
 .CardUnit.container.liches {
@@ -78,7 +73,6 @@
 
 .CardUnit.container {
   font-family: 'Helvetica';
-  border-radius: 8px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: 10% 10% 55% 17% 8%;
@@ -161,58 +155,35 @@
   grid-column: 6 / 11;
   grid-row: 4 / 5;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-}
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  border: 1px solid black;
+  border-left: none;
+  padding: 5px;
 
-.Grey {
-  background-color: grey;
-}
+  .ItemCarac {
+    display: flex;
+    align-items: center;
 
-.Att {
-  background-color: #d3e6f2;
-}
+    div {
+      width: 25px;
+      height: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid black;
+      border-radius: 50%;
+      padding: 5px;
+      background-color: white;
+      color: #4a4a4a;
 
-.Def {
-  background-color: #f2c8c8;
-}
+    }
 
-.Def,
-.DefCac,
-.DefTir {
-  border-right: 1px solid black;
-}
-
-.Grey,
-.Cac,
-.Tir {
-  border-left: 1px solid black;
-}
-
-.Grey,
-.Att,
-.Def {
-  border-top: 1px solid black;
-}
-
-.Cac,
-.AttCac,
-.DefCac {
-  background-color: #C4BD97;
-}
-
-.Tir,
-.AttTir,
-.DefTir {
-  background-color: #948A54;
-  border-bottom: 1px solid black;
-}
-
-.DetailCarac>div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 0 0 -1px;
+    img {
+      height: 15px;
+      align-self: flex-start;
+    }
+  }
 }
 
 .Capacites {

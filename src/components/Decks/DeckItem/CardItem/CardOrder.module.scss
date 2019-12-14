@@ -1,7 +1,7 @@
 @import './../../../../colors.scss';
 
 .peaux-vertes.container {
-  background-color: $peaux-vertes-bg-name-color;
+  background-color: darken($color: $peaux-vertes-bg-color, $amount: 10%);
 }
 
 .peaux-vertes .name {
@@ -10,26 +10,21 @@
 }
 
 .sephosi.container {
-  background-color: $sephosi-bg-color;
+  background-color: darken($sephosi-bg-color, 10%);
 }
 
 .sephosi .name {
-  color: $sephosi-name-color;
-  background: $sephosi-bg-name-color;
+  color: $sephosi-bg-name-color;
+  background: $sephosi-bg-color;
 }
 
 .gaeli.container {
-  background-color: $gaeli-bg-color;
+  background-color: darken($gaeli-bg-color, 10%);
 }
 
 .gaeli .name {
   color: white;
-  background-color: $gaeli-bg-name-color;
-}
-
-.gaeli .name span {
-  padding: 5px;
-  background: linear-gradient(to bottom, transparent 20%, $gaeli-name-surline-color 20%, $gaeli-name-surline-color 85%, transparent 85%);
+  background-color: $gaeli-bg-color;
 }
 
 .liches.container {
@@ -38,7 +33,7 @@
 
 .liches .name {
   color: $liches-name-color;
-  background: $liches-bg-name-color;
+  background-color: darken($liches-bg-color, 35%);
 }
 
 .container {
@@ -54,10 +49,6 @@
 
 .container>div {
   padding: 10px;
-}
-
-.container.gaeli>div {
-  padding: 5px;
 }
 
 .recuperable {

@@ -10,7 +10,6 @@ import styles from './GameArea.module.scss';
 
 
 function GameArea({ G, ctx, gameMetadata, onRollDice, initiativeFinished, moves, events, onDrop, playerID }) {
-  console.log(ctx);
 
   const [isReserveOpen, setReserveOpen] = useState(false);
   const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(true);
@@ -154,6 +153,7 @@ function GameArea({ G, ctx, gameMetadata, onRollDice, initiativeFinished, moves,
           <Battleground
             G={G}
             onDrop={onDrop}
+            moves={moves}
           >
           </Battleground>
         </div>

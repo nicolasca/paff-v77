@@ -5,6 +5,10 @@ import { ReactComponent as Elite } from '../../../../assets/icons/elite.svg';
 import { ReactComponent as Horse } from '../../../../assets/icons/horse.svg';
 import { ReactComponent as Sword } from '../../../../assets/icons/sword.svg';
 import { ReactComponent as Unique } from '../../../../assets/icons/unique.svg';
+import AttCac from '../../../../assets/icons/att-cac.png';
+import DefCac from '../../../../assets/icons/def-cac.png';
+import AttTir from '../../../../assets/icons/att-tir.png';
+import DefTir from '../../../../assets/icons/def-tir.png';
 import { config } from '../../../../config';
 import { IUnite } from '../../../../models/ICard';
 import styles from './CardUnit.module.scss';
@@ -70,21 +74,47 @@ const CardUnit: FunctionComponent<CardUnitProps> = (props) => {
         {capacites}
       </div>
       <div className={styles.DetailCarac}>
-        <div className={styles.Grey}></div>
-        <div className={styles.Att}>Att</div>
-        <div className={styles.Def}>Def</div>
-        <div className={styles.Cac}>Cac</div>
-        <div className={styles.AttCac}>
-          {props.unit.attCac}
-          {props.unit.isAttCacMagique ? '(m)' : ''}
-        </div>
-        <div className={styles.DefCac}>{props.unit.defCac}</div>
-        <div className={styles.Tir}>Tir</div>
-        <div className={styles.AttTir}>
-          {props.unit.attTir}
-          {props.unit.isAttTirMagique ? '(m)' : ''}
-        </div>
-        <div className={styles.DefTir}>{props.unit.defTir}</div>
+        {props.unit.attCac !== 0 ?
+          <div className={styles.ItemCarac}>
+            <img src={AttCac} alt="" />
+            <div>
+              {props.unit.attCac}
+              {props.unit.isAttCacMagique ? '*' : ''}
+            </div>
+          </div>
+          : <div></div>}
+
+        {props.unit.defCac !== 0 ?
+          <div className={styles.ItemCarac}>
+            <img src={DefCac} alt="" />
+            <div>
+              {props.unit.defCac}
+            </div>
+          </div>
+          : <div></div>
+        }
+
+        {props.unit.attTir !== 0 ?
+          <div className={styles.ItemCarac}>
+            <img src={AttTir} alt="" />
+            <div>
+              {props.unit.attTir}
+              {props.unit.isAttTirMagique ? '*' : ''}
+            </div>
+          </div>
+          : <div></div>
+        }
+
+        {props.unit.defTir !== 0 ?
+          <div className={styles.ItemCarac}>
+            <img src={DefTir} alt="" />
+            <div>
+              {props.unit.defTir}
+            </div>
+          </div>
+          : <div></div>
+        }
+
       </div>
     </div >
   );

@@ -25,8 +25,9 @@ function CardInGame(props) {
   }
 
   const onClickPlusHandler = () => {
-    if (props.moves)
+    if (props.moves) {
       props.moves.changeRegimentNumber(props.previousSquareId, '+');
+    }
   }
 
   const onClickLessHandler = () => {
