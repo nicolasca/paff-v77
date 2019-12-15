@@ -10,7 +10,8 @@ import * as actionTypes from '../../../store/actions/actionTypes';
 import { UserContext } from '../../Layout/Layout';
 import DeckItem from '../DeckItem/DeckItem';
 import styles from "./DeckBuilder.module.css";
-import DeckSummary from './DeckSummary/DeckSummary';
+import DeckSummary from '../DeckSummary/DeckSummary';
+import { DeckService } from '../../../services/Deck.services';
 
 interface DeckBuilderProps {
   cardsToDisplay: any;
@@ -50,46 +51,18 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = (props) => {
           return (
             <option key={faction.slug} value={faction.slug}>{faction.nom}</option>
           )
-
         })
         setFactionsOptions(factionOptions);
         setFactions(factionsHttp.data);
         setSelectedFaction(factionsHttp.data[0]);
-
-
       }));
   }, [])
 
   React.useEffect(() => {
     if (selectedFaction) {
-
-      const cards: any = {};
-      // Populate les unites
-      unites.forEach((unite) => {
-        if (unite.faction.slug === selectedFaction.slug) {
-          cards[unite.nom] = {
-            ...unite,
-            count: 0,
-          };
-        }
-      });
-
-      // Populate les ordres
-      ordres.forEach((ordre) => {
-        if ((typeof ordre.faction === 'object' && ordre.faction.slug === selectedFaction.slug) ||
-          ordre.faction === 'commun') {
-          // Faire une copie de l'ordre
-          cards[ordre.nom] = {
-            ...ordre,
-            count: 0,
-          };
-        }
-      });
-
+      const cards: any = DeckService.populateDeckFromCards(unites, ordres, selectedFaction);
       setInitCards(cards);
     }
-
-
   }, [selectedFaction, unites, ordres, setInitCards]);
 
   const changeFactionHandler = (event: any) => {
@@ -118,34 +91,17 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = (props) => {
       updateDate: new Date().toISOString(),
     } as IDeck;
 
-    const cardsToSave: ICard[] = [];
-
-    Object.keys(props.cardsToDisplay).forEach((key, index) => {
-      if (props.cardsToDisplay[key].count > 0) {
-        cardsToSave.push({
-          carte: props.cardsToDisplay[key],
-          nbExemplaires: props.cardsToDisplay[key].count,
-        });
-      }
-    });
-
-    deckToSave['cartes'] = cardsToSave;
-
-    var headers = {
-      'Authorization': 'Bearer ' + props.token,
-    }
-    axios.post(config.host + ":3008/decks", deckToSave, { headers: headers })
+    DeckService.saveDeck(deckToSave, props.cardsToDisplay, props.token)
       .then(() => {
+        // Clean the inputs
         setNom('');
         setDescription('');
-
         props.resetCount();
         props.history.push('/liste-decks');
-
       })
       .catch((error) => {
         console.log(error);
-      })
+      });;
   }
 
   return (
@@ -235,7 +191,6 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = (props) => {
       }
     </div >
   );
-
 }
 
 const mapStateToProps = (state: any) => {

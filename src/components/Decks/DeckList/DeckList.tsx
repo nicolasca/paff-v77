@@ -5,7 +5,7 @@ import { config } from '../../../config';
 import { ICard } from '../../../models/ICard';
 import { IDeck } from '../../../models/IDeck';
 import * as actionTypes from '../../../store/actions/actionTypes';
-import DeckSummary from '../DeckBuilder/DeckSummary/DeckSummary';
+import DeckSummary from '../DeckSummary/DeckSummary';
 import DeckItem from '../DeckItem/DeckItem';
 import styles from './DeckList.module.scss';
 
@@ -64,12 +64,10 @@ const DeckList: FunctionComponent<DeckListProps> = (props) => {
     const cardsToSave: ICard[] = [];
 
     Object.keys(props.cardsToDisplay).forEach((key, index) => {
-      if (props.cardsToDisplay[key].count > 0) {
-        cardsToSave.push({
-          carte: props.cardsToDisplay[key],
-          nbExemplaires: props.cardsToDisplay[key].count,
-        });
-      }
+      cardsToSave.push({
+        carte: props.cardsToDisplay[key],
+        nbExemplaires: props.cardsToDisplay[key].count,
+      });
     });
 
     deckSelected['cartes'] = cardsToSave;
