@@ -1,16 +1,23 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { config } from '../../../config';
+import { IDeck } from '../../../models/IDeck';
+import { IOrder } from '../../../models/ICard';
+import styles from './Draft.module.scss';
 
+interface DraftProps {
+  token: string;
+  onClickHandler: Function;
+}
 
-function Draft(props) {
+const Draft: FunctionComponent<DraftProps> = (props) => {
 
-
-  const [options, setOptions] = useState([]);
-  const [decks, setDecks] = useState([]);
-  const [orders, setOrders] = useState([]);
-  const [selectedDeck, setSelectedDeck] = useState(null);
+  const [options, setOptions] = useState<JSX.Element[]>([]);
+  const [decks, setDecks] = useState<IDeck[]>([]);
+  const [orders, setOrders] = useState<IOrder[]>([]);
+  const [selectedDeck, setSelectedDeck] = useState<IDeck>(null!);
+  const [isValidated, setValidated] = useState<boolean>(false);
 
   useEffect(() => {
     const headers = {
@@ -32,7 +39,7 @@ function Draft(props) {
 
   }, [setOptions, setDecks, setSelectedDeck, props.token]);
 
-  const getSelectOptions = (decks) => {
+  const getSelectOptions = (decks: IDeck[]) => {
     return decks.map((deck) => {
       return (
         <option key={deck._id} value={deck._id}>{deck.nom}</option>
@@ -40,30 +47,30 @@ function Draft(props) {
     });
   };
 
-  const changeDeckHandler = (event) => {
+  const changeDeckHandler = (event: any) => {
     const deck = decks.find((deck) => deck._id === event.target.value);
-    setSelectedDeck(deck);
+    if (deck)
+      setSelectedDeck(deck);
   }
 
   const validateDeckHandler = () => {
 
-    const availableOrders = []
+    const availableOrders: IOrder[] = []
     const faction = selectedDeck.cartes[0].carte.faction;
 
     orders.forEach((order) => {
-      if (order.faction.slug === faction.slug || order.faction === 'commun') {
-        // Faire une copie de l'ordre
+      if ((typeof order.faction === 'object' && order.faction.slug === faction.slug) ||
+        order.faction === 'commun') {
         availableOrders.push(order);
       }
     });
-
+    setValidated(true);
     props.onClickHandler(selectedDeck, availableOrders);
   }
 
-
   return (
     <div>
-      {options ?
+      {options && !isValidated ?
         <React.Fragment>
           <label className="label">Tes decks</label>
           <div className="control" >
@@ -77,11 +84,18 @@ function Draft(props) {
           </div>
           <button className="button" onClick={validateDeckHandler}>Choisir</button>
         </React.Fragment> : null}
-    </div>
+
+      {isValidated ?
+        <div>
+          <p>Armée qui part à la guerre: {selectedDeck.nom} </p>
+          <p className={styles.Waiting}>En attente du général adverse<span>.</span><span>.</span><span>.</span></p>
+        </div>
+        : null}
+    </div >
   );
 }
 
-const mapPropsToState = (state) => {
+const mapPropsToState = (state: any) => {
   return {
     token: state.authReducer.token,
   }
