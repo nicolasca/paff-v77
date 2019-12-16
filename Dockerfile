@@ -12,7 +12,8 @@ WORKDIR /app
 RUN npm install --silent
 RUN npm install react-scripts@3.0.1 -g --silent
 
-COPY . /app
+COPY ./public ./public
+COPY ./src ./src
 
 RUN npm run build
 
