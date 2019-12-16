@@ -19,7 +19,8 @@ RUN npm run build
 # Webapp with nginx
 FROM nginx:1.16.0-alpine
 COPY --from=build /app/build /usr/share/nginx/html
-COPY nginx.conf.template /etc/nginx/conf.d
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx.conf.template /etc/nginx/conf.d/default.conf
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 
