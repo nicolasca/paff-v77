@@ -1,14 +1,13 @@
 server {
 
   listen 80;
-  server_name _;
-  index  index.html index.htm;
 
-  location ~ / {
+  location / {
     root   /usr/share/nginx/html;
-    try_files $uri /index.html;
+    index  index.html index.htm;
+    try_files $uri $uri/ /index.html;
   }
-  
+
   error_page   500 502 503 504  /50x.html;
 
   location = /50x.html {
