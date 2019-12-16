@@ -30,7 +30,6 @@ const Layout: FunctionComponent<LayoutProps> = (props) => {
       <Route path="/signin" exact component={SignIn} />
       <Route path="/creer-deck" exact component={DeckBuilder} />
       <Route path="/factions" exact component={Factions} />
-      <Route render={() => <Redirect to="/" />} />
     </React.Fragment>
 
   );
@@ -49,7 +48,6 @@ const Layout: FunctionComponent<LayoutProps> = (props) => {
         <Route path="/deck" exact component={DeckBuilder} />
         <Route path="/liste-decks" exact component={DeckList} />
         <Route path="/jouer" exact component={LobbyView} />
-        {/* <Route render={() => <Redirect to="/" />} /> */}
       </React.Fragment>
     );
   }
