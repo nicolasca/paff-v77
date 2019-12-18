@@ -1,9 +1,15 @@
 .Battleground {
   grid-column: 2 / 3;
   grid-row: 2 / 3;
+  grid-gap: 1.2rem 0rem;
+}
 
+.Line {
   display: grid;
-  grid-template-columns: repeat(2, 100px) 6px repeat(3, 100px) 6px repeat(2, 100px);
-  grid-template-rows: repeat(6, 125px);
-  grid-gap: 1rem 1rem;
+  grid-template-columns: repeat(2, 100px) 0.75rem repeat(3, 100px) 0.75rem repeat(2, 100px);
+  margin-bottom: 1rem;
+}
+
+.F1 {
+  margin-bottom: 0;
 }
