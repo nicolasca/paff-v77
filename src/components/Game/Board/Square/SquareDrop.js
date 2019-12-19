@@ -20,7 +20,7 @@ function SquareDrop(props) {
   }
 
   return (
-    <div ref={drop} style={{ backgroundColor }} className={styles[props.className] + ' ' + styles.Square}>
+    <div ref={drop} style={{ backgroundColor }} className={styles.Square}>
       {props.children}
     </div >
   );

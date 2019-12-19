@@ -12,7 +12,7 @@
   &>.DetailCarac,
   &>.name {
     color: $colorName;
-    background-color: darken($colorBg, 15%);
+    background-color: $colorBg;
   }
 }
 

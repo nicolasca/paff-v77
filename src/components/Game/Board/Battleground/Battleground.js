@@ -6,12 +6,12 @@ import styles from './Battleground.module.scss';
 
 function Battleground(props) {
 
-  const renderSquare = (squareId, className) => {
+  const renderSquare = (idLine, squareId, className) => {
 
     return (
       <SquareDrop
         G={props.G}
-        key={squareId}
+        key={idLine + '_' + squareId}
         className={className}
         square={squareId}
         moveCard={(item) => props.onDrop(item, squareId)}>
@@ -40,25 +40,25 @@ function Battleground(props) {
   for (let i = 1; i < 7; i++) {
     let tbody = [];
 
-    tbody.push(renderSquare(squareId, 'Full'));
+    tbody.push(renderSquare(i, squareId, 'Full'));
     squareId += 1;
-    tbody.push(renderSquare(squareId, 'NotLeft'));
-    squareId += 1;
-
-    tbody.push(<div key={i} className={styles.Space}></div>);
-
-    tbody.push(renderSquare(squareId, 'Full'));
-    squareId += 1;
-    tbody.push(renderSquare(squareId, 'None'));
-    squareId += 1;
-    tbody.push(renderSquare(squareId, 'Full'));
+    tbody.push(renderSquare(i, squareId, 'NotLeft'));
     squareId += 1;
 
     tbody.push(<div key={i} className={styles.Space}></div>);
 
-    tbody.push(renderSquare(squareId, 'Full'));
+    tbody.push(renderSquare(i, squareId, 'Full'));
     squareId += 1;
-    tbody.push(renderSquare(squareId, 'NotLeft'));
+    tbody.push(renderSquare(i, squareId, 'None'));
+    squareId += 1;
+    tbody.push(renderSquare(i, squareId, 'Full'));
+    squareId += 1;
+
+    tbody.push(<div key={(i+1)} className={styles.Space}></div>);
+
+    tbody.push(renderSquare(i, squareId, 'Full'));
+    squareId += 1;
+    tbody.push(renderSquare(i, squareId, 'NotLeft'));
     squareId += 1;
 
     rows.push(tbody);

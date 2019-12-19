@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDrag } from 'react-dnd';
+import CardUnit from '../../Decks/DeckItem/CardItem/CardUnit';
 import { ItemTypes } from './../Drag/ItemTypes';
 import styles from './CardInGame.module.scss';
-import CardUnit from '../../Decks/DeckItem/CardItem/CardUnit';
 
 function CardInGame(props) {
 
