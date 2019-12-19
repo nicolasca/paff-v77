@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from './../../Drag/ItemTypes';
-import Square from './Square';
+import styles from './SquareDrop.module.scss';
 
 function SquareDrop(props) {
 
@@ -20,8 +20,8 @@ function SquareDrop(props) {
   }
 
   return (
-    <div ref={drop} style={{ backgroundColor }}>
-      <Square className={props.className}>{props.children}</Square>
+    <div ref={drop} style={{ backgroundColor }} className={styles[props.className] + ' ' + styles.Square}>
+      {props.children}
     </div >
   );
 }

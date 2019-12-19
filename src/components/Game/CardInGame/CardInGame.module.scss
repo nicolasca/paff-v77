@@ -3,9 +3,14 @@
 
 @mixin setColorsFaction($colorName, $colorBg) {
 
-  border: 2px solid darken($colorBg, 10%);
+  border: 1px solid darken($colorBg, 10%);
 
-  .name {
+  &>.type,
+  &>.deploy,
+  &>.Regiment,
+  &>.Capacites,
+  &>.DetailCarac,
+  &>.name {
     color: $colorName;
     background-color: darken($colorBg, 15%);
   }
@@ -29,7 +34,12 @@
   @include setColorsFaction($liches-name-color, $liches-bg-color);
   border: 2px solid darken($liches-bg-color, 10%);
 
-  .name {
+  &>.type,
+  &>.deploy,
+  &>.Regiment,
+  &>.Capacites,
+  &>.DetailCarac,
+  &>.name {
     background-color: darken($liches-bg-color, 35%);
   }
 }
@@ -45,7 +55,7 @@
   grid-template-rows: 10% 10% 55% 17% 8%;
 
   border: 2px solid #702827;
-  height: 125px;
+  height: 123px;
   width: 100px;
 }
 

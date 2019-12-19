@@ -2,6 +2,9 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   height: 100%;
+  background-color: white;
+  border: 1px solid grey;
+  padding: 1rem;;
 
   .PlayerTop {
     display: flex;

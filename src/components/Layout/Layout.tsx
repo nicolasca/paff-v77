@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Auth from '../Auth/Auth';
 import Logout from '../Auth/Logout/Logout';
 import SignIn from '../Auth/SignIn';
