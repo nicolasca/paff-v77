@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDrag } from 'react-dnd';
+import CardUnit from '../../Decks/DeckItem/CardItem/CardUnit';
 import { ItemTypes } from './../Drag/ItemTypes';
 import styles from './CardInGame.module.scss';
-import CardUnit from '../../Decks/DeckItem/CardItem/CardUnit';
 
 function CardInGame(props) {
 
@@ -10,10 +10,14 @@ function CardInGame(props) {
 
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.CARD, card: props.unit, previousSquareId: props.previousSquareId },
+    canDrag: () => {
+      return props.playerID;
+    },
     collect: monitor => ({
       isDragging: !!monitor.isDragging(),
     }),
   });
+
 
   const onRightClickHandler = (event) => {
     event.preventDefault();
@@ -25,13 +29,13 @@ function CardInGame(props) {
   }
 
   const onClickPlusHandler = () => {
-    if (props.moves) {
+    if (props.moves && props.playerID) {
       props.moves.changeRegimentNumber(props.previousSquareId, '+');
     }
   }
 
   const onClickLessHandler = () => {
-    if (props.moves)
+    if (props.moves && props.playerID)
       props.moves.changeRegimentNumber(props.previousSquareId, '-');
   }
 

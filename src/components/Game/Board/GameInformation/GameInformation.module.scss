@@ -8,6 +8,10 @@
     align-items: center;
     grid-column: 1 / 4;
     grid-row: 2 / 3;
+
+    input {
+      width: 5rem;
+    }
   }
 
   .PlayerBottom {
@@ -15,6 +19,10 @@
     align-items: center;
     grid-column: 1 / 4;
     grid-row: 4 / 5;
+
+    input {
+      width: 5rem;
+    }
   }
 
   .BlackHoleReserve {

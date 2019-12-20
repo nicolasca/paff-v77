@@ -31,15 +31,19 @@ function GameArea({ G, ctx, gameMetadata, onRollDice, initiativeFinished, moves,
   }
 
 
-  const playerHand = G.hands[playerID].map((card, index) => {
-    return (
+  let playerHand = [];
+  if (G.hands[playerID]) {
+    playerHand = G.hands[playerID].map((card, index) => {
+      return (
 
-      <div className={styles.Card} key={index}>
-        <CardInGame unit={card}>
-        </CardInGame>
-      </div>
-    );
-  });
+        <div className={styles.Card} key={index}>
+          <CardInGame unit={card}>
+          </CardInGame>
+        </div>
+      );
+    });
+  }
+
 
   const otherPlayerID = +playerID === 0 ? 1 : 0;
   const otherHand = G.hands[otherPlayerID].map((card, index) => {
@@ -154,6 +158,7 @@ function GameArea({ G, ctx, gameMetadata, onRollDice, initiativeFinished, moves,
             G={G}
             onDrop={onDrop}
             moves={moves}
+            playerID={playerID}
           >
           </Battleground>
         </div>

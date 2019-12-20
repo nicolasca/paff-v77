@@ -32,21 +32,78 @@ function GameInformation({ G, ctx, events, moves, player0, player1, onClickReser
         </p>
       </div>
 
-      <div className={styles.BlackHoleReserve}>
-        <BlackHole
-          removeCardFromBoard={(item) => onRemoveCardHandler(item)}>
-        </BlackHole>
-        <div>
+      {playerID ?
 
-        </div>
+        <React.Fragment>
 
-        {ctx.phase === PHASES.CHOOSE_ORDERS ?
-          <ReserveButton
-            onClickReserve={onClickReserveHandler}>
-          </ReserveButton>
-          : null
-        }
-      </div>
+          <div className={styles.BlackHoleReserve}>
+            <BlackHole
+              removeCardFromBoard={(item) => onRemoveCardHandler(item)}>
+            </BlackHole>
+            <div>
+
+            </div>
+
+            {ctx.phase === PHASES.CHOOSE_ORDERS ?
+              <ReserveButton
+                onClickReserve={onClickReserveHandler}>
+              </ReserveButton>
+              : null
+            }
+          </div>
+
+          <div className={styles.OrdersTop}>
+
+            {
+              (+playerID === player0.id ||
+                G.showOrders[topPlayer.id]) ?
+                <OrdersProgramming
+                  orders={G.availableOrders[0]}>
+                </OrdersProgramming> : null
+            }
+            {
+              +playerID === player0.id ?
+                <div>
+                  {
+                    G.showOrders[playerID] ?
+                      <button className="button" onClick={onHideHandler}>Cacher</button>
+                      :
+                      <button className="button" onClick={onHideHandler}>Montrer</button>
+                  }
+                </div>
+                :
+                null
+            }
+
+          </div>
+
+          <div className={styles.OrdersBottom}>
+
+            {
+              (+playerID === player1.id ||
+                G.showOrders[bottomPlayer.id]) ?
+                <OrdersProgramming
+                  orders={G.availableOrders[1]}>
+                </OrdersProgramming> : null
+            }
+            {
+              +playerID === player1.id ?
+                <div>
+                  {
+                    G.showOrders[playerID] ?
+                      <button className="button" onClick={onHideHandler}>Cacher</button>
+                      :
+                      <button className="button" onClick={onHideHandler}>Montrer</button>
+                  }
+                </div>
+                :
+                null
+            }
+          </div>
+        </React.Fragment>
+
+        : null
+      }
 
       <div className={styles.PlayerBottom}>
         <input type="number" />
@@ -68,55 +125,6 @@ function GameInformation({ G, ctx, events, moves, player0, player1, onClickReser
           : null
       }
 
-
-      <div className={styles.OrdersTop}>
-
-        {
-          (+playerID === player0.id ||
-            G.showOrders[topPlayer.id]) ?
-            <OrdersProgramming
-              orders={G.availableOrders[0]}>
-            </OrdersProgramming> : null
-        }
-        {
-          +playerID === player0.id ?
-            <div>
-              {
-                G.showOrders[playerID] ?
-                  <button className="button" onClick={onHideHandler}>Cacher</button>
-                  :
-                  <button className="button" onClick={onHideHandler}>Montrer</button>
-              }
-            </div>
-            :
-            null
-        }
-
-      </div>
-
-      <div className={styles.OrdersBottom}>
-
-        {
-          (+playerID === player1.id ||
-            G.showOrders[bottomPlayer.id]) ?
-            <OrdersProgramming
-              orders={G.availableOrders[1]}>
-            </OrdersProgramming> : null
-        }
-        {
-          +playerID === player1.id ?
-            <div>
-              {
-                G.showOrders[playerID] ?
-                  <button className="button" onClick={onHideHandler}>Cacher</button>
-                  :
-                  <button className="button" onClick={onHideHandler}>Montrer</button>
-              }
-            </div>
-            :
-            null
-        }
-      </div>
     </div>
   )
 }

@@ -11,6 +11,7 @@ function Battleground(props) {
     return (
       <SquareDrop
         G={props.G}
+        ctx={props.ctx}
         key={i}
         square={squareId}
         moveCard={(item) => props.onDrop(item, squareId)}>
@@ -18,6 +19,7 @@ function Battleground(props) {
           props.G.squares[squareId] ?
             <div className={styles.Card}>
               <CardInGame
+                playerID={props.playerID}
                 unit={props.G.squares[squareId]}
                 previousSquareId={squareId}
                 moves={props.moves}>
