@@ -68,6 +68,7 @@ function GameInformation({ G, ctx, events, moves, player0, player1, onClickReser
               (+playerID === player0.id ||
                 G.showOrders[topPlayer.id]) ?
                 <OrdersProgramming
+                  moves
                   orders={G.availableOrders[0]}>
                 </OrdersProgramming> : null
             }
@@ -119,8 +120,7 @@ function GameInformation({ G, ctx, events, moves, player0, player1, onClickReser
         ctx.phase === PHASES.DEPLOYMENT ?
           <div className={styles.EndDeployment}>
             <button className="button" onClick={endDeploymentHandler}>
-              Valider le déploiement
-                                </button>
+              Valider le déploiement</button>
           </div>
           : null
       }
