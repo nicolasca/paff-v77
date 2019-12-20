@@ -9,6 +9,7 @@
   .Player {
     display: flex;
     align-items: center;
+
     input {
       width: 5rem;
     }
@@ -25,13 +26,22 @@
   }
 
   .BlackHoleReserve {
-    grid-column: 1 / 4;
+    grid-column: 1 / 2;
     grid-row: 3 / 4;
     align-self: center;
 
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-around;
+  }
+
+  .SelectedOrdresContainer {
+    grid-column: 2 / 4;
+    grid-row: 3 / 4;
+    display: flex;
+
+    align-items: center;
   }
 
   .OrdersTop {

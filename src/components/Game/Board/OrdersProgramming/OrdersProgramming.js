@@ -4,9 +4,9 @@ import styles from './OrdersProgramming.module.scss';
 function OrdersProgramming(props) {
 
   const [ordersChoice, setOrdersChoice] = useState([]);
-  const [order1, setOrder1] = useState(null);
-  const [order2, setOrder2] = useState(null);
-  const [order3, setOrder3] = useState(null);
+  const [orderId1, setOrderId1] = useState(null);
+  const [orderId2, setOrderId2] = useState(null);
+  const [orderId3, setOrderId3] = useState(null);
 
   const [axe1, setAxe1] = useState(null);
   const [axe2, setAxe2] = useState(null);
@@ -15,14 +15,13 @@ function OrdersProgramming(props) {
 
   const handleSelectOrderChange = (i, event) => {
     const value = event.target.value;
-    console.log(JSON.stringify(value));
-    
+
     if (i === 1) {
-      setOrder1(value);
+      setOrderId1(value);
     } else if (i === 2) {
-      setOrder2(value);
+      setOrderId2(value);
     } else if (i === 3) {
-      setOrder3(value);
+      setOrderId3(value);
     }
   };
 
@@ -39,24 +38,17 @@ function OrdersProgramming(props) {
   };
 
   const handleValidateOrders = () => {
-    console.log('order 1', order1);
-    console.log('order 2', order2);
-    console.log('order 3', order3);
-
-    console.log('axe 1', axe1);
-    console.log('axe 2', axe2);
-    console.log('axe 3', axe3);
-    props.moves.validateOrders([
+    props.moves.validateOrdersProgs([
       {
-        order: order1,
+        order: props.orders.find((order) => order._id === orderId1),
         axe: axe1,
       },
       {
-        order: order2,
+        order: props.orders.find((order) => order._id === orderId2),
         axe: axe2,
       },
       {
-        order: order3,
+        order: props.orders.find((order) => order._id === orderId3),
         axe: axe3,
       }
     ]);
@@ -65,15 +57,16 @@ function OrdersProgramming(props) {
   useEffect(() => {
     /* Construct the selects for orders and axes */
     const options = props.orders.map((order) => {
-      return (
-        <option value={order._id} key={order._id}>{order.nom} x{order.limite}</option>
-      )
+      return order.limite !== 0 ? (
+        <option value={order._id} key={order._id}>
+          {order.nom} x{order.limite}
+        </option>
+      ) : null;
     });
-console.log(props.orders);
 
     const axes = (
       <React.Fragment>
-        <option value="coco"  key="coco">Flan coco</option>
+        <option value="coco" key="coco">Flan coco</option>
         <option value="centre" key="centre">Centre</option>
         <option value="pommes" key="pommes">Flan pomme</option>
       </React.Fragment>
@@ -90,6 +83,7 @@ console.log(props.orders);
           <div className="select is-small">
             <select
               name='order'
+              defaultValue={props.orders[0]._id}
               onChange={(event) => handleSelectOrderChange(i, event)}
             >
               {options}
@@ -112,13 +106,13 @@ console.log(props.orders);
     setOrdersChoice(ordersOptions);
 
     // Init orders state
-    setOrder1(props.orders[0]._id);
+    setOrderId1(props.orders[0]._id);
     setAxe1('coco');
-    setOrder2(props.orders[1]._id);
+    setOrderId2(props.orders[1]._id);
     setAxe2('centre');
-    setOrder3(props.orders[2]._id);
+    setOrderId3(props.orders[2]._id);
     setAxe3('pommes');
-  
+
   }, [props.orders])
 
 

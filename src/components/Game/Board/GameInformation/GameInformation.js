@@ -4,129 +4,116 @@ import OrdersProgramming from '../OrdersProgramming/OrdersProgramming';
 import ReserveButton from '../Reserve/ReserveButton';
 import BlackHole from './BlackHole/BlackHole';
 import styles from './GameInformation.module.scss';
+import SelectedOrders from './SelectedOrders/SelectedOrders';
 
 function GameInformation({ G, ctx, events, moves, player0, player1, onClickReserveHandler, topPlayer, bottomPlayer, playerID }) {
 
-  const endDeploymentHandler = () => {
-    events.endPhase();
-  }
+	const endDeploymentHandler = () => {
+		events.endPhase();
+	}
+	const onRemoveCardHandler = (item) => {
+		moves.removeCardFromBoard({ card: item.card, previousSquareId: item.previousSquareId });
+	}
 
-  const onHideHandler = () => {
-    moves.hideShowOrders();
-  }
+	return (
+		<div className={styles.GameInformation}>
 
-  const onRemoveCardHandler = (item) => {
-    moves.removeCardFromBoard({ card: item.card, previousSquareId: item.previousSquareId });
-  }
+			<div className={styles.PlayerTop + ' ' + styles.Player}>
+				<input type="number" />
+				<p>{player0.name}</p>
+				<p className={styles.FactionPlayer}>
+					<span>{G.decks[0].cartes[0].carte.faction.nom}</span>
+					<img src={process.env.PUBLIC_URL + 'assets/factions/logo-' + G.decks[0].cartes[0].carte.faction.image}
+						alt={G.decks[0].cartes[0].carte.faction.nom + ' image'} />
+				</p>
+			</div>
 
-  return (
-    <div className={styles.GameInformation}>
+			<div className={styles.PlayerBottom + ' ' + styles.Player}>
+				<input type="number" />
+				<p>{player1.name}</p>
+				<p className={styles.FactionPlayer}>
+					<span>{G.decks[1].cartes[0].carte.faction.nom}</span>
+					<img src={process.env.PUBLIC_URL + 'assets/factions/logo-' + G.decks[1].cartes[0].carte.faction.image}
+						alt={G.decks[1].cartes[0].carte.faction.nom + ' image'} />
+				</p>
+			</div>
 
-      <div className={styles.PlayerTop + ' ' + styles.Player}>
-        <input type="number" />
-        <p>{player0.name}</p>
-        <p className={styles.FactionPlayer}>
-          <span>{G.decks[0].cartes[0].carte.faction.nom}</span>
-          <img src={process.env.PUBLIC_URL + 'assets/factions/logo-' + G.decks[0].cartes[0].carte.faction.image}
-            alt={G.decks[0].cartes[0].carte.faction.nom + ' image'} />
-        </p>
-      </div>
+			{playerID ?
 
-      <div className={styles.PlayerBottom + ' ' + styles.Player}>
-        <input type="number" />
-        <p>{player1.name}</p>
-        <p className={styles.FactionPlayer}>
-          <span>{G.decks[1].cartes[0].carte.faction.nom}</span>
-          <img src={process.env.PUBLIC_URL + 'assets/factions/logo-' + G.decks[1].cartes[0].carte.faction.image}
-            alt={G.decks[1].cartes[0].carte.faction.nom + ' image'} />
-        </p>
-      </div>
+				<React.Fragment>
 
-      {playerID ?
+					<div className={styles.BlackHoleReserve}>
+						<BlackHole
+							removeCardFromBoard={(item) => onRemoveCardHandler(item)}>
+						</BlackHole>
+						<div>
 
-        <React.Fragment>
+						</div>
 
-          <div className={styles.BlackHoleReserve}>
-            <BlackHole
-              removeCardFromBoard={(item) => onRemoveCardHandler(item)}>
-            </BlackHole>
-            <div>
+						{ctx.phase === PHASES.CHOOSE_ORDERS ||
+							ctx.phase === PHASES.APPLY_ORDERS ?
+							<ReserveButton
+								onClickReserve={onClickReserveHandler}>
+							</ReserveButton>
+							: null
+						}
+					</div>
 
-            </div>
+					{ctx.phase === PHASES.CHOOSE_ORDERS ?
+						<React.Fragment>
 
-            {ctx.phase === PHASES.CHOOSE_ORDERS ?
-              <ReserveButton
-                onClickReserve={onClickReserveHandler}>
-              </ReserveButton>
-              : null
-            }
-          </div>
+							<div className={styles.OrdersTop}>
 
-          <div className={styles.OrdersTop}>
+								{
+									+playerID === player0.id ?
+										<OrdersProgramming
+											moves={moves}
+											orders={G.availableOrders[0]}>
+										</OrdersProgramming> : null
+								}
+							</div>
 
-            {
-              (+playerID === player0.id ||
-                G.showOrders[topPlayer.id]) ?
-                <OrdersProgramming
-                  moves
-                  orders={G.availableOrders[0]}>
-                </OrdersProgramming> : null
-            }
-            {
-              +playerID === player0.id ?
-                <div>
-                  {
-                    G.showOrders[playerID] ?
-                      <button className="button" onClick={onHideHandler}>Cacher</button>
-                      :
-                      <button className="button" onClick={onHideHandler}>Montrer</button>
-                  }
-                </div>
-                :
-                null
-            }
+							<div className={styles.OrdersBottom}>
 
-          </div>
+								{
+									+playerID === player1.id ?
+										<OrdersProgramming
+											moves={moves}
 
-          <div className={styles.OrdersBottom}>
+											orders={G.availableOrders[1]}>
+										</OrdersProgramming> : null
+								}
+							</div>
+						</React.Fragment>
+						: null
+					}
 
-            {
-              (+playerID === player1.id ||
-                G.showOrders[bottomPlayer.id]) ?
-                <OrdersProgramming
-                  orders={G.availableOrders[1]}>
-                </OrdersProgramming> : null
-            }
-            {
-              +playerID === player1.id ?
-                <div>
-                  {
-                    G.showOrders[playerID] ?
-                      <button className="button" onClick={onHideHandler}>Cacher</button>
-                      :
-                      <button className="button" onClick={onHideHandler}>Montrer</button>
-                  }
-                </div>
-                :
-                null
-            }
-          </div>
-        </React.Fragment>
+					{ctx.phase === PHASES.APPLY_ORDERS ?
+						<div className={styles.SelectedOrdresContainer}>
+							<SelectedOrders
+								selectedOrdersProgs={G.selectedOrdersProgs}>
+							</SelectedOrders>
+						</div>
 
-        : null
-      }
+						: null
+					}
 
-      {
-        ctx.phase === PHASES.DEPLOYMENT ?
-          <div className={styles.EndDeployment}>
-            <button className="button" onClick={endDeploymentHandler}>
-              Valider le déploiement</button>
-          </div>
-          : null
-      }
+				</React.Fragment>
 
-    </div>
-  )
+				: null
+			}
+
+			{
+				ctx.phase === PHASES.DEPLOYMENT ?
+					<div className={styles.EndDeployment}>
+						<button className="button" onClick={endDeploymentHandler}>
+							Valider le déploiement</button>
+					</div>
+					: null
+			}
+
+		</div>
+	)
 }
 
 export default GameInformation;

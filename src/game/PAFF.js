@@ -6,6 +6,7 @@ export const PHASES = {
   INITIATIVE: 'initiative',
   DEPLOYMENT: 'deployment',
   CHOOSE_ORDERS: 'chooseOrders',
+  APPLY_ORDERS: 'applyOrders',
 }
 
 const drop = (G, ctx, options) => {
@@ -34,7 +35,7 @@ const PAFF = {
     initiativeScore: Array(2).fill(null),
     hands: Array(2).fill(null),
     availableOrders: Array(2).fill(null),
-    selectedOrders: Array(2).fill(null),
+    selectedOrdersProgs: Array(2).fill(null),
     showOrders: Array(2).fill(false),
   }),
 
@@ -95,10 +96,6 @@ const PAFF = {
     },
     [PHASES.CHOOSE_ORDERS]: {
       moves: {
-        drop: drop,
-        hideShowOrders: (G, ctx) => {
-          G.showOrders[ctx.playerID] = !G.showOrders[ctx.playerID];
-        },
         changeRegimentNumber: (G, ctx, squareId, action) => {
           G.squares.forEach((card, index) => {
             if (index === squareId) {
@@ -121,13 +118,48 @@ const PAFF = {
             G.squares[options.previousSquareId] = null;
           }
         },
+        validateOrdersProgs: (G, ctx, ordersProgs) => {
+          G.selectedOrdersProgs[ctx.playerID] = ordersProgs;
+
+          const ordersToRemove = ordersProgs.map((orderProg) => orderProg.order._id);
+
+          // Remove these orders from the pool
+          // for (let i = 0; i < G.availableOrders[ctx.playerID].length; i++) {
+          G.availableOrders[ctx.playerID].forEach((order) => {
+            // const order = G.availableOrders[ctx.playerID][i];
+            ordersToRemove.forEach((orderToRemove) => {
+
+              if (order._id === orderToRemove && !order.recuperable) {
+                order.limite = order.limite - 1;
+              }
+            });
+          });
+
+          if (G.selectedOrdersProgs[0] && G.selectedOrdersProgs[1]) {
+            ctx.events.endPhase();
+          }
+        }
       },
       turn: {
         activePlayers: { all: Stage.NULL },
       },
-      // next: 'set_the_orders'
+      next: PHASES.APPLY_ORDERS,
     },
-    // use_the_orders: { next: 'fight' },
+    [PHASES.APPLY_ORDERS]: {
+      drop: drop,
+      moves: {
+        removeCardFromBoard: (G, ctx, options) => {
+          // Remove from previous square
+          if (options.previousSquareId) {
+            G.squares[options.previousSquareId] = null;
+          }
+        },
+      },
+      turn: {
+        activePlayers: { all: Stage.NULL },
+      },
+      next: PHASES.CHOOSE_ORDERS,
+    },
     // fight: { next: 'pick_used_cards' },
   }
 }
