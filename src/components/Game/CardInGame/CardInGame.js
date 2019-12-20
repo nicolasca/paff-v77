@@ -7,6 +7,8 @@ import styles from './CardInGame.module.scss';
 function CardInGame(props) {
 
   const [cardHover, setCardHover] = useState(false);
+  let timerId;
+  let plusClick = 0;
 
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.CARD, card: props.unit, previousSquareId: props.previousSquareId },
@@ -14,6 +16,15 @@ function CardInGame(props) {
       isDragging: !!monitor.isDragging(),
     }),
   });
+
+  // Debounce function: Input as function which needs to be debounced and delay is the debounced time in milliseconds
+  const _debounceFunction = function (func, delay) {
+    // Cancels the setTimeout method execution
+    clearTimeout(timerId)
+
+    // Executes the func after delay time.
+    timerId = setTimeout(func, delay)
+  }
 
   const onRightClickHandler = (event) => {
     event.preventDefault();
@@ -25,8 +36,19 @@ function CardInGame(props) {
   }
 
   const onClickPlusHandler = () => {
+    // console.log('plus');
+    // plusClick ++;
+    // if (props.moves) {
+    //   console.log(plusClick);
+      
+    //   _debounceFunction(function() {
+    //     props.moves.changeRegimentNumber(props.previousSquareId, '+', plusClick);
+    //     plusClick = 0;
+    //   }, 1000);
+    // }
+
     if (props.moves) {
-      props.moves.changeRegimentNumber(props.previousSquareId, '+');
+        props.moves.changeRegimentNumber(props.previousSquareId, '+')
     }
   }
 
@@ -53,7 +75,7 @@ function CardInGame(props) {
         <span>{props.unit.nom}</span>
       </div>
       <div className={styles.Image} style={{ backgroundImage: `url(${imageUrl})` }} >
-        <img src={imageUrl} alt="" />
+        {/* <img src={imageUrl} alt="" /> */}
       </div>
       <div className={styles.Regiment}>
         {props.unit.regiment}

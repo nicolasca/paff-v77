@@ -14,13 +14,13 @@ console.log('Run server boardgame js');
 
 const PORT = process.env.PORT || 8000;
 const server = Server({
+  http://www.tdf-online.fr/
   games: [PAFF],
   db: new FlatFile({
     dir: './storage/directory',
     logging: true,
   }),
 });
-console.log(server);
 
 server.run(PORT, () => {
   console.log(`Serving at: http://localhost:${PORT}/`);

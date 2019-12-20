@@ -10,6 +10,7 @@
   &>.Regiment,
   &>.Capacites,
   &>.DetailCarac,
+  &>.RegimentButtons,
   &>.name {
     color: $colorName;
     background-color: $colorBg;
@@ -39,6 +40,7 @@
   &>.Regiment,
   &>.Capacites,
   &>.DetailCarac,
+  &>.RegimentButtons,
   &>.name {
     background-color: darken($liches-bg-color, 35%);
   }
@@ -52,7 +54,7 @@
   font-family: 'Helvetica';
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: 10% 10% 55% 17% 8%;
+  grid-template-rows: 20% 60% 20%;
 
   border: 2px solid #702827;
   height: 123px;
@@ -79,8 +81,8 @@
 
 .Regiment {
   grid-column: 1 / 6;
-  grid-row: 4 / 6;
-  font-size: 1.5rem;
+  grid-row: 3 / 4;
+  font-size: 1.3rem;
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -95,16 +97,21 @@
   align-items: center;
   justify-items: center;
   border-top: 1px solid black;
-  color: #4a4a4a;
-  background-color: white;
+  // color: #4a4a4a;
+  // background-color: white;
   grid-column: 6 / 11;
-  grid-row: 4 / 6;
+  grid-row: 3 / 4;
   cursor: pointer;
+
+  & > p {
+    margin: 0;
+    padding: 0.5rem;
+  }
 }
 
 .Image {
   grid-column: 1 / 11;
-  grid-row: 2 / 4;
+  grid-row: 2 / 3;
   background-position: center;
   background-size: cover;
   border-top: 1px solid black;
@@ -122,5 +129,6 @@
   width: 250px;
   position: absolute;
   left: 100px;
+  top: -100px;
   z-index: 5;
 }
