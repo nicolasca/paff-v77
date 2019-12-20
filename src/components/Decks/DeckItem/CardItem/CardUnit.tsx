@@ -9,6 +9,7 @@ import AttCac from '../../../../assets/icons/att-cac.png';
 import DefCac from '../../../../assets/icons/def-cac.png';
 import AttTir from '../../../../assets/icons/att-tir.png';
 import DefTir from '../../../../assets/icons/def-tir.png';
+import Card from '../../../../assets/card3-reduced.png';
 import { config } from '../../../../config';
 import { IUnite } from '../../../../models/ICard';
 import styles from './CardUnit.module.scss';
@@ -50,29 +51,27 @@ const CardUnit: FunctionComponent<CardUnitProps> = (props) => {
   const imageUrl = !props.unit.image ? require(`../../../../assets/logo.jpg`) :
     require(`../../../../assets/cartes/${props.unit.faction.slug}/${props.unit.image}`);
 
+
   return (
-    <div className={[styles.CardUnit, styles.container, styles[props.unit.faction.slug]].join(' ')}>
+    <div className={[styles.Card, styles[props.unit.faction.slug]].join(' ')}>
       <div className={styles.deploy}>
         {props.unit.deploy}
-      </div>
-      <div className={styles.Faction}>
-        <span>{props.unit.faction.nom}</span>
       </div>
       <div className={styles.name}>
         <span>{props.unit.nom}</span>
       </div>
-      <div className={styles.type}>
-        {type}
-      </div>
       <div className={styles.Image} style={{ backgroundImage: `url(${imageUrl})` }} >
-        {/* <img src={require(`../../../assets/logo.jpg`)} alt="boss orc" /> */}
-      </div>
-      <div className={styles.Regiment}>
-        {props.unit.regiment}
       </div>
       <div className={styles.Capacites}>
         {capacites}
       </div>
+      <div className={styles.Regiment}>
+        {props.unit.regiment}
+      </div>
+      <div className={styles.type}>
+        {type}
+      </div>
+
       <div className={styles.DetailCarac}>
         {props.unit.attCac !== 0 ?
           <div className={styles.ItemCarac}>
@@ -114,10 +113,11 @@ const CardUnit: FunctionComponent<CardUnitProps> = (props) => {
           </div>
           : <div></div>
         }
-
       </div>
-    </div >
-  );
+      <img className={styles.CardImage} src={Card} alt="" />
+    </div>
+  )
+
 }
 
 export default CardUnit;

@@ -7,6 +7,11 @@
   src: local('PiecesOfEight'), url(./assets/fonts/PiecesOfEight.ttf) format('truetype');
 }
 
+@font-face {
+  font-family: 'CardCalligraphy';
+  src: local('Abbasy Calligraphy Typeface'), url(./assets/fonts/PiecesOfEight.ttf) format('truetype');
+}
+
 body {
   margin: 0;
   height: 100vh;
