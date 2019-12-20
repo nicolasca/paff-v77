@@ -37,7 +37,7 @@ function GameArea({ G, ctx, gameMetadata, onRollDice, initiativeFinished, moves,
       return (
 
         <div className={styles.Card} key={index}>
-          <CardInGame unit={card}>
+          <CardInGame unit={card} playerID={playerID}>
           </CardInGame>
         </div>
       );

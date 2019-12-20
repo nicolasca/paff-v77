@@ -22,13 +22,23 @@ function GameInformation({ G, ctx, events, moves, player0, player1, onClickReser
   return (
     <div className={styles.GameInformation}>
 
-      <div className={styles.PlayerTop}>
+      <div className={styles.PlayerTop + ' ' + styles.Player}>
         <input type="number" />
         <p>{player0.name}</p>
         <p className={styles.FactionPlayer}>
           <span>{G.decks[0].cartes[0].carte.faction.nom}</span>
           <img src={process.env.PUBLIC_URL + 'assets/factions/logo-' + G.decks[0].cartes[0].carte.faction.image}
             alt={G.decks[0].cartes[0].carte.faction.nom + ' image'} />
+        </p>
+      </div>
+
+      <div className={styles.PlayerBottom + ' ' + styles.Player}>
+        <input type="number" />
+        <p>{player1.name}</p>
+        <p className={styles.FactionPlayer}>
+          <span>{G.decks[1].cartes[0].carte.faction.nom}</span>
+          <img src={process.env.PUBLIC_URL + 'assets/factions/logo-' + G.decks[1].cartes[0].carte.faction.image}
+            alt={G.decks[1].cartes[0].carte.faction.nom + ' image'} />
         </p>
       </div>
 
@@ -104,16 +114,6 @@ function GameInformation({ G, ctx, events, moves, player0, player1, onClickReser
 
         : null
       }
-
-      <div className={styles.PlayerBottom}>
-        <input type="number" />
-        <p>{player1.name}</p>
-        <p className={styles.FactionPlayer}>
-          <span>{G.decks[1].cartes[0].carte.faction.nom}</span>
-          <img src={process.env.PUBLIC_URL + 'assets/factions/logo-' + G.decks[1].cartes[0].carte.faction.image}
-            alt={G.decks[1].cartes[0].carte.faction.nom + ' image'} />
-        </p>
-      </div>
 
       {
         ctx.phase === PHASES.DEPLOYMENT ?

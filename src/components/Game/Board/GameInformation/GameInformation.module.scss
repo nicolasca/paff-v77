@@ -4,28 +4,24 @@
   height: 100%;
   background-color: white;
   border: 1px solid grey;
-  padding: 1rem;;
+  padding: 1rem;
 
-  .PlayerTop {
+  .Player {
     display: flex;
     align-items: center;
-    grid-column: 1 / 4;
-    grid-row: 2 / 3;
-
     input {
       width: 5rem;
     }
   }
 
+  .PlayerTop {
+    grid-column: 1 / 4;
+    grid-row: 2 / 3;
+  }
+
   .PlayerBottom {
-    display: flex;
-    align-items: center;
     grid-column: 1 / 4;
     grid-row: 4 / 5;
-
-    input {
-      width: 5rem;
-    }
   }
 
   .BlackHoleReserve {
@@ -59,8 +55,9 @@
     align-items: center;
 
     img {
+      margin-left: 1rem;
       max-width: 50px;
-      ;
+      border-radius: 50%;
     }
   }
 }

@@ -26,8 +26,9 @@ function BlackHole(props) {
   styles = { ...styles, backgroundColor };
 
   return (
-    <div ref={drop} style={styles}>
-
+    <div>
+      <div>Défausse</div>
+      <div ref={drop} style={styles}></div>
     </div >
   );
 }
