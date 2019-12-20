@@ -14,11 +14,11 @@ function Board({ G, events, moves, playerID, ctx, gameMetadata }) {
     moves.setDeck(deck, playerID, orders);
   }
 
-
-
   const onRollDiceHandler = () => {
     moves.rollDice(playerID);
   }
+
+  document.getElementById("lobby-view").style.padding = "10px 0 0 0";
 
   useEffect(() => {
     setInitiativeFinished(G.initiativeScore[0] !== null && G.initiativeScore[1] !== null);

@@ -163,6 +163,12 @@ function GameArea({ G, ctx, gameMetadata, onRollDice, initiativeFinished, moves,
           </Battleground>
         </div>
 
+        <div className={styles.AxeDeclaration}>
+          <div> Flanc Coco </div>
+          <div> Centre </div>
+          <div> Flanc Pommes </div>
+        </div>
+
       </div >
     </React.Fragment>
 

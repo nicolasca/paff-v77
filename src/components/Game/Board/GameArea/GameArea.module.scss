@@ -1,7 +1,7 @@
 .ScreenGame {
   display: grid;
-  grid-template-columns: 5% 65% 30%;
-  grid-template-rows: auto auto auto;
+  grid-template-columns: 35px 65% 30%;
+  grid-template-rows: auto auto auto auto;
 }
 
 .BattlegroundContainer {
@@ -12,11 +12,41 @@
 .ZoneDeclaration {
   grid-column: 1 / 2;
   grid-row: 2 / 3;
-
   display: grid;
   grid-template-rows: repeat(6, 125px);
   grid-gap: 1rem 1rem;
   align-items: center;
+
+  &>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #29194e;
+  }
+}
+
+.AxeDeclaration {
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+  display: flex;
+  // justify-content: center;
+
+  &>div {
+    text-align: center;
+    color: #29194e;
+  }
+
+  &>div:nth-child(1) {
+    width: 205px;
+  }
+
+  &>div:nth-child(2) {
+    width: 310px;
+  }
+
+  &>div:nth-child(3) {
+    width: 205px;
+  }
 }
 
 .HandTop {

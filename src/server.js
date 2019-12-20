@@ -20,7 +20,6 @@ const server = Server({
     logging: true,
   }),
 });
-console.log(server);
 
 server.run(PORT, () => {
   console.log(`Serving at: http://localhost:${PORT}/`);
