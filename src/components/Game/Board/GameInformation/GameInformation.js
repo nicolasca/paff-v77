@@ -15,11 +15,15 @@ function GameInformation({ G, ctx, events, moves, player0, player1, onClickReser
     moves.removeCardFromBoard({ card: item.card, previousSquareId: item.previousSquareId });
   }
 
+  function onChangeScoreHandler(playerID, event) {
+    moves.changeScoreVictory(playerID, event.target.value);
+  }
+
   return (
     <div className={styles.GameInformation}>
 
       <div className={styles.PlayerTop + ' ' + styles.Player}>
-        <input type="number" />
+        <input value={G.victoryPoints[0]} onChange={(event) => onChangeScoreHandler(0, event)} type="number" />
         <p>{player0.name}</p>
         <p className={styles.FactionPlayer}>
           <span>{G.decks[0].cartes[0].carte.faction.nom}</span>
@@ -29,7 +33,7 @@ function GameInformation({ G, ctx, events, moves, player0, player1, onClickReser
       </div>
 
       <div className={styles.PlayerBottom + ' ' + styles.Player}>
-        <input type="number" />
+        <input value={G.victoryPoints[1]} onChange={(event) => onChangeScoreHandler(1, event)} type="number" />
         <p>{player1.name}</p>
         <p className={styles.FactionPlayer}>
           <span>{G.decks[1].cartes[0].carte.faction.nom}</span>

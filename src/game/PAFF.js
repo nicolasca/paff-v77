@@ -37,8 +37,8 @@ const PAFF = {
     availableOrders: Array(2).fill(null),
     selectedOrdersProgs: Array(2).fill(null),
     showOrders: Array(2).fill(false),
+    victoryPoints: Array(2).fill(0),
   }),
-
   phases: {
     [PHASES.DRAFT]: {
       start: true,
@@ -130,6 +130,9 @@ const PAFF = {
     },
     [PHASES.APPLY_ORDERS]: {
       moves: {
+        changeScoreVictory: (G, ctx, playerID, newValue) => {
+          G.victoryPoints[playerID] = newValue;
+        },
         drop: drop,
         changeRegimentNumber: (G, ctx, squareId, action) => {
           G.squares.forEach((card, index) => {
@@ -148,6 +151,14 @@ const PAFF = {
           });
         },
         removeCardFromBoard: (G, ctx, options) => {
+          // Add victory points for the other player
+          console.log(ctx.playerID);
+
+          const player = (+ctx.playerID === 1) ? 0 : 1;
+          console.log(player);
+
+          G.victoryPoints[player] = +G.victoryPoints[player] + +G.squares[options.previousSquareId].deploy;
+
           // Remove from previous square
           if (options.previousSquareId) {
             G.squares[options.previousSquareId] = null;

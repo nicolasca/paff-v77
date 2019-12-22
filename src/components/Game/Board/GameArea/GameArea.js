@@ -37,7 +37,7 @@ function GameArea({ G, ctx, gameMetadata, onRollDice, initiativeFinished, moves,
       return (
 
         <div className={styles.Card} key={index}>
-          <CardInGame unit={card} playerID={playerID}>
+          <CardInGame unit={card} playerID={playerID} ctx={ctx}>
           </CardInGame>
         </div>
       );
@@ -65,7 +65,7 @@ function GameArea({ G, ctx, gameMetadata, onRollDice, initiativeFinished, moves,
       <div className={styles.ScreenGame}>
 
         {/* Cards inside the reserve. Can be dropped into the battleground */}
-        {ctx.phase === PHASES.CHOOSE_ORDERS ?
+        {ctx.phase === PHASES.CHOOSE_ORDERS || ctx.phase === PHASES.APPLY_ORDERS ?
           <React.Fragment>
             {
               isReserveOpen && isComponentVisible ?
@@ -156,6 +156,7 @@ function GameArea({ G, ctx, gameMetadata, onRollDice, initiativeFinished, moves,
         <div className={styles.BattlegroundContainer}>
           <Battleground
             G={G}
+            ctx={ctx}
             onDrop={onDrop}
             moves={moves}
             playerID={playerID}
