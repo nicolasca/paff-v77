@@ -95,31 +95,14 @@ const PAFF = {
       next: PHASES.CHOOSE_ORDERS,
     },
     [PHASES.CHOOSE_ORDERS]: {
+      onBegin: (G, ctx) => {
+        G.selectedOrdersProgs[0] = null;
+        G.selectedOrdersProgs[1] = null;
+      },
       moves: {
-        changeRegimentNumber: (G, ctx, squareId, action) => {
-          G.squares.forEach((card, index) => {
-            if (index === squareId) {
-              switch (action) {
-                case '+':
-                  card.regiment = card.regiment + 1;
-                  break;
-                case '-':
-                  card.regiment = card.regiment - 1;
-                  break;
-                default:
-                  break;
-              }
-            }
-          });
-        },
-        removeCardFromBoard: (G, ctx, options) => {
-          // Remove from previous square
-          if (options.previousSquareId) {
-            G.squares[options.previousSquareId] = null;
-          }
-        },
         validateOrdersProgs: (G, ctx, ordersProgs) => {
           G.selectedOrdersProgs[ctx.playerID] = ordersProgs;
+          console.log(ctx.playerID);
 
           const ordersToRemove = ordersProgs.map((orderProg) => orderProg.order._id);
 
@@ -146,8 +129,24 @@ const PAFF = {
       next: PHASES.APPLY_ORDERS,
     },
     [PHASES.APPLY_ORDERS]: {
-      drop: drop,
       moves: {
+        drop: drop,
+        changeRegimentNumber: (G, ctx, squareId, action) => {
+          G.squares.forEach((card, index) => {
+            if (index === squareId) {
+              switch (action) {
+                case '+':
+                  card.regiment = card.regiment + 1;
+                  break;
+                case '-':
+                  card.regiment = card.regiment - 1;
+                  break;
+                default:
+                  break;
+              }
+            }
+          });
+        },
         removeCardFromBoard: (G, ctx, options) => {
           // Remove from previous square
           if (options.previousSquareId) {
@@ -160,7 +159,6 @@ const PAFF = {
       },
       next: PHASES.CHOOSE_ORDERS,
     },
-    // fight: { next: 'pick_used_cards' },
   }
 }
 

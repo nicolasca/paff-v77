@@ -12,6 +12,8 @@ function OrdersProgramming(props) {
   const [axe2, setAxe2] = useState(null);
   const [axe3, setAxe3] = useState(null);
 
+  const [areOrdersProgValidated, setAreOrdersProgValidated] = useState(false)
+
 
   const handleSelectOrderChange = (i, event) => {
     const value = event.target.value;
@@ -52,9 +54,19 @@ function OrdersProgramming(props) {
         axe: axe3,
       }
     ]);
+    setAreOrdersProgValidated(true);
   };
 
   useEffect(() => {
+
+    // Init orders state
+    setOrderId1(props.orders[0]._id);
+    setAxe1('coco');
+    setOrderId2(props.orders[0]._id);
+    setAxe2('centre');
+    setOrderId3(props.orders[0]._id);
+    setAxe3('pommes');
+
     /* Construct the selects for orders and axes */
     const options = props.orders.map((order) => {
       return order.limite !== 0 ? (
@@ -74,6 +86,7 @@ function OrdersProgramming(props) {
 
     const ordersOptions = [];
     for (let i = 1; i < 4; i++) {
+      const tempVariable = {};
       ordersOptions.push(
         <div key={'order_' + i} className={styles.Order}>
           <div>
@@ -83,8 +96,9 @@ function OrdersProgramming(props) {
           <div className="select is-small">
             <select
               name='order'
-              defaultValue={props.orders[0]._id}
+              defaultValue={tempVariable['orderId' + i]}
               onChange={(event) => handleSelectOrderChange(i, event)}
+              disabled={areOrdersProgValidated}
             >
               {options}
             </select>
@@ -94,6 +108,7 @@ function OrdersProgramming(props) {
             <select
               name='axe'
               onChange={(event) => handleSelectAxeChange(i, event)}
+              disabled={areOrdersProgValidated}
             >
               {axes}
             </select>
@@ -105,15 +120,9 @@ function OrdersProgramming(props) {
 
     setOrdersChoice(ordersOptions);
 
-    // Init orders state
-    setOrderId1(props.orders[0]._id);
-    setAxe1('coco');
-    setOrderId2(props.orders[1]._id);
-    setAxe2('centre');
-    setOrderId3(props.orders[2]._id);
-    setAxe3('pommes');
 
-  }, [props.orders])
+
+  }, [props.orders, areOrdersProgValidated])
 
 
 
@@ -122,9 +131,12 @@ function OrdersProgramming(props) {
       <div>
         {ordersChoice}
       </div>
-      <div>
-        <button className="button" onClick={handleValidateOrders}>Valider</button>
-      </div>
+      {!areOrdersProgValidated ?
+        <div>
+          <button className="button" onClick={handleValidateOrders}>Valider</button>
+        </div>
+        : null}
+
     </div>
   );
 }

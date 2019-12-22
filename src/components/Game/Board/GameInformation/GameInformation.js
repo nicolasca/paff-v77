@@ -8,112 +8,113 @@ import SelectedOrders from './SelectedOrders/SelectedOrders';
 
 function GameInformation({ G, ctx, events, moves, player0, player1, onClickReserveHandler, topPlayer, bottomPlayer, playerID }) {
 
-	const endDeploymentHandler = () => {
-		events.endPhase();
-	}
-	const onRemoveCardHandler = (item) => {
-		moves.removeCardFromBoard({ card: item.card, previousSquareId: item.previousSquareId });
-	}
+  const endDeploymentHandler = () => {
+    events.endPhase();
+  }
+  const onRemoveCardHandler = (item) => {
+    moves.removeCardFromBoard({ card: item.card, previousSquareId: item.previousSquareId });
+  }
 
-	return (
-		<div className={styles.GameInformation}>
+  return (
+    <div className={styles.GameInformation}>
 
-			<div className={styles.PlayerTop + ' ' + styles.Player}>
-				<input type="number" />
-				<p>{player0.name}</p>
-				<p className={styles.FactionPlayer}>
-					<span>{G.decks[0].cartes[0].carte.faction.nom}</span>
-					<img src={process.env.PUBLIC_URL + 'assets/factions/logo-' + G.decks[0].cartes[0].carte.faction.image}
-						alt={G.decks[0].cartes[0].carte.faction.nom + ' image'} />
-				</p>
-			</div>
+      <div className={styles.PlayerTop + ' ' + styles.Player}>
+        <input type="number" />
+        <p>{player0.name}</p>
+        <p className={styles.FactionPlayer}>
+          <span>{G.decks[0].cartes[0].carte.faction.nom}</span>
+          <img src={process.env.PUBLIC_URL + 'assets/factions/logo-' + G.decks[0].cartes[0].carte.faction.image}
+            alt={G.decks[0].cartes[0].carte.faction.nom + ' image'} />
+        </p>
+      </div>
 
-			<div className={styles.PlayerBottom + ' ' + styles.Player}>
-				<input type="number" />
-				<p>{player1.name}</p>
-				<p className={styles.FactionPlayer}>
-					<span>{G.decks[1].cartes[0].carte.faction.nom}</span>
-					<img src={process.env.PUBLIC_URL + 'assets/factions/logo-' + G.decks[1].cartes[0].carte.faction.image}
-						alt={G.decks[1].cartes[0].carte.faction.nom + ' image'} />
-				</p>
-			</div>
+      <div className={styles.PlayerBottom + ' ' + styles.Player}>
+        <input type="number" />
+        <p>{player1.name}</p>
+        <p className={styles.FactionPlayer}>
+          <span>{G.decks[1].cartes[0].carte.faction.nom}</span>
+          <img src={process.env.PUBLIC_URL + 'assets/factions/logo-' + G.decks[1].cartes[0].carte.faction.image}
+            alt={G.decks[1].cartes[0].carte.faction.nom + ' image'} />
+        </p>
+      </div>
 
-			{playerID ?
+      {playerID ?
 
-				<React.Fragment>
+        <React.Fragment>
 
-					<div className={styles.BlackHoleReserve}>
-						<BlackHole
-							removeCardFromBoard={(item) => onRemoveCardHandler(item)}>
-						</BlackHole>
-						<div>
+          <div className={styles.BlackHoleReserve}>
+            <BlackHole
+              removeCardFromBoard={(item) => onRemoveCardHandler(item)}>
+            </BlackHole>
+            <div>
 
-						</div>
+            </div>
 
-						{ctx.phase === PHASES.CHOOSE_ORDERS ||
-							ctx.phase === PHASES.APPLY_ORDERS ?
-							<ReserveButton
-								onClickReserve={onClickReserveHandler}>
-							</ReserveButton>
-							: null
-						}
-					</div>
+            {ctx.phase === PHASES.CHOOSE_ORDERS ||
+              ctx.phase === PHASES.APPLY_ORDERS ?
+              <ReserveButton
+                onClickReserve={onClickReserveHandler}>
+              </ReserveButton>
+              : null
+            }
+          </div>
 
-					{ctx.phase === PHASES.CHOOSE_ORDERS ?
-						<React.Fragment>
+          {ctx.phase === PHASES.CHOOSE_ORDERS ?
+            <React.Fragment>
 
-							<div className={styles.OrdersTop}>
+              <div className={styles.OrdersTop}>
 
-								{
-									+playerID === player0.id ?
-										<OrdersProgramming
-											moves={moves}
-											orders={G.availableOrders[0]}>
-										</OrdersProgramming> : null
-								}
-							</div>
+                {
+                  +playerID === player0.id ?
+                    <OrdersProgramming
+                      moves={moves}
+                      orders={G.availableOrders[0]}>
+                    </OrdersProgramming> : null
+                }
+              </div>
 
-							<div className={styles.OrdersBottom}>
+              <div className={styles.OrdersBottom}>
 
-								{
-									+playerID === player1.id ?
-										<OrdersProgramming
-											moves={moves}
+                {
+                  +playerID === player1.id ?
+                    <OrdersProgramming
+                      moves={moves}
 
-											orders={G.availableOrders[1]}>
-										</OrdersProgramming> : null
-								}
-							</div>
-						</React.Fragment>
-						: null
-					}
+                      orders={G.availableOrders[1]}>
+                    </OrdersProgramming> : null
+                }
+              </div>
+            </React.Fragment>
+            : null
+          }
 
-					{ctx.phase === PHASES.APPLY_ORDERS ?
-						<div className={styles.SelectedOrdresContainer}>
-							<SelectedOrders
-								selectedOrdersProgs={G.selectedOrdersProgs}>
-							</SelectedOrders>
-						</div>
+          {ctx.phase === PHASES.APPLY_ORDERS ?
+            <div className={styles.SelectedOrdresContainer}>
+              <SelectedOrders
+                events={events}
+                selectedOrdersProgs={G.selectedOrdersProgs}>
+              </SelectedOrders>
+            </div>
 
-						: null
-					}
+            : null
+          }
 
-				</React.Fragment>
+        </React.Fragment>
 
-				: null
-			}
+        : null
+      }
 
-			{
-				ctx.phase === PHASES.DEPLOYMENT ?
-					<div className={styles.EndDeployment}>
-						<button className="button" onClick={endDeploymentHandler}>
-							Valider le déploiement</button>
-					</div>
-					: null
-			}
+      {
+        ctx.phase === PHASES.DEPLOYMENT ?
+          <div className={styles.EndDeployment}>
+            <button className="button" onClick={endDeploymentHandler}>
+              Valider le déploiement</button>
+          </div>
+          : null
+      }
 
-		</div>
-	)
+    </div>
+  )
 }
 
 export default GameInformation;

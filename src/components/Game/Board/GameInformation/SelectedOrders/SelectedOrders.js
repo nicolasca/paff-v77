@@ -2,7 +2,11 @@ import React from 'react';
 import styles from './SelectedOrders.module.scss';
 
 
-function SelectedOrders({ selectedOrdersProgs }) {
+function SelectedOrders({ selectedOrdersProgs, events }) {
+
+  function chooseOrders() {
+    events.endPhase();
+  }
 
   const ordersPlayer0 = selectedOrdersProgs[0].map((orderProg, index) => {
     return (
@@ -23,7 +27,7 @@ function SelectedOrders({ selectedOrdersProgs }) {
     <div className={styles.SelectedOrders}>
       {ordersPlayer0}
       {ordersPlayer1}
-      <button className="button">
+      <button className="button" onClick={chooseOrders}>
         Choisir les ordres</button>
     </div>
   );
