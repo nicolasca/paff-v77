@@ -11,14 +11,14 @@ function SelectedOrders({ selectedOrdersProgs, events }) {
   const ordersPlayer0 = selectedOrdersProgs[0].map((orderProg, index) => {
     return (
       <div key={'player0_order_' + index}>
-        <span>{index}. {orderProg.order.nom} - {orderProg.axe} </span>
+        <span>{index + 1}. {orderProg.order.nom} - {orderProg.axe} </span>
       </div>
     )
   });
   const ordersPlayer1 = selectedOrdersProgs[1].map((orderProg, index) => {
     return (
       <div key={'player1_order_' + index}>
-        <span>{index}. {orderProg.order.nom} - {orderProg.axe} </span>
+        <span>{index + 1}. {orderProg.order.nom} - {orderProg.axe} </span>
       </div>
     )
   });
@@ -26,6 +26,7 @@ function SelectedOrders({ selectedOrdersProgs, events }) {
   return (
     <div className={styles.SelectedOrders}>
       {ordersPlayer0}
+      <hr />
       {ordersPlayer1}
       <button className="button" onClick={chooseOrders}>
         Choisir les ordres</button>

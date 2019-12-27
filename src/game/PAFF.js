@@ -102,7 +102,6 @@ const PAFF = {
       moves: {
         validateOrdersProgs: (G, ctx, ordersProgs) => {
           G.selectedOrdersProgs[ctx.playerID] = ordersProgs;
-          console.log(ctx.playerID);
 
           const ordersToRemove = ordersProgs.map((orderProg) => orderProg.order._id);
 

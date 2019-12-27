@@ -6,7 +6,7 @@
 
 .Line {
   display: grid;
-  grid-template-columns: repeat(2, 100px) 0.75rem repeat(3, 100px) 0.75rem repeat(2, 100px);
+  grid-template-columns: repeat(2, 100px) 0.75rem repeat(4, 100px) 0.75rem repeat(2, 100px);
   margin-bottom: 1rem;
   grid-column-gap: 2px;
 }

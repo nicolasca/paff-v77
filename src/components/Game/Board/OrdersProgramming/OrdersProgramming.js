@@ -1,74 +1,61 @@
 import React, { useEffect, useState } from 'react';
 import styles from './OrdersProgramming.module.scss';
 
-function OrdersProgramming(props) {
+function OrdersProgramming({ orders, moves }) {
 
-  const [ordersChoice, setOrdersChoice] = useState([]);
-  const [orderId1, setOrderId1] = useState(null);
-  const [orderId2, setOrderId2] = useState(null);
-  const [orderId3, setOrderId3] = useState(null);
-
-  const [axe1, setAxe1] = useState(null);
-  const [axe2, setAxe2] = useState(null);
-  const [axe3, setAxe3] = useState(null);
-
+  const [ordersOptions, setOrdersOptions] = useState([]);
+  const [ordersSelected, setOrdersSelected] = useState([]);
+  const [axesSelected, setAxesSelected] = useState([]);
   const [areOrdersProgValidated, setAreOrdersProgValidated] = useState(false)
-
 
   const handleSelectOrderChange = (i, event) => {
     const value = event.target.value;
 
-    if (i === 1) {
-      setOrderId1(value);
-    } else if (i === 2) {
-      setOrderId2(value);
-    } else if (i === 3) {
-      setOrderId3(value);
-    }
+    setOrdersSelected((ordersCurrent) => ([
+      ...ordersCurrent.slice(0, i),
+      value,
+      ...ordersCurrent.slice(i + 1)
+    ]
+    ));
   };
 
   const handleSelectAxeChange = (i, event) => {
     const value = event.target.value;
-
-    if (i === 1) {
-      setAxe1(value);
-    } else if (i === 2) {
-      setAxe2(value);
-    } else if (i === 3) {
-      setAxe3(value);
-    }
+    setAxesSelected((axesCurrent) => ([
+      ...axesCurrent.slice(0, i),
+      value,
+      ...axesCurrent.slice(i + 1)
+    ]));
   };
 
   const handleValidateOrders = () => {
-    props.moves.validateOrdersProgs([
+
+    moves.validateOrdersProgs([
       {
-        order: props.orders.find((order) => order._id === orderId1),
-        axe: axe1,
+        order: orders.find((order) => order._id === ordersSelected[0]),
+        axe: axesSelected[0],
       },
       {
-        order: props.orders.find((order) => order._id === orderId2),
-        axe: axe2,
+        order: orders.find((order) => order._id === ordersSelected[1]),
+        axe: axesSelected[1],
       },
       {
-        order: props.orders.find((order) => order._id === orderId3),
-        axe: axe3,
-      }
+        order: orders.find((order) => order._id === ordersSelected[2]),
+        axe: axesSelected[2],
+      },
+      {
+        order: orders.find((order) => order._id === ordersSelected[3]),
+        axe: axesSelected[3],
+      },
     ]);
     setAreOrdersProgValidated(true);
   };
 
   useEffect(() => {
 
-    // Init orders state
-    setOrderId1(props.orders[0]._id);
-    setAxe1('coco');
-    setOrderId2(props.orders[0]._id);
-    setAxe2('centre');
-    setOrderId3(props.orders[0]._id);
-    setAxe3('pommes');
 
     /* Construct the selects for orders and axes */
-    const options = props.orders.map((order) => {
+    const options = orders.map((order) => {
       return order.limite !== 0 ? (
         <option value={order._id} key={order._id}>
           {order.nom} x{order.limite}
@@ -77,20 +64,20 @@ function OrdersProgramming(props) {
     });
 
     const axes = (
-      <React.Fragment>
+      <>
         <option value="coco" key="coco">Flan coco</option>
         <option value="centre" key="centre">Centre</option>
         <option value="pommes" key="pommes">Flan pomme</option>
-      </React.Fragment>
+      </>
     );
 
     const ordersOptions = [];
-    for (let i = 1; i < 4; i++) {
+    for (let i = 0; i < 4; i++) {
       const tempVariable = {};
       ordersOptions.push(
         <div key={'order_' + i} className={styles.Order}>
           <div>
-            Ordre {i}
+            Ordre {i + 1}
           </div>
 
           <div className="select is-small">
@@ -118,18 +105,16 @@ function OrdersProgramming(props) {
       );
     }
 
-    setOrdersChoice(ordersOptions);
-
-
-
-  }, [props.orders, areOrdersProgValidated])
-
-
+    // Init orders state
+    setOrdersSelected([orders[0]._id, orders[0]._id, orders[0]._id, orders[0]._id]);
+    setAxesSelected(['coco', 'coco', 'coco', 'coco']);
+    setOrdersOptions(ordersOptions);
+  }, [orders, areOrdersProgValidated])
 
   return (
     <div className={styles.OrdersProgramming}>
       <div>
-        {ordersChoice}
+        {ordersOptions}
       </div>
       {!areOrdersProgValidated ?
         <div>

@@ -55,6 +55,8 @@ function Battleground(props) {
     squareId += 1;
     tbody.push(renderSquare(i, squareId, 'Full'));
     squareId += 1;
+    tbody.push(renderSquare(i, squareId, 'Full'));
+    squareId += 1;
 
     tbody.push(<div key={(i + 1)} className={styles.Space}></div>);
 
