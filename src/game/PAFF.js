@@ -6,6 +6,7 @@ export const PHASES = {
   INITIATIVE: 'initiative',
   DEPLOYMENT: 'deployment',
   CHOOSE_ORDERS: 'chooseOrders',
+  APPLY_ORDERS: 'applyOrders',
 }
 
 const drop = (G, ctx, options) => {
@@ -21,6 +22,10 @@ const drop = (G, ctx, options) => {
 
   G.hands[ctx.playerID] = hand
   G.squares[options.squareId] = options.card;
+
+  if (ctx.phase === PHASES.DEPLOYMENT) {
+    G.deploymentPoints[ctx.playerID] = G.deploymentPoints[ctx.playerID] + options.card.deploy;
+  }
 }
 
 
@@ -34,10 +39,11 @@ const PAFF = {
     initiativeScore: Array(2).fill(null),
     hands: Array(2).fill(null),
     availableOrders: Array(2).fill(null),
-    selectedOrders: Array(2).fill(null),
+    selectedOrdersProgs: Array(2).fill(null),
     showOrders: Array(2).fill(false),
+    deploymentPoints: Array(2).fill(0),
+    victoryPoints: Array(2).fill(0),
   }),
-
   phases: {
     [PHASES.DRAFT]: {
       start: true,
@@ -94,11 +100,44 @@ const PAFF = {
       next: PHASES.CHOOSE_ORDERS,
     },
     [PHASES.CHOOSE_ORDERS]: {
+      onBegin: (G, ctx) => {
+        G.selectedOrdersProgs[0] = null;
+        G.selectedOrdersProgs[1] = null;
+      },
       moves: {
-        drop: drop,
-        hideShowOrders: (G, ctx) => {
-          G.showOrders[ctx.playerID] = !G.showOrders[ctx.playerID];
+        validateOrdersProgs: (G, ctx, ordersProgs) => {
+          G.selectedOrdersProgs[ctx.playerID] = ordersProgs;
+
+          const ordersToRemove = ordersProgs.map((orderProg) => orderProg.order._id);
+
+          // Remove these orders from the pool
+          // for (let i = 0; i < G.availableOrders[ctx.playerID].length; i++) {
+          G.availableOrders[ctx.playerID].forEach((order) => {
+            // const order = G.availableOrders[ctx.playerID][i];
+            ordersToRemove.forEach((orderToRemove) => {
+
+              if (order._id === orderToRemove && !order.recuperable) {
+                order.limite = order.limite - 1;
+              }
+            });
+          });
+
+          if (G.selectedOrdersProgs[0] && G.selectedOrdersProgs[1]) {
+            ctx.events.endPhase();
+          }
+        }
+      },
+      turn: {
+        activePlayers: { all: Stage.NULL },
+      },
+      next: PHASES.APPLY_ORDERS,
+    },
+    [PHASES.APPLY_ORDERS]: {
+      moves: {
+        changeScoreVictory: (G, ctx, playerID, newValue) => {
+          G.victoryPoints[playerID] = newValue;
         },
+        drop: drop,
         changeRegimentNumber: (G, ctx, squareId, action) => {
           G.squares.forEach((card, index) => {
             if (index === squareId) {
@@ -116,6 +155,14 @@ const PAFF = {
           });
         },
         removeCardFromBoard: (G, ctx, options) => {
+          // Add victory points for the other player
+          console.log(ctx.playerID);
+
+          const player = (+ctx.playerID === 1) ? 0 : 1;
+          console.log(player);
+
+          G.victoryPoints[player] = +G.victoryPoints[player] + +G.squares[options.previousSquareId].deploy;
+
           // Remove from previous square
           if (options.previousSquareId) {
             G.squares[options.previousSquareId] = null;
@@ -125,10 +172,8 @@ const PAFF = {
       turn: {
         activePlayers: { all: Stage.NULL },
       },
-      // next: 'set_the_orders'
+      next: PHASES.CHOOSE_ORDERS,
     },
-    // use_the_orders: { next: 'fight' },
-    // fight: { next: 'pick_used_cards' },
   }
 }
 

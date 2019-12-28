@@ -21,6 +21,7 @@ function Board({ G, events, moves, playerID, ctx, gameMetadata }) {
   document.getElementById("lobby-view").style.padding = "10px 0 0 0";
 
   useEffect(() => {
+
     setInitiativeFinished(G.initiativeScore[0] !== null && G.initiativeScore[1] !== null);
     if (G.initiativeScore[0] !== null && G.initiativeScore[1] !== null
       && ctx.phase === PHASES.INITIATIVE) {
@@ -43,6 +44,7 @@ function Board({ G, events, moves, playerID, ctx, gameMetadata }) {
     case PHASES.INITIATIVE:
     case PHASES.DEPLOYMENT:
     case PHASES.CHOOSE_ORDERS:
+    case PHASES.APPLY_ORDERS:
 
       screenPhase = (
         <GameArea

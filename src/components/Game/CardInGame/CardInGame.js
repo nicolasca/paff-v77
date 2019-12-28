@@ -3,6 +3,7 @@ import { useDrag } from 'react-dnd';
 import CardUnit from '../../Decks/DeckItem/CardItem/CardUnit';
 import { ItemTypes } from './../Drag/ItemTypes';
 import styles from './CardInGame.module.scss';
+import { PHASES } from '../../../game/PAFF';
 
 function CardInGame(props) {
 
@@ -13,7 +14,12 @@ function CardInGame(props) {
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.CARD, card: props.unit, previousSquareId: props.previousSquareId },
     canDrag: () => {
-      return props.playerID;
+      // Possible drag on if
+      // - active player
+      // - APPLY ORDERS PHASE or DEPLOYMENT PHASE
+
+      return (props.ctx.phase === PHASES.DEPLOYMENT || props.ctx.phase === PHASES.APPLY_ORDERS)
+        && (props.playerID !== null);
     },
     collect: monitor => ({
       isDragging: !!monitor.isDragging(),
@@ -43,7 +49,7 @@ function CardInGame(props) {
     // plusClick ++;
     // if (props.moves) {
     //   console.log(plusClick);
-      
+
     //   _debounceFunction(function() {
     //     props.moves.changeRegimentNumber(props.previousSquareId, '+', plusClick);
     //     plusClick = 0;
@@ -51,7 +57,7 @@ function CardInGame(props) {
     // }
 
     if (props.moves && props.playerID) {
-        props.moves.changeRegimentNumber(props.previousSquareId, '+')
+      props.moves.changeRegimentNumber(props.previousSquareId, '+')
     }
   }
 

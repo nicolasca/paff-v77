@@ -17,12 +17,13 @@ function Battleground(props) {
         moveCard={(item) => props.onDrop(item, squareId)}>
         {
           props.G.squares[squareId] ?
-              <CardInGame
-                playerID={props.playerID}
-                unit={props.G.squares[squareId]}
-                previousSquareId={squareId}
-                moves={props.moves}>
-              </CardInGame>
+            <CardInGame
+              playerID={props.playerID}
+              unit={props.G.squares[squareId]}
+              previousSquareId={squareId}
+              moves={props.moves}
+              ctx={props.ctx}>
+            </CardInGame>
             : null
         }
       </SquareDrop>
@@ -54,8 +55,10 @@ function Battleground(props) {
     squareId += 1;
     tbody.push(renderSquare(i, squareId, 'Full'));
     squareId += 1;
+    tbody.push(renderSquare(i, squareId, 'Full'));
+    squareId += 1;
 
-    tbody.push(<div key={(i+1)} className={styles.Space}></div>);
+    tbody.push(<div key={(i + 1)} className={styles.Space}></div>);
 
     tbody.push(renderSquare(i, squareId, 'Full'));
     squareId += 1;

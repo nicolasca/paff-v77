@@ -1,4 +1,10 @@
 .OrdersProgramming {
-    display: grid;
-    grid-template-columns: 80px 1fr 1fr;
+    // display: grid;
+    // grid-template-columns: 80px 1fr 1fr;
+}
+
+.Order {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

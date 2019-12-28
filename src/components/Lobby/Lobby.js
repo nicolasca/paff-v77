@@ -13,14 +13,12 @@ const importedGames = [
 ];
 
 const LobbyView = () => (
-  <div>
-    <Lobby
-      gameServer={`http://${hostname}:8000`}
-      lobbyServer={`http://${hostname}:8000`}
-      gameComponents={importedGames}
-      debug={false}
-    />
-  </div>
+  <Lobby
+    gameServer={`http://${hostname}:8000`}
+    lobbyServer={`http://${hostname}:8000`}
+    gameComponents={importedGames}
+    debug={false}
+  />
 );
 
 export default LobbyView;
