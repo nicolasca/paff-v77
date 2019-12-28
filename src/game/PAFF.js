@@ -22,6 +22,10 @@ const drop = (G, ctx, options) => {
 
   G.hands[ctx.playerID] = hand
   G.squares[options.squareId] = options.card;
+
+  if (ctx.phase === PHASES.DEPLOYMENT) {
+    G.deploymentPoints[ctx.playerID] = G.deploymentPoints[ctx.playerID] + options.card.deploy;
+  }
 }
 
 
@@ -37,6 +41,7 @@ const PAFF = {
     availableOrders: Array(2).fill(null),
     selectedOrdersProgs: Array(2).fill(null),
     showOrders: Array(2).fill(false),
+    deploymentPoints: Array(2).fill(0),
     victoryPoints: Array(2).fill(0),
   }),
   phases: {

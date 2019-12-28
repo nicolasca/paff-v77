@@ -6,7 +6,7 @@ import BlackHole from './BlackHole/BlackHole';
 import styles from './GameInformation.module.scss';
 import SelectedOrders from './SelectedOrders/SelectedOrders';
 
-function GameInformation({ G, ctx, events, moves, player0, player1, onClickReserveHandler, topPlayer, bottomPlayer, playerID }) {
+function GameInformation({ G, ctx, events, moves, player0, player1, onClickReserveHandler, deploymentPoints, playerID }) {
 
   const endDeploymentHandler = () => {
     events.endPhase();
@@ -44,24 +44,42 @@ function GameInformation({ G, ctx, events, moves, player0, player1, onClickReser
 
       {playerID ?
 
-        <React.Fragment>
+        <>
 
-          <div className={styles.BlackHoleReserve}>
-            <BlackHole
-              removeCardFromBoard={(item) => onRemoveCardHandler(item)}>
-            </BlackHole>
-            <div>
+          {
+            ctx.phase === PHASES.DEPLOYMENT ?
+              <div className={styles.Deployment}>
+                <div>
+                  <span> Pts de déploiement de {player0.name}: </span> <span>{deploymentPoints[0]}</span>
+                </div>
+                <div>
+                  <span> Pts de déploiement de {player1.name}: </span> <span>{deploymentPoints[1]}</span>
+                </div>
+                <div className={styles.EndDeployment}>
+                  <button className="button" onClick={endDeploymentHandler}>
+                    Valider le déploiement</button>
+                </div>
+              </div>
 
-            </div>
+              :
+              <div className={styles.BlackHoleReserve}>
+                <BlackHole
+                  removeCardFromBoard={(item) => onRemoveCardHandler(item)}>
+                </BlackHole>
+                <div>
 
-            {ctx.phase === PHASES.CHOOSE_ORDERS ||
-              ctx.phase === PHASES.APPLY_ORDERS ?
-              <ReserveButton
-                onClickReserve={onClickReserveHandler}>
-              </ReserveButton>
-              : null
-            }
-          </div>
+                </div>
+
+                {ctx.phase === PHASES.CHOOSE_ORDERS ||
+                  ctx.phase === PHASES.APPLY_ORDERS ?
+                  <ReserveButton
+                    onClickReserve={onClickReserveHandler}>
+                  </ReserveButton>
+                  : null
+                }
+              </div>
+          }
+
 
           {ctx.phase === PHASES.CHOOSE_ORDERS ?
             <React.Fragment>
@@ -103,18 +121,9 @@ function GameInformation({ G, ctx, events, moves, player0, player1, onClickReser
             : null
           }
 
-        </React.Fragment>
+        </>
 
         : null
-      }
-
-      {
-        ctx.phase === PHASES.DEPLOYMENT ?
-          <div className={styles.EndDeployment}>
-            <button className="button" onClick={endDeploymentHandler}>
-              Valider le déploiement</button>
-          </div>
-          : null
       }
 
     </div>

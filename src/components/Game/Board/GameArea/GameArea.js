@@ -145,6 +145,7 @@ function GameArea({ G, ctx, gameMetadata, onRollDice, initiativeFinished, moves,
             player1={getPlayer1()}
             topPlayer={topPlayer()}
             bottomPlayer={bottomPlayer()}
+            deploymentPoints={G.deploymentPoints}
             moves={moves}
             events={events}
             onClickReserveHandler={onClickReserveHandler}>

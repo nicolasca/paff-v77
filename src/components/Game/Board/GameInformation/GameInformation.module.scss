@@ -54,10 +54,15 @@
     grid-row: 5 / 6;
   }
 
-  .EndDeployment {
-    grid-column: 8 / 10;
+  .Deployment {
+    grid-column: 1 / 4;
     grid-row: 3 / 4;
-    align-self: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .EndDeployment {
+    // align-self: center;
   }
 
   .FactionPlayer {
