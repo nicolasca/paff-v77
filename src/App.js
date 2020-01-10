@@ -1,10 +1,11 @@
+import { CSSReset, ThemeProvider } from "@chakra-ui/core";
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { Client } from 'boardgame.io/react';
-
 import { BrowserRouter } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
-import * as actions from './store/actions/index'
+import * as actions from './store/actions/index';
+import CustomTheme from "./theme";
+
 
 class App extends Component {
 
@@ -14,11 +15,15 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <div>
-          <Layout></Layout>
-        </div>
-      </BrowserRouter>
+      <ThemeProvider theme={CustomTheme}>
+        <CSSReset />
+        <BrowserRouter>
+          <div>
+            <Layout></Layout>
+          </div>
+        </BrowserRouter>
+      </ThemeProvider>
+
     );
   }
 

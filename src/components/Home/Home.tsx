@@ -1,3 +1,4 @@
+import { Heading } from '@chakra-ui/core';
 import React from 'react';
 import logo from '../../assets/map/map.jpg';
 import styles from './Home.module.scss';
@@ -12,7 +13,7 @@ function Home() {
   return (
     <div className={styles.MainPage + " container"}>
       <div className={styles.Description}>
-      <h3>PAFF</h3>
+        <Heading as="h1">PAFF</Heading>
         <p>
           {text}
           </p>

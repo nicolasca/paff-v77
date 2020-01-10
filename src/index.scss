@@ -1,5 +1,5 @@
 /* Custom/Extend normalize.css values  */
-@import './scss/init-bulma.scss';
+// @import './scss/init-bulma.scss';
 @import './colors.scss';
 
 @font-face {
@@ -28,36 +28,30 @@ p {
   margin-right: auto;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  color: $dark-color;
-}
+// h1,
+// h2,
+// h3,
+// h4 {
+//   color: $dark-color;
+// }
 
-h1 {
-  font-family: 'Fantasy';
-  font-size: 6rem;
-  margin: 2rem;
-}
+// h1 {
+//   font-family: 'Fantasy';
+//   font-size: 6rem;
+//   margin: 2rem;
+// }
 
-h2 {
-  font-family: 'Fantasy';
-  font-size: 4rem;
-  margin: 1rem;
-}
+// h2 {
+//   font-family: 'Fantasy';
+//   font-size: 4rem;
+//   margin: 1rem;
+// }
 
-h3 {
-  font-family: 'Fantasy';
-  font-size: 3rem;
-  margin: 0.8rem;
-}
-
-.button.is-paff {
-  appearance: none;
-  color: white;
-  background-color: $dark-color;
-}
+// h3 {
+//   font-family: 'Fantasy';
+//   font-size: 3rem;
+//   margin: 0.8rem;
+// }
 
 #lobby-view {
   padding: none !important;

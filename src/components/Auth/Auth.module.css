@@ -1,13 +1,15 @@
 .Container {
-  display:flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.Form {
   width: 25%;
+  padding: 2rem;
 }
 
+.Alert {
+  margin-left: 1rem;
+}
+
+.Field {
+  margin: 1rem;
+}
 
 a {
   color: black;
