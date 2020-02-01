@@ -37,6 +37,7 @@ const PAFF = {
     initiativeScore: Array(2).fill(null),
     hands: Array(2).fill(null),
     deploymentPoints: Array(2).fill(0),
+    commandPoints: Array(2).fill(5),
     victoryPoints: Array(2).fill(0)
   }),
   phases: {
@@ -97,6 +98,9 @@ const PAFF = {
       moves: {
         changeScoreVictory: (G, ctx, playerID, newValue) => {
           G.victoryPoints[playerID] = newValue;
+        },
+        changePCPoints: (G, ctx, playerID, newValue) => {
+          G.commandPoints[playerID] = newValue;
         },
         drop: drop,
         changeRegimentNumber: (G, ctx, squareId, action) => {

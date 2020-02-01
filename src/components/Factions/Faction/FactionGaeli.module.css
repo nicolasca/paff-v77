@@ -9,9 +9,8 @@
 .BgImage {
   height: 100vh;
   width: 100%;
-  background-size: 35%;
-  background-position: 21% -24%;
-  background-image: url(../../../assets/factions/gaeli.png);
+  background-size: cover;
+  background-image: url(../../../assets/factions/gaeli2.png);
   background-repeat: no-repeat;
   background-color: #d7d6d4;
 }
@@ -23,19 +22,19 @@
   bottom: 10%;
   background: white;
   padding: 1rem 3rem 5rem 3rem;
-  border: 1px solid #05467E;
-  opacity: 0.85;
+  border: 1px solid #05467e;
+  opacity: 0.75;
 }
 
 h2.Title {
   text-align: center;
-  color: #05467E;
+  color: #05467e;
 }
 
 .Lettrine p:first-of-type:first-letter {
-  font-family: 'Fantasy';
+  font-family: "Fantasy";
   font-size: 5rem;
-  color: #05467E;
+  color: #05467e;
   padding: 5px 10px 5px 0px;
   margin-right: 5px;
   float: left;

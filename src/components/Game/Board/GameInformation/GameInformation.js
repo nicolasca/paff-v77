@@ -25,50 +25,28 @@ function GameInformation({
     });
   };
 
-  function onChangeScoreHandler(playerID, event) {
-    moves.changeScoreVictory(playerID, event.target.value);
-  }
-
   return (
     <div className={styles.GameInformation}>
-      <div className={styles.PlayerTop + " " + styles.Player}>
-        <input
-          value={G.victoryPoints[0]}
-          onChange={event => onChangeScoreHandler(0, event)}
-          type="number"
-        />
-        <p>{player0.name}</p>
-        <p className={styles.FactionPlayer}>
-          <span>{G.decks[0].cartes[0].carte.faction.nom}</span>
-          <img
-            src={
-              process.env.PUBLIC_URL +
-              "assets/factions/logo-" +
-              G.decks[0].cartes[0].carte.faction.image
-            }
-            alt={G.decks[0].cartes[0].carte.faction.nom + " image"}
-          />
-        </p>
-      </div>
+      <div className={styles.Players}>
+        <Player
+          playerName={player0.name}
+          playerNumber={0}
+          factionName={G.decks[0].cartes[0].carte.faction.nom}
+          moves={moves}
+          commandPoints={G.commandPoints[0]}
+          victoryPoints={G.victoryPoints[0]}
+          playerID={playerID}
+        ></Player>
 
-      <div className={styles.PlayerBottom + " " + styles.Player}>
-        <input
-          value={G.victoryPoints[1]}
-          onChange={event => onChangeScoreHandler(1, event)}
-          type="number"
-        />
-        <p>{player1.name}</p>
-        <p className={styles.FactionPlayer}>
-          <span>{G.decks[1].cartes[0].carte.faction.nom}</span>
-          <img
-            src={
-              process.env.PUBLIC_URL +
-              "assets/factions/logo-" +
-              G.decks[1].cartes[0].carte.faction.image
-            }
-            alt={G.decks[1].cartes[0].carte.faction.nom + " image"}
-          />
-        </p>
+        <Player
+          playerName={player1.name}
+          playerNumber={1}
+          factionName={G.decks[1].cartes[0].carte.faction.nom}
+          moves={moves}
+          commandPoints={G.commandPoints[1]}
+          victoryPoints={G.victoryPoints[1]}
+          playerID={playerID}
+        ></Player>
       </div>
 
       {playerID ? (
@@ -103,40 +81,45 @@ function GameInformation({
                   ></ReserveButton>
                 ) : null}
               </div>
+
               <div className={styles.CommanderTable}>
-                <table className="table">
-                  <tr>
-                    <th>PC</th>
-                    <th>Ordres</th>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Mouvement</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Défense (-1 Att, pas de tir, +1 Def Tir et Cac)</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Assaut (+1 Att, -1 Def Tir et Cac)</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Tir</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Tir Artillerie</td>
-                  </tr>
-                  <tr>
-                    <td>*</td>
-                    <td>Renforts, * points de recrutement</td>
-                  </tr>
-                  <tr>
-                    <td>**</td>
-                    <td>Ordre de faction (** varie selon la faction)</td>
-                  </tr>
+                <table className="table is-striped">
+                  <thead>
+                    <tr>
+                      <th>PC</th>
+                      <th>Ordres</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Mouvement</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>Défense (-1 Att, pas de tir, +1 Def Tir et Cac)</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>Assaut (+1 Att, -1 Def Tir et Cac)</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>Tir</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Tir Artillerie</td>
+                    </tr>
+                    <tr>
+                      <td>*</td>
+                      <td>Renforts, * points de recrutement</td>
+                    </tr>
+                    <tr>
+                      <td>**</td>
+                      <td>Ordre de faction (** varie selon la faction)</td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
             </>
@@ -148,3 +131,48 @@ function GameInformation({
 }
 
 export default GameInformation;
+
+export const Player = ({
+  playerName,
+  factionName,
+  victoryPoints,
+  commandPoints,
+  moves,
+  playerNumber
+}) => {
+  function onChangeScoreHandler(playerNumber, event) {
+    moves.changeScoreVictory(playerNumber, event.target.value);
+  }
+
+  function onChangePCHandler(playerNumber, event) {
+    moves.changePCPoints(playerNumber, event.target.value);
+  }
+
+  return (
+    <div className={styles.Player}>
+      <h2>{"J" + (playerNumber + 1)}</h2>
+      <h4>
+        {playerName} - {factionName}
+      </h4>
+      <p>Ordre: Transe divine</p>
+      <p>
+        PC:{" "}
+        <input
+          key={"commandPoints" + playerNumber}
+          value={commandPoints}
+          onChange={event => onChangePCHandler(playerNumber, event)}
+          type="number"
+        />
+      </p>
+      <p>
+        Victoire:{" "}
+        <input
+          key={"victoryPoints" + playerNumber}
+          value={victoryPoints}
+          onChange={event => onChangeScoreHandler(playerNumber, event)}
+          type="number"
+        />
+      </p>
+    </div>
+  );
+};

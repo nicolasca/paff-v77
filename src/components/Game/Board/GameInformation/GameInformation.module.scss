@@ -1,14 +1,27 @@
 .GameInformation {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-direction: column;
+
   height: 100%;
   background-color: white;
   border: 1px solid grey;
-  padding: 1rem;
+
+  .Players {
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+    border-bottom: 1px dashed black;
+  }
 
   .Player {
     display: flex;
+    flex-direction: column;
     align-items: center;
+    font-size: 0.875rem;
+
+    h2 {
+      margin-bottom: 0;
+    }
 
     input {
       width: 5rem;
@@ -16,36 +29,20 @@
     }
   }
 
-  .PlayerTop {
-    grid-column: 1 / 4;
-    grid-row: 1 / 2;
-  }
-
-  .PlayerBottom {
-    grid-column: 1 / 4;
-    grid-row: 2 / 3;
-  }
-
   .BlackHoleReserve {
-    grid-column: 1 / 2;
-    grid-row: 3 / 4;
-    align-self: center;
-
+    align-self: flex-start;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: space-around;
+    padding: 1rem;
   }
 
   .CommanderTable {
-    grid-column: 1 / 3;
-    grid-row: 4 / 5;
     font-size: 0.875rem;
+    padding: 1rem;
   }
 
   .Deployment {
-    grid-column: 1 / 4;
-    grid-row: 3 / 4;
     display: flex;
     flex-direction: column;
   }
