@@ -1,13 +1,12 @@
-import { Stage } from 'boardgame.io/core';
+import { Stage } from "boardgame.io/core";
 
 export const PHASES = {
-  CREATE: 'create',
-  DRAFT: 'draft',
-  INITIATIVE: 'initiative',
-  DEPLOYMENT: 'deployment',
-  CHOOSE_ORDERS: 'chooseOrders',
-  APPLY_ORDERS: 'applyOrders',
-}
+  CREATE: "create",
+  DRAFT: "draft",
+  INITIATIVE: "initiative",
+  DEPLOYMENT: "deployment",
+  FIGHT: "fight"
+};
 
 const drop = (G, ctx, options) => {
   // Remove from previous square
@@ -16,123 +15,85 @@ const drop = (G, ctx, options) => {
   }
 
   // Remove from hand if exists
-  const hand = G.hands[ctx.playerID].filter((card) => {
+  const hand = G.hands[ctx.playerID].filter(card => {
     return card.gameCardId !== options.card.gameCardId;
   });
 
-  G.hands[ctx.playerID] = hand
+  G.hands[ctx.playerID] = hand;
   G.squares[options.squareId] = options.card;
 
   if (ctx.phase === PHASES.DEPLOYMENT) {
-    G.deploymentPoints[ctx.playerID] = G.deploymentPoints[ctx.playerID] + options.card.deploy;
+    G.deploymentPoints[ctx.playerID] =
+      G.deploymentPoints[ctx.playerID] + options.card.deploy;
   }
-}
-
+};
 
 const PAFF = {
-  name: 'PAFF',
+  name: "PAFF",
   numPlayers: 2,
-  setup: (ctx) => ({
-
+  setup: ctx => ({
     decks: Array(2).fill(null),
     squares: Array(42).fill(null),
     initiativeScore: Array(2).fill(null),
     hands: Array(2).fill(null),
-    availableOrders: Array(2).fill(null),
-    selectedOrdersProgs: Array(2).fill(null),
-    showOrders: Array(2).fill(false),
     deploymentPoints: Array(2).fill(0),
-    victoryPoints: Array(2).fill(0),
+    victoryPoints: Array(2).fill(0)
   }),
   phases: {
     [PHASES.DRAFT]: {
       start: true,
       next: PHASES.INITIATIVE,
       turn: {
-        activePlayers: { all: Stage.NULL },
+        activePlayers: { all: Stage.NULL }
       },
       moves: {
-        setDeck: (G, ctx, deck, playerID, orders) => {
-
+        setDeck: (G, ctx, deck, playerID) => {
           G.decks[playerID] = deck;
-          G.availableOrders[playerID] = orders;
 
           const hand = [];
 
-          for (let itemNumber = 0; itemNumber < deck.cartes.length; itemNumber++) {
+          for (
+            let itemNumber = 0;
+            itemNumber < deck.cartes.length;
+            itemNumber++
+          ) {
             const item = deck.cartes[itemNumber];
             for (let number = 0; number < item.nbExemplaires; number++) {
               const cardCopy = { ...item.carte };
               let carteGameId = `${itemNumber}-${number}`;
-              cardCopy['gameCardId'] = carteGameId;
+              cardCopy["gameCardId"] = carteGameId;
               hand.push(cardCopy);
             }
-          };
+          }
           G.hands[playerID] = hand;
-        },
+        }
       },
-      endIf: G => (G.decks.every(i => i !== null)),
-
+      endIf: G => G.decks.every(i => i !== null)
     },
     [PHASES.INITIATIVE]: {
       moves: {
         rollDice: (G, ctx, playerID) => {
           G.initiativeScore[playerID] = ctx.random.Die(100);
-        },
-      },
-      onBegin: (G, ctx) => {
-        G.initiativeScore = Array(2).fill(null)
-      },
-      turn: {
-        activePlayers: { all: Stage.NULL },
-      },
-      next: PHASES.DEPLOYMENT,
-
-    },
-    [PHASES.DEPLOYMENT]: {
-
-      moves: {
-        drop: drop,
-      },
-      turn: {
-        activePlayers: { all: Stage.NULL },
-      },
-      next: PHASES.CHOOSE_ORDERS,
-    },
-    [PHASES.CHOOSE_ORDERS]: {
-      onBegin: (G, ctx) => {
-        G.selectedOrdersProgs[0] = null;
-        G.selectedOrdersProgs[1] = null;
-      },
-      moves: {
-        validateOrdersProgs: (G, ctx, ordersProgs) => {
-          G.selectedOrdersProgs[ctx.playerID] = ordersProgs;
-
-          const ordersToRemove = ordersProgs.map((orderProg) => orderProg.order._id);
-
-          // Remove these orders from the pool
-          // for (let i = 0; i < G.availableOrders[ctx.playerID].length; i++) {
-          G.availableOrders[ctx.playerID].forEach((order) => {
-            // const order = G.availableOrders[ctx.playerID][i];
-            ordersToRemove.forEach((orderToRemove) => {
-
-              if (order._id === orderToRemove && !order.recuperable) {
-                order.limite = order.limite - 1;
-              }
-            });
-          });
-
-          if (G.selectedOrdersProgs[0] && G.selectedOrdersProgs[1]) {
-            ctx.events.endPhase();
-          }
         }
       },
-      turn: {
-        activePlayers: { all: Stage.NULL },
+      onBegin: (G, ctx) => {
+        G.initiativeScore = Array(2).fill(null);
       },
-      next: PHASES.APPLY_ORDERS,
+      turn: {
+        activePlayers: { all: Stage.NULL }
+      },
+      next: PHASES.DEPLOYMENT
     },
-    [PHASES.APPLY_ORDERS]: {
+    [PHASES.DEPLOYMENT]: {
+      moves: {
+        drop: drop
+      },
+      turn: {
+        activePlayers: { all: Stage.NULL }
+      },
+      next: PHASES.FIGHT
+    },
+    [PHASES.FIGHT]: {
       moves: {
         changeScoreVictory: (G, ctx, playerID, newValue) => {
           G.victoryPoints[playerID] = newValue;
@@ -142,10 +103,10 @@ const PAFF = {
           G.squares.forEach((card, index) => {
             if (index === squareId) {
               switch (action) {
-                case '+':
+                case "+":
                   card.regiment = card.regiment + 1;
                   break;
-                case '-':
+                case "-":
                   card.regiment = card.regiment - 1;
                   break;
                 default:
@@ -158,24 +119,24 @@ const PAFF = {
           // Add victory points for the other player
           console.log(ctx.playerID);
 
-          const player = (+ctx.playerID === 1) ? 0 : 1;
+          const player = +ctx.playerID === 1 ? 0 : 1;
           console.log(player);
 
-          G.victoryPoints[player] = +G.victoryPoints[player] + +G.squares[options.previousSquareId].deploy;
+          G.victoryPoints[player] =
+            +G.victoryPoints[player] +
+            +G.squares[options.previousSquareId].deploy;
 
           // Remove from previous square
           if (options.previousSquareId) {
             G.squares[options.previousSquareId] = null;
           }
-        },
+        }
       },
       turn: {
-        activePlayers: { all: Stage.NULL },
-      },
-      next: PHASES.CHOOSE_ORDERS,
-    },
+        activePlayers: { all: Stage.NULL }
+      }
+    }
   }
-}
-
+};
 
 export default PAFF;

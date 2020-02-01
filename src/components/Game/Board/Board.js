@@ -1,30 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { DndProvider } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
-import Draft from '../Draft/Draft';
-import { PHASES } from './../../../game/PAFF';
-import GameArea from './GameArea/GameArea';
-
+import React, { useEffect, useState } from "react";
+import { DndProvider } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
+import Draft from "../Draft/Draft";
+import { PHASES } from "./../../../game/PAFF";
+import GameArea from "./GameArea/GameArea";
 
 function Board({ G, events, moves, playerID, ctx, gameMetadata }) {
-
   const [initiativeFinished, setInitiativeFinished] = useState(false);
 
-  const selectedDeckHandler = (deck, orders) => {
-    moves.setDeck(deck, playerID, orders);
-  }
+  const selectedDeckHandler = deck => {
+    moves.setDeck(deck, playerID);
+  };
 
   const onRollDiceHandler = () => {
     moves.rollDice(playerID);
-  }
+  };
 
   document.getElementById("lobby-view").style.padding = "10px 0 0 0";
 
   useEffect(() => {
-
-    setInitiativeFinished(G.initiativeScore[0] !== null && G.initiativeScore[1] !== null);
-    if (G.initiativeScore[0] !== null && G.initiativeScore[1] !== null
-      && ctx.phase === PHASES.INITIATIVE) {
+    setInitiativeFinished(
+      G.initiativeScore[0] !== null && G.initiativeScore[1] !== null
+    );
+    if (
+      G.initiativeScore[0] !== null &&
+      G.initiativeScore[1] !== null &&
+      ctx.phase === PHASES.INITIATIVE
+    ) {
       setTimeout(() => {
         events.setPhase(PHASES.DEPLOYMENT);
       }, 5000);
@@ -32,20 +34,22 @@ function Board({ G, events, moves, playerID, ctx, gameMetadata }) {
   }, [G.initiativeScore, ctx.phase, events]);
 
   const onDropHandler = (item, squareId) => {
-    moves.drop({ card: item.card, squareId: squareId, previousSquareId: item.previousSquareId });
-  }
+    moves.drop({
+      card: item.card,
+      squareId: squareId,
+      previousSquareId: item.previousSquareId
+    });
+  };
 
-  let screenPhase = '';
+  let screenPhase = "";
 
   switch (ctx.phase) {
     case PHASES.DRAFT:
-      screenPhase = (<Draft onClickHandler={selectedDeckHandler}></Draft>);
+      screenPhase = <Draft onClickHandler={selectedDeckHandler}></Draft>;
       break;
     case PHASES.INITIATIVE:
     case PHASES.DEPLOYMENT:
-    case PHASES.CHOOSE_ORDERS:
-    case PHASES.APPLY_ORDERS:
-
+    case PHASES.FIGHT:
       screenPhase = (
         <GameArea
           G={G}
@@ -57,23 +61,19 @@ function Board({ G, events, moves, playerID, ctx, gameMetadata }) {
           gameMetadata={gameMetadata}
           playerID={playerID}
           initiativeFinished={initiativeFinished}
-        >
-        </GameArea>)
+        ></GameArea>
+      );
 
       break;
     default:
-      console.log('No phase');
+      console.log("No phase");
   }
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div>
-        {screenPhase}
-      </div>
+      <div>{screenPhase}</div>
     </DndProvider>
-
   );
 }
-
 
 export default Board;
