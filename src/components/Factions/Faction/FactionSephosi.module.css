@@ -10,18 +10,17 @@
   height: 100vh;
   background-size: cover;
   background-position: top;
-  background-image: url(../../../assets/factions/sephosi.jpg);
+  background-image: url(../../../assets/factions/sephosi-light.jpg);
 }
 
 .Description {
   position: absolute;
   width: 500px;
-  right: 10%;
+  left: 10%;
   bottom: 10%;
   background: white;
   padding: 1rem 3rem 5rem 3rem;
   border: 1px solid #c00000;
-  opacity: 0.75;
 }
 
 h2.Title {
