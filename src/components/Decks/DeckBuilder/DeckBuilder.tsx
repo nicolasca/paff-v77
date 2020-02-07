@@ -26,6 +26,7 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
   const isAuthenticated = useContext(UserContext);
 
   const { setInitCards } = props;
+  const [displayCards, setDisplayCards] = React.useState(false);
   const [selectedFaction, setSelectedFaction] = React.useState<IFaction>(null!);
   const [nom, setNom] = React.useState("");
   const [description, setDescription] = React.useState("");
@@ -68,11 +69,13 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
         ordres,
         selectedFaction
       );
+      setDisplayCards(true);
       setInitCards(cards);
     }
   }, [selectedFaction, unites, ordres, setInitCards]);
 
   const changeFactionHandler = (event: any) => {
+    setDisplayCards(false);
     const faction: IFaction = factions.find(
       faction => faction.slug === event.target.value
     )!;
@@ -185,7 +188,7 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
           </React.Fragment>
         )}
 
-        {props.cardsToDisplay ? (
+        {displayCards ? (
           <DeckItem
             cardsToDisplay={props.cardsToDisplay}
             faction={selectedFaction}
@@ -193,7 +196,7 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
         ) : null}
       </div>
 
-      {props.cardsToDisplay ? (
+      {displayCards ? (
         <div className={styles.DeckSummary}>
           <DeckSummary cards={props.cardsToDisplay}></DeckSummary>
         </div>

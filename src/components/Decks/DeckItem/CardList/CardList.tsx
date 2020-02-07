@@ -1,39 +1,40 @@
-import axios from 'axios';
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { config } from '../../../../config';
-import { IOrder } from '../../../../models/ICard';
-import { IFaction } from '../../../../models/IFaction';
-import CardOrder from '../CardItem/CardOrder';
-import CardUnit from '../CardItem/CardUnit';
-import CardSelector from '../CardSelector/CardSelector';
-import styles from './CardList.module.css';
+import axios from "axios";
+import React, { FunctionComponent, useEffect, useState } from "react";
+import { config } from "../../../../config";
+import { IOrder } from "../../../../models/ICard";
+import { IFaction } from "../../../../models/IFaction";
+import CardOrder from "../CardItem/CardOrder";
+import CardUnit from "../CardItem/CardUnit";
+import CardUnitSephosi from "../CardItem/CardUnitSephosi";
+import CardSelector from "../CardSelector/CardSelector";
+import styles from "./CardList.module.css";
 
 interface CardListProps {
   cards: any;
   faction: IFaction;
 }
 
-const CardList: FunctionComponent<CardListProps> = (props) => {
+const CardList: FunctionComponent<CardListProps> = props => {
   const [orders, setOrders] = useState([]);
 
   // Separer les unites et ordres
-  const unites = Object.keys(props.cards).filter((key) => {
-    return props.cards[key].type !== 'ordre';
+  const unites = Object.keys(props.cards).filter(key => {
+    return props.cards[key].type !== "ordre";
   });
 
   const cardsUnites = unites.map((key: string, index: number) => {
-
     return (
       <div className={styles.cardItem} key={index}>
-        <CardUnit
-          unit={props.cards[key]}>
-        </CardUnit>
+        {props.faction.nom === "Sephosi" ? (
+          <CardUnitSephosi unit={props.cards[key]}></CardUnitSephosi>
+        ) : (
+          <CardUnit unit={props.cards[key]}></CardUnit>
+        )}
 
         <CardSelector
           count={props.cards[key].count}
           name={props.cards[key].nom}
-        >
-        </CardSelector>
+        ></CardSelector>
       </div>
     );
   });
@@ -44,28 +45,25 @@ const CardList: FunctionComponent<CardListProps> = (props) => {
 
       // Populate les ordres
       const ordres = ordresAll.data.filter((order: IOrder) => {
-        return (typeof order.faction === 'object' && order.faction.slug === props.faction.slug) || order.faction === 'commun';
+        return (
+          (typeof order.faction === "object" &&
+            order.faction.slug === props.faction.slug) ||
+          order.faction === "commun"
+        );
       });
-
 
       const cardsOrdres = ordres.map((ordre: IOrder, index: number) => {
         return (
           <div className={styles.cardItem} key={index}>
-            <CardOrder
-              order={ordre}>
-            </CardOrder>
+            <CardOrder order={ordre}></CardOrder>
           </div>
-        )
+        );
       });
       setOrders(cardsOrdres);
     }
 
     if (props.faction) getOrders();
-
   }, [props.faction]);
-
-
-
 
   return (
     <div className={styles.CardList}>
@@ -75,6 +73,6 @@ const CardList: FunctionComponent<CardListProps> = (props) => {
       <div className={styles.Ordres}>{orders}</div>
     </div>
   );
-}
+};
 
 export default CardList;

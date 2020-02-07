@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDrag } from "react-dnd";
 import CardUnit from "../../Decks/DeckItem/CardItem/CardUnit";
+import CardUnitSephosi from "../../Decks/DeckItem/CardItem/CardUnitSephosi";
 import { ItemTypes } from "./../Drag/ItemTypes";
 import styles from "./CardInGame.module.scss";
 import { PHASES } from "../../../game/PAFF";
@@ -108,7 +109,11 @@ function CardInGame(props) {
 
       {cardHover ? (
         <div className={styles.CardHover}>
-          <CardUnit unit={props.unit}></CardUnit>
+          {props.unit.faction.nom === "Sephosi" ? (
+            <CardUnitSephosi unit={props.unit}></CardUnitSephosi>
+          ) : (
+            <CardUnit unit={props.unit}></CardUnit>
+          )}
         </div>
       ) : null}
     </div>

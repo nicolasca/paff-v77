@@ -1,15 +1,17 @@
 /* Custom/Extend normalize.css values  */
-@import './scss/init-bulma.scss';
-@import './colors.scss';
+@import "./scss/init-bulma.scss";
+@import "./colors.scss";
 
 @font-face {
-  font-family: 'Fantasy';
-  src: local('PiecesOfEight'), url(./assets/fonts/PiecesOfEight.ttf) format('truetype');
+  font-family: "Fantasy";
+  src: local("PiecesOfEight"),
+    url(./assets/fonts/PiecesOfEight.ttf) format("truetype");
 }
 
 @font-face {
-  font-family: 'CardCalligraphy';
-  src: local('Abbasy Calligraphy Typeface'), url(./assets/fonts/PiecesOfEight.ttf) format('truetype');
+  font-family: "CardCalligraphy";
+  src: local("IMFellGreatPrimerSC"),
+    url(./assets/fonts/IMFellGreatPrimerSC.ttf) format("truetype");
 }
 
 body {
@@ -41,19 +43,19 @@ h4 {
 }
 
 h1 {
-  font-family: 'Fantasy';
+  font-family: "Fantasy";
   font-size: 6rem;
   margin: 2rem;
 }
 
 h2 {
-  font-family: 'Fantasy';
+  font-family: "Fantasy";
   font-size: 4rem;
   margin: 1rem;
 }
 
 h3 {
-  font-family: 'Fantasy';
+  font-family: "Fantasy";
   font-size: 3rem;
   margin: 0.8rem;
 }

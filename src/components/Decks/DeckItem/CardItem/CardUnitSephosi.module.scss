@@ -1,6 +1,6 @@
 @import "./../../../../colors.scss";
 
-@mixin setColorsFaction($colorName, $colorBg) {
+@mixin setColorsFaction($colorName, $colorBg, $darker) {
   & > * {
     background-image: url(./../../../../assets/textures/asfalt-dark.png);
   }
@@ -9,103 +9,108 @@
   & > .deploy,
   & > .Regiment,
   & > .Capacites,
-  & > .DetailCarac,
-  & > .name {
-    background-color: $colorBg;
-    // background-color: #c97928;
-    background-image: url(./../../../../assets/textures/light-paper-fibers.png);
-    /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+  & > .DetailCarac {
     color: white;
+    // font-family: "CardCalligraphy";
   }
 
-  // &>.DetailCarac {
-  //   $light:
-  //   background-color: filter()
-
-  // }
-
-  // border: 15px solid lighten($colorBg, 15%);
-  border: 10px solid darken($colorBg, 10%);
+  & > .name {
+    font-family: "CardCalligraphy";
+    line-height: 1;
+  }
 
   .Faction {
     color: $colorName;
     background-color: darken($colorBg, 15%);
   }
+
+  svg {
+    width: 17px;
+    height: 17px;
+    fill: white;
+  }
 }
 
 /* Set colors for each faction */
 
-.CardUnit.container.peaux-vertes {
-  @include setColorsFaction($peaux-vertes-name-color, $peaux-vertes-bg-color);
+.Card.peaux-vertes {
+  @include setColorsFaction(
+    $peaux-vertes-name-color,
+    $peaux-vertes-bg-color,
+    0
+  );
 }
 
-.CardUnit.container.sephosi {
-  @include setColorsFaction($sephosi-bg-name-color, $sephosi-bg-color);
+.Card.sephosi {
+  @include setColorsFaction($sephosi-bg-name-color, $sephosi-bg-color, 15);
+  border-radius: 11px;
+  box-shadow: 15px 14px 11px #9b9a99, -15px -15px 12px #fff;
 }
 
-.CardUnit.container.gaeli {
-  @include setColorsFaction($gaeli-name-color, $gaeli-bg-color);
+.Card.gaeli {
+  @include setColorsFaction($gaeli-name-color, $gaeli-bg-color, 15);
 }
 
-.CardUnit.container.liches {
-  @include setColorsFaction($liches-name-color, $liches-bg-color);
+.Card.liches {
+  @include setColorsFaction($liches-name-color, $liches-bg-color, 35);
 
-  & > .type,
-  & > .deploy,
-  & > .Regiment,
-  & > .Capacites,
-  & > .name {
-    color: unset;
-  }
+  // &>.type,
+  // &>.deploy,
+  // &>.Regiment,
+  // &>.Capacites,
+  // &>.name {
+  //   color: black;
+  //   background-color: darken($liches-bg-color, 35%);
 
-  .Faction {
-    background-color: darken($liches-bg-color, 35%);
-  }
+  // }
 
-  border: 10px solid darken($liches-bg-name-color, 10%);
+  // .name {
+  //   background-color: darken($liches-bg-color, 35%);
+  // }
 
-  svg {
-    fill: rgb(74, 74, 74);
-  }
-}
-
-.CardUnit.container {
-  font-family: "Helvetica";
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: 10% 10% 55% 17% 8%;
-  height: 100%;
-
-  svg {
-    height: 25px;
-    width: 25px;
-    fill: white;
-  }
+  // // border: 10px solid darken($liches-bg-name-color, 10%);
 }
 
 .type {
   grid-column: 1 / 3;
   grid-row: 1 / 3;
-  background: grey;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  border: 1px solid black;
+  position: absolute;
+  left: 19px;
+  top: 102px;
+  width: 17px;
+  height: 17px;
+}
+
+.Card {
+  position: relative;
+}
+
+.CardImage {
+  // z-index: 20;
 }
 
 .deploy {
-  grid-column: 9 / 11;
-  grid-row: 1 / 3;
+  // grid-column: 9 / 11;
+  // grid-row: 1 / 3;
+  position: absolute;
   color: white;
-  background: black;
+  // background: black;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  border: 1px solid black;
-  border-left: none;
+  // border: 1px solid black;
+  // border-left: none;
+  left: 9px;
+  top: 46px;
+  width: 35px;
+  height: 37px;
+  // z-index: -1;
 }
 
 .Faction {
@@ -123,28 +128,42 @@
 }
 
 .name {
-  grid-column: 3 / 9;
-  grid-row: 2 / 3;
+  // grid-column: 3 / 9;
+  // grid-row: 2 / 3;
+  position: absolute;
+  color: white;
   font-size: 0.8rem;
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
+  // border: 1px solid black;
   border-left: 0;
   text-align: center;
+  width: 211px;
+  top: 9px;
+  left: 20px;
+  height: 36px;
+  span {
+    font-size: 1rem;
+  }
+
+  // z-index: -1;
 }
 
 .Regiment {
-  grid-column: 1 / 6;
-  grid-row: 4 / 5;
-  font-size: 2rem;
+  font-size: 1.2rem;
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
-  background-color: white;
+  color: white;
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  left: 8px;
+  bottom: 43px;
+  // z-index: -1;
 }
 
 .DetailCarac {
@@ -153,18 +172,21 @@
   grid-row: 4 / 5;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  border: 1px solid black;
+  grid-auto-rows: 40px;
   border-left: none;
   padding: 5px;
+  position: absolute;
+  bottom: 44px;
+  right: 6px;
+  font-size: 0.8rem;
 
   .ItemCarac {
     display: flex;
     align-items: center;
 
     div {
-      width: 25px;
-      height: 25px;
+      width: 20px;
+      height: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -183,17 +205,22 @@
 }
 
 .Capacites {
-  grid-column: 1 / 11;
-  grid-row: 5 / 6;
+  // grid-column: 1 / 11;
+  // grid-row: 5 / 6;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  border: 1px solid black;
   border-top: none;
-  background-color: white;
+  color: white;
+  position: absolute;
+  bottom: 4px;
+  left: 10px;
+  width: 233px;
+  height: 30px;
 }
 
 .Capacites span {
+  font-size: 0.875rem;
   margin: none;
 }
 
@@ -202,12 +229,17 @@
 }
 
 .Image {
-  grid-column: 1 / 11;
-  grid-row: 3 / 4;
+  // grid-column: 1 / 11;
+  // grid-row: 3 / 4;
+  position: absolute;
   background-position: center;
   background-size: cover;
   border-left: 1px solid black;
   border-right: 1px solid black;
+  width: 250px;
+  height: 335px;
+  z-index: -1;
+  top: 30px;
 
   img {
     width: 100%;
