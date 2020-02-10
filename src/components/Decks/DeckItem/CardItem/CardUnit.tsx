@@ -34,24 +34,23 @@ const CardUnit: FunctionComponent<CardUnitProps> = props => {
   }
 
   let capacites = null;
-  if (props.unit.capacites) {
-    capacites = props.unit.capacites.map(capacite => {
+  if (props.unit.capacities) {
+    capacites = props.unit.capacities.map(capacite => {
       return (
         <span
           className={styles.Tooltip}
           key={capacite.slug}
-          data-tooltip={capacite.description}
+          data-tooltip={capacite.effect}
         >
-          {capacite.nom}
+          {capacite.name}
         </span>
       );
     });
   }
 
-  const image = config.directus+config.directus_files +props.unit.image.filename_disk;
-  const imageUrl = !image
+  const imageUrl = !props.unit.image
     ? require(`../../../../assets/logo.jpg`)
-    : image;
+    : config.directus + config.directus_files + props.unit.image.filename_disk;
 
   return (
     <div
@@ -66,7 +65,7 @@ const CardUnit: FunctionComponent<CardUnitProps> = props => {
         <span>{props.unit.faction.name}</span>
       </div>
       <div className={styles.name}>
-        <span>{props.unit.nom}</span>
+        <span>{props.unit.name}</span>
       </div>
       <div className={styles.type}>{type}</div>
       <div
@@ -78,43 +77,43 @@ const CardUnit: FunctionComponent<CardUnitProps> = props => {
       <div className={styles.Regiment}>{props.unit.regiment}</div>
       <div className={styles.Capacites}>{capacites}</div>
       <div className={styles.DetailCarac}>
-        {props.unit.attCac !== 0 ? (
+        {props.unit.att_cac !== 0 ? (
           <div className={styles.ItemCarac}>
             <img src={AttCac} alt="" />
             <div>
-              {props.unit.attCac}
-              {props.unit.isAttCacMagique ? "*" : ""}
+              {props.unit.att_cac}
+              {props.unit.is_att_cac_magic ? "*" : ""}
             </div>
           </div>
         ) : (
           <div></div>
         )}
 
-        {props.unit.defCac !== 0 ? (
+        {props.unit.def_cac !== 0 ? (
           <div className={styles.ItemCarac}>
             <img src={DefCac} alt="" />
-            <div>{props.unit.defCac}</div>
+            <div>{props.unit.def_cac}</div>
           </div>
         ) : (
           <div></div>
         )}
 
-        {props.unit.attTir !== 0 ? (
+        {props.unit.att_shoot !== 0 ? (
           <div className={styles.ItemCarac}>
             <img src={AttTir} alt="" />
             <div>
-              {props.unit.attTir}
-              {props.unit.isAttTirMagique ? "*" : ""}
+              {props.unit.att_shoot}
+              {props.unit.att_shoot ? "*" : ""}
             </div>
           </div>
         ) : (
           <div></div>
         )}
 
-        {props.unit.defTir !== 0 ? (
+        {props.unit.def_cac !== 0 ? (
           <div className={styles.ItemCarac}>
             <img src={DefTir} alt="" />
-            <div>{props.unit.defTir}</div>
+            <div>{props.unit.def_shoot}</div>
           </div>
         ) : (
           <div></div>

@@ -1,16 +1,13 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { IUnit } from '../../../models/ICard';
-import { IFaction } from '../../../models/IFaction';
-import { FactionService } from '../../../services/Faction.service';
-import { UnitsService } from '../../../services/Units.service';
-import CardList from '../DeckItem/CardList/CardList';
+import React, { FunctionComponent, useEffect, useState } from "react";
+import { IUnit } from "../../../models/ICard";
+import { IFaction } from "../../../models/IFaction";
+import { FactionService } from "../../../services/Faction.service";
+import { UnitsService } from "../../../services/Units.service";
+import CardList from "../DeckItem/CardList/CardList";
 
-interface TheCardsProps {
+interface TheCardsProps {}
 
-}
-
-const TheCards: FunctionComponent<TheCardsProps> = (props) => {
-
+const TheCards: FunctionComponent<TheCardsProps> = props => {
   const [units, setUnits] = useState<IUnit[]>([]);
   const [factions, setFactions] = useState<IFaction[]>([]);
   const [selectedFaction, setSelectedFaction] = useState<IFaction>(null!);
@@ -35,31 +32,28 @@ const TheCards: FunctionComponent<TheCardsProps> = (props) => {
   }
 
   useEffect(() => {
-    setData()
+    setData();
   }, []);
 
   useEffect(() => {
     if (selectedFaction) {
-      UnitsService.getUnits(selectedFaction.slug)
-        .then((response) => {
-          setUnits(response.data);
-        });
+      UnitsService.getUnits(selectedFaction.slug).then(response => {
+        setUnits(response.data);
+      });
     }
   }, [selectedFaction]);
-
 
   const changeFactionHandler = (event: any) => {
     const faction: IFaction = factions.find(
       faction => faction.slug === event.target.value
     )!;
+    setUnits([]);
     setSelectedFaction(faction);
   };
 
-
   return (
-
     <>
-      {factions && factions.length > 1 ?
+      {factions && factions.length > 1 ? (
         <div className="control">
           <div className="select">
             <select onChange={changeFactionHandler} id="TheSelect">
@@ -67,16 +61,25 @@ const TheCards: FunctionComponent<TheCardsProps> = (props) => {
             </select>
           </div>
         </div>
-        : null}
+      ) : null}
 
-      {units && units.length > 1 ?
-        <CardList
-          units={units}
-          faction={selectedFaction}
-        ></CardList>
-        : null}
+      <div>
+        {selectedFaction && selectedFaction.order ? (
+          <>
+            <h3>Ordre spécial</h3>
+            <div>
+              <h4>{selectedFaction.order.name}</h4>
+              <p>{selectedFaction.order.description}</p>
+            </div>
+          </>
+        ) : null}
+
+        {units && units.length > 1 ? (
+          <CardList units={units} faction={selectedFaction}></CardList>
+        ) : null}
+      </div>
     </>
-  )
-}
+  );
+};
 
 export default TheCards;

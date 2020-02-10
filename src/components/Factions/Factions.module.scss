@@ -16,7 +16,7 @@
   position: absolute;
   width: 500px;
   right: 10%;
-  bottom: 30%;
+  bottom: 20%;
   background: white;
   padding: 1rem 3rem 5rem 3rem;
 }
@@ -35,7 +35,6 @@ h2.Title {
 
 // Specific colors and position
 .Faction.liches {
-
   .Description {
     border: 1px solid #c0a13b;
   }
@@ -50,38 +49,35 @@ h2.Title {
 }
 
 .Faction.sephosi {
-
-    .Description {
-      border: 1px solid #c00000;
-      left: 10%;
-    }
-
-    h2.Title {
-      color: #c00000;
-    }
-
-    .Lettrine p:first-of-type:first-letter {
-      color: #c00000;
-    }
-}
-
-.Faction.peaux-vertes {
-
   .Description {
-    border: 1px solid #45742D;
+    border: 1px solid #c00000;
+    left: 10%;
   }
 
   h2.Title {
-    color: #45742D;
+    color: #c00000;
   }
 
   .Lettrine p:first-of-type:first-letter {
-    color: #45742D;
+    color: #c00000;
+  }
+}
+
+.Faction.peaux-vertes {
+  .Description {
+    border: 1px solid #45742d;
+  }
+
+  h2.Title {
+    color: #45742d;
+  }
+
+  .Lettrine p:first-of-type:first-letter {
+    color: #45742d;
   }
 }
 
 .Faction.gaeli {
-
   .Description {
     border: 1px solid #05467e;
   }

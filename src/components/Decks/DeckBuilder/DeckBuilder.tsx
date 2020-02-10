@@ -3,7 +3,7 @@ import React, { FunctionComponent, useContext } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { config } from "../../../config";
-import { ICard, IOrder, IUnit } from "../../../models/ICard";
+import { ICard, IUnit } from "../../../models/ICard";
 import { IDeck } from "../../../models/IDeck";
 import { IFaction } from "../../../models/IFaction";
 import { DeckService } from "../../../services/Deck.services";
@@ -31,7 +31,6 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
   const [nom, setNom] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [unites, setUnites] = React.useState<IUnit[]>([]);
-  const [ordres, setOrdres] = React.useState<IOrder[]>([]);
   const [factions, setFactions] = React.useState<IFaction[]>([]);
   const [factionsOptions, setFactionsOptions] = React.useState([]);
 
@@ -45,7 +44,6 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
       .then(
         axios.spread((unitesHttp, factionsHttp, ordresHttp) => {
           setUnites(unitesHttp.data);
-          setOrdres(ordresHttp.data);
 
           // Factions
           const factionOptions = factionsHttp.data.map((faction: IFaction) => {
@@ -66,13 +64,12 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
     if (selectedFaction) {
       const cards: any = DeckService.populateDeckFromCards(
         unites,
-        ordres,
         selectedFaction
       );
       setDisplayCards(true);
       setInitCards(cards);
     }
-  }, [selectedFaction, unites, ordres, setInitCards]);
+  }, [selectedFaction, unites, setInitCards]);
 
   const changeFactionHandler = (event: any) => {
     setDisplayCards(false);

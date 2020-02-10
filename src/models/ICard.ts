@@ -1,5 +1,4 @@
-
-import { IFaction } from './IFaction';
+import { IFaction } from "./IFaction";
 
 export interface ICard {
   carte: IUnit;
@@ -8,38 +7,27 @@ export interface ICard {
 
 export interface IUnit {
   _id: string;
-  nom: string;
+  name: string;
   slug: string;
   type: string;
   faction: IFaction;
   deploy: number;
   regiment: number;
-  attCac: number;
-  isAttCacMagique: number;
-  attTir: number;
-  isAttTirMagique: number;
-  defCac: number;
-  defTir: number;
+  att_cac: number;
+  is_att_cac_magic: number;
+  att_shoot: number;
+  is_att_shoot_magic: number;
+  def_cac: number;
+  def_shoot: number;
   image: {
-    filename_disk: string
+    filename_disk: string;
   };
-  capacites: ICapacity[];
+  capacities: ICapacity[];
   count?: number;
-  
-}
-
-export interface IOrder {
-  _id: number;
-  faction: IFaction | string;
-  type: string;
-  nom: string;
-  description: string;
-  limite: number;
-  recuperable: number;
 }
 
 export interface ICapacity {
-  nom: string;
+  name: string;
   slug: string;
-  description: string;
+  effect: string;
 }
