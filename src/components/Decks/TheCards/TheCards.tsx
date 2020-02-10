@@ -4,6 +4,7 @@ import { IFaction } from "../../../models/IFaction";
 import { FactionService } from "../../../services/Faction.service";
 import { UnitsService } from "../../../services/Units.service";
 import CardList from "../DeckItem/CardList/CardList";
+import styles from "./TheCards.module.scss";
 
 interface TheCardsProps {}
 
@@ -52,7 +53,7 @@ const TheCards: FunctionComponent<TheCardsProps> = props => {
   };
 
   return (
-    <>
+    <div className={styles.TheCards}>
       {factions && factions.length > 1 ? (
         <div className="control">
           <div className="select">
@@ -78,7 +79,7 @@ const TheCards: FunctionComponent<TheCardsProps> = props => {
           <CardList units={units} faction={selectedFaction}></CardList>
         ) : null}
       </div>
-    </>
+    </div>
   );
 };
 
