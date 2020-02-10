@@ -6,12 +6,12 @@ import { config } from "../../../config";
 import { ICard, IOrder, IUnite } from "../../../models/ICard";
 import { IDeck } from "../../../models/IDeck";
 import { IFaction } from "../../../models/IFaction";
+import { DeckService } from "../../../services/Deck.services";
 import * as actionTypes from "../../../store/actions/actionTypes";
 import { UserContext } from "../../Layout/Layout";
 import DeckItem from "../DeckItem/DeckItem";
-import styles from "./DeckBuilder.module.css";
 import DeckSummary from "../DeckSummary/DeckSummary";
-import { DeckService } from "../../../services/Deck.services";
+import styles from "./DeckBuilder.module.css";
 
 interface DeckBuilderProps {
   cardsToDisplay: any;
@@ -51,7 +51,7 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
           const factionOptions = factionsHttp.data.map((faction: IFaction) => {
             return (
               <option key={faction.slug} value={faction.slug}>
-                {faction.nom}
+                {faction.name}
               </option>
             );
           });

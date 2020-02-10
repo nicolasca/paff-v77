@@ -1,6 +1,8 @@
 
 export const config = {
-    host: 'http://51.75.252.210',
+  host: 'http://51.75.252.210',
+  directus: 'http://51.75.252.210:8082',
+  directus_files: '/uploads/_/originals/',
     // host: 'http://localhost',
     typeCard: {
         ordre: {

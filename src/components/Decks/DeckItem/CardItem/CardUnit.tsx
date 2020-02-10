@@ -1,14 +1,14 @@
 import React, { FunctionComponent } from "react";
+import AttCac from "../../../../assets/icons/att-cac.png";
+import AttTir from "../../../../assets/icons/att-tir.png";
 import { ReactComponent as Bow } from "../../../../assets/icons/bow.svg";
 import { ReactComponent as Catapult } from "../../../../assets/icons/catapult.svg";
+import DefCac from "../../../../assets/icons/def-cac.png";
+import DefTir from "../../../../assets/icons/def-tir.png";
 import { ReactComponent as Elite } from "../../../../assets/icons/elite.svg";
 import { ReactComponent as Horse } from "../../../../assets/icons/horse.svg";
 import { ReactComponent as Sword } from "../../../../assets/icons/sword.svg";
 import { ReactComponent as Unique } from "../../../../assets/icons/unique.svg";
-import AttCac from "../../../../assets/icons/att-cac.png";
-import DefCac from "../../../../assets/icons/def-cac.png";
-import AttTir from "../../../../assets/icons/att-tir.png";
-import DefTir from "../../../../assets/icons/def-tir.png";
 import { config } from "../../../../config";
 import { IUnite } from "../../../../models/ICard";
 import styles from "./CardUnit.module.scss";
@@ -62,7 +62,7 @@ const CardUnit: FunctionComponent<CardUnitProps> = props => {
     >
       <div className={styles.deploy}>{props.unit.deploy}</div>
       <div className={styles.Faction}>
-        <span>{props.unit.faction.nom}</span>
+        <span>{props.unit.faction.name}</span>
       </div>
       <div className={styles.name}>
         <span>{props.unit.nom}</span>

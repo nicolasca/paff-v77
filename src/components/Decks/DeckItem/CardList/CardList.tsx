@@ -25,7 +25,7 @@ const CardList: FunctionComponent<CardListProps> = props => {
   const cardsUnites = unites.map((key: string, index: number) => {
     return (
       <div className={styles.cardItem} key={index}>
-        {props.faction.nom === "Sephosi" ? (
+        {props.faction.name === "Sephosi" ? (
           <CardUnitSephosi unit={props.cards[key]}></CardUnitSephosi>
         ) : (
           <CardUnit unit={props.cards[key]}></CardUnit>

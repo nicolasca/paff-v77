@@ -1,7 +1,9 @@
 export interface IFaction {
   _id: string;
-  nom: string;
+  name: string;
   description: string;
-  image: string;
+  image: {
+    filename_disk: string
+  };
   slug: string;
 }
