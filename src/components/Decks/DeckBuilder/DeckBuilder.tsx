@@ -3,7 +3,7 @@ import React, { FunctionComponent, useContext } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { config } from "../../../config";
-import { ICard, IOrder, IUnite } from "../../../models/ICard";
+import { ICard, IOrder, IUnit } from "../../../models/ICard";
 import { IDeck } from "../../../models/IDeck";
 import { IFaction } from "../../../models/IFaction";
 import { DeckService } from "../../../services/Deck.services";
@@ -30,7 +30,7 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
   const [selectedFaction, setSelectedFaction] = React.useState<IFaction>(null!);
   const [nom, setNom] = React.useState("");
   const [description, setDescription] = React.useState("");
-  const [unites, setUnites] = React.useState<IUnite[]>([]);
+  const [unites, setUnites] = React.useState<IUnit[]>([]);
   const [ordres, setOrdres] = React.useState<IOrder[]>([]);
   const [factions, setFactions] = React.useState<IFaction[]>([]);
   const [factionsOptions, setFactionsOptions] = React.useState([]);

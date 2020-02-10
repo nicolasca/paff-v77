@@ -6,6 +6,7 @@ import Logout from '../Auth/Logout/Logout';
 import SignIn from '../Auth/SignIn';
 import DeckBuilder from '../Decks/DeckBuilder/DeckBuilder';
 import DeckList from '../Decks/DeckList/DeckList';
+import TheCards from '../Decks/TheCards/TheCards';
 import Factions from '../Factions/Factions';
 import Home from '../Home/Home';
 import LobbyView from '../Lobby/Lobby';
@@ -28,7 +29,7 @@ const Layout: FunctionComponent<LayoutProps> = (props) => {
       <Route path="/auth" exact component={Auth} />
       <Route path="/liste-decks" exact component={DeckList} />
       <Route path="/signin" exact component={SignIn} />
-      <Route path="/creer-deck" exact component={DeckBuilder} />
+      <Route path="/les-cartes" exact component={TheCards} />
       <Route path="/factions" exact component={Factions} />
     </React.Fragment>
 

@@ -10,11 +10,11 @@ import { ReactComponent as Horse } from "../../../../assets/icons/horse.svg";
 import { ReactComponent as Sword } from "../../../../assets/icons/sword.svg";
 import { ReactComponent as Unique } from "../../../../assets/icons/unique.svg";
 import { config } from "../../../../config";
-import { IUnite } from "../../../../models/ICard";
+import { IUnit } from "../../../../models/ICard";
 import styles from "./CardUnit.module.scss";
 
 interface CardUnitProps {
-  unit: IUnite;
+  unit: IUnit;
 }
 const CardUnit: FunctionComponent<CardUnitProps> = props => {
   let type;
@@ -48,9 +48,10 @@ const CardUnit: FunctionComponent<CardUnitProps> = props => {
     });
   }
 
-  const imageUrl = !props.unit.image
+  const image = config.directus+config.directus_files +props.unit.image.filename_disk;
+  const imageUrl = !image
     ? require(`../../../../assets/logo.jpg`)
-    : require(`../../../../assets/cartes/${props.unit.faction.slug}/${props.unit.image}`);
+    : image;
 
   return (
     <div

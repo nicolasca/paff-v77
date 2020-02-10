@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { config } from "../../../../config";
-import { IOrder } from "../../../../models/ICard";
+import { IOrder, IUnit } from "../../../../models/ICard";
 import { IFaction } from "../../../../models/IFaction";
 import CardOrder from "../CardItem/CardOrder";
 import CardUnit from "../CardItem/CardUnit";
@@ -10,30 +10,25 @@ import CardSelector from "../CardSelector/CardSelector";
 import styles from "./CardList.module.css";
 
 interface CardListProps {
-  cards: any;
+  units: IUnit[];
   faction: IFaction;
 }
 
 const CardList: FunctionComponent<CardListProps> = props => {
   const [orders, setOrders] = useState([]);
 
-  // Separer les unites et ordres
-  const unites = Object.keys(props.cards).filter(key => {
-    return props.cards[key].type !== "ordre";
-  });
-
-  const cardsUnites = unites.map((key: string, index: number) => {
+  const cardsUnites = props.units.map((unit, index) => {
     return (
       <div className={styles.cardItem} key={index}>
         {props.faction.name === "Sephosi" ? (
-          <CardUnitSephosi unit={props.cards[key]}></CardUnitSephosi>
+          <CardUnitSephosi unit={unit}></CardUnitSephosi>
         ) : (
-          <CardUnit unit={props.cards[key]}></CardUnit>
+            <CardUnit unit={unit}></CardUnit>
         )}
 
         <CardSelector
-          count={props.cards[key].count}
-          name={props.cards[key].nom}
+          count={unit.count! | 0}
+          name={unit.nom}
         ></CardSelector>
       </div>
     );

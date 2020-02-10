@@ -29,7 +29,7 @@ function Header(props) {
         }
         <li>
           <NavLink
-            exact to="/creer-deck"
+            exact to="/les-cartes"
             activeClassName={styles.ActiveNavLink}>
             Les cartes
         </NavLink>

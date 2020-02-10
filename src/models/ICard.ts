@@ -2,11 +2,11 @@
 import { IFaction } from './IFaction';
 
 export interface ICard {
-  carte: IUnite;
+  carte: IUnit;
   nbExemplaires: number;
 }
 
-export interface IUnite {
+export interface IUnit {
   _id: string;
   nom: string;
   slug: string;
@@ -20,9 +20,12 @@ export interface IUnite {
   isAttTirMagique: number;
   defCac: number;
   defTir: number;
-  image: string;
+  image: {
+    filename_disk: string
+  };
   capacites: ICapacity[];
   count?: number;
+  
 }
 
 export interface IOrder {

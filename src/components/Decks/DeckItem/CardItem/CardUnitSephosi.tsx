@@ -1,21 +1,21 @@
 import React, { FunctionComponent } from "react";
+import Card from "../../../../assets/carte-sepho.png";
+import AttCac from "../../../../assets/icons/att-cac.png";
+import AttTir from "../../../../assets/icons/att-tir.png";
 import { ReactComponent as Bow } from "../../../../assets/icons/bow.svg";
 import { ReactComponent as Catapult } from "../../../../assets/icons/catapult.svg";
+import DefCac from "../../../../assets/icons/def-cac.png";
+import DefTir from "../../../../assets/icons/def-tir.png";
 import { ReactComponent as Elite } from "../../../../assets/icons/elite.svg";
 import { ReactComponent as Horse } from "../../../../assets/icons/horse.svg";
 import { ReactComponent as Sword } from "../../../../assets/icons/sword.svg";
 import { ReactComponent as Unique } from "../../../../assets/icons/unique.svg";
-import AttCac from "../../../../assets/icons/att-cac.png";
-import DefCac from "../../../../assets/icons/def-cac.png";
-import AttTir from "../../../../assets/icons/att-tir.png";
-import DefTir from "../../../../assets/icons/def-tir.png";
-import Card from "../../../../assets/carte-sepho.png";
 import { config } from "../../../../config";
-import { IUnite } from "../../../../models/ICard";
+import { IUnit } from "../../../../models/ICard";
 import styles from "./CardUnitSephosi.module.scss";
 
 interface CardUnitProps {
-  unit: IUnite;
+  unit: IUnit;
 }
 const CardUnit: FunctionComponent<CardUnitProps> = props => {
   let type;
