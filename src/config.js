@@ -1,6 +1,6 @@
 
 export const config = {
-    host: 'http://51.75.252.210',
+    host: 'http://www.nicolasca.com',
     // host: 'http://localhost',
     typeCard: {
         ordre: {
