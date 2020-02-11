@@ -56,7 +56,7 @@ function Header(props) {
           </li>
         ) : (
           <React.Fragment>
-            <li>{props.email}</li>
+            <li>{props.user.first_name}</li>
             <li>
               <NavLink exact to="/logout">
                 Déconnexion

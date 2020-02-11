@@ -23,7 +23,7 @@ const populateDeckFromCards: any = (
   return cards;
 };
 
-const saveDeck = (deckToSave: IDeck, cards: any, token: string) => {
+const saveDeck = (deckToSave: IDeck, cards: any) => {
   const cardsToSave: ICard[] = [];
 
   Object.keys(cards).forEach((key, index) => {
@@ -35,12 +35,7 @@ const saveDeck = (deckToSave: IDeck, cards: any, token: string) => {
 
   deckToSave["cartes"] = cardsToSave;
 
-  var headers = {
-    Authorization: "Bearer " + token
-  };
-  return axios.post(config.host + ":3008/decks", deckToSave, {
-    headers: headers
-  });
+  return axios.post(config.host + ":3008/decks", deckToSave);
 };
 
 export const DeckService = {

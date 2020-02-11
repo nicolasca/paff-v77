@@ -3,7 +3,7 @@ import { updateObject } from "../utility";
 
 const initialState = {
   token: null,
-  email: null,
+  user: null,
   error: null,
   loading: false,
   redirect: null
@@ -16,7 +16,7 @@ const authStart = (state, action) => {
 const authSuccess = (state, action) => {
   return updateObject(state, {
     token: action.token,
-    email: action.email,
+    user: action.user,
     error: null,
     loading: false,
     redirect: action.redirect
@@ -32,7 +32,7 @@ const authFail = (state, action) => {
 };
 
 const authlogout = (state, action) => {
-  return updateObject(state, { token: null, email: null, redirect: null });
+  return updateObject(state, { token: null, user: null, redirect: null });
 };
 
 const reducer = (state = initialState, action) => {
