@@ -1,20 +1,18 @@
-version: '3.3'
+version: "3.3"
 
 services:
-
   webapp:
     restart: unless-stopped
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - '3001:80'
+      - "127.0.0.1:81:80"
 
   server:
     restart: unless-stopped
     ports:
-      - '8000:8000'
+      - "127.0.0.1:8000:8000"
     build:
       context: .
       dockerfile: Dockerfile-server
-
