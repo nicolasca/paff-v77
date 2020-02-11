@@ -1,6 +1,6 @@
 export const config = {
-  host: "https://www.nicolasca.com",
-  directus: "https://nicolasca.com",
+  host: "https://www.paff.nicolasca.com",
+  directus: "https://directus.nicolasca.com",
   directus_files: "/uploads/_/originals/",
   // host: 'http://localhost',
   typeCard: {
