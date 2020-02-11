@@ -1,7 +1,6 @@
-import * as actionTypes from "./actionTypes";
-import Cookies from "universal-cookie";
 import axios from "axios";
 import { config } from "../../config";
+import * as actionTypes from "./actionTypes";
 
 export const authStart = () => {
   return {
@@ -71,23 +70,12 @@ export const auth = (email, password) => {
     axios
       .post(config.directus + "/paff/auth/authenticate", authData)
       .then(response => {
-        // const expirationDate = new Date(
-        //   new Date().getTime() + response.data.expiresIn * 1000
-        // );
-        // localStorage.setItem("token", response.data.token);
-        // localStorage.setItem("expirationDate", expirationDate);
-        // localStorage.setItem("email", email);
-        // console.log(localStorage.getItem("email"));
-        const cookies = new Cookies();
-        // const directusCookie =
-        // const expirationDate = new Date(
-        console.log(response);
-        console.log(response.cookies);
+        const data = response.data.data;
 
-        //   new Date().getTime() + response.data.expiresIn * 1000
-        // );
-        cookies.set("directus-paff-session", "Pacman", { path: "/" });
-        dispatch(authSuccess(response.data.token, email, "/"));
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("email", data.user.email);
+
+        dispatch(authSuccess(data.token, data.user.email, "/"));
         // dispatch(checkAuthTimeOut(response.data.expiresIn));
       })
       .catch(error => {
