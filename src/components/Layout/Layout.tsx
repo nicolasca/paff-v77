@@ -10,6 +10,7 @@ import TheCards from "../Decks/TheCards/TheCards";
 import Factions from "../Factions/Factions";
 import Home from "../Home/Home";
 import LobbyView from "../Lobby/Lobby";
+import Rules from "../Rules/Rules";
 import Header from "./Header/Header";
 import styles from "./Layout.module.css";
 
@@ -26,6 +27,7 @@ const Layout: FunctionComponent<LayoutProps> = props => {
       <Route path="/home" component={Home} />
       <Route path="/" exact component={Home} />
       <Route path="/auth" exact component={Auth} />
+      <Route path="/regles" exact component={Rules} />
       <Route path="/liste-decks" exact component={DeckList} />
       <Route path="/signin" exact component={SignIn} />
       <Route path="/les-cartes" exact component={TheCards} />
@@ -40,6 +42,7 @@ const Layout: FunctionComponent<LayoutProps> = props => {
         <Route path="/" exact component={Home} />
         <Route path="/auth" exact component={Auth} />
         <Route path="/signin" exact component={SignIn} />
+        <Route path="/regles" exact component={Rules} />
         <Route path="/creer-deck" exact component={DeckBuilder} />
         <Route path="/factions" exact component={Factions} />
         <Route path="/logout" exact component={Logout} />

@@ -72,8 +72,8 @@ export const auth = (email, password) => {
       .then(response => {
         const data = response.data.data;
 
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("email", data.user.email);
+        // localStorage.setItem("token", data.token);
+        // localStorage.setItem("email", data.user.email);
 
         dispatch(authSuccess(data.token, data.user.email, "/"));
         // dispatch(checkAuthTimeOut(response.data.expiresIn));

@@ -35,6 +35,15 @@ function Header(props) {
           </NavLink>
         </li>
         <li>
+          <NavLink
+            exact
+            to="/regles"
+            activeClassName={styles.ActiveNavLink}
+          >
+            Règles
+          </NavLink>
+        </li>
+        <li>
           <NavLink to="/factions" activeClassName={styles.ActiveNavLink}>
             Factions
           </NavLink>

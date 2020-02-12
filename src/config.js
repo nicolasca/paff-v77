@@ -1,7 +1,7 @@
 
 export const config = {
-  host: 'http://51.75.252.210',
-  directus: 'http://51.75.252.210:8082',
+  host: 'https://www.paff.nicolasca.com',
+  directus: 'https://directus.nicolasca.com',
   directus_files: '/uploads/_/originals/',
     // host: 'http://localhost',
     typeCard: {
