@@ -8,10 +8,9 @@ export const authStart = () => {
   };
 };
 
-export const authSuccess = (token, user, redirect) => {
+export const authSuccess = (user, redirect) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    token: token,
     user: user,
     redirect: redirect
   };
@@ -65,18 +64,15 @@ export const auth = (email, password) => {
     const authData = {
       email: email,
       password: password,
-      mode: "cookie",
+      mode: "cookie"
     };
     axios
-      .post(config.directus + "/paff/auth/authenticate", authData, {withCredentials: true})
+      .post(config.directus + "/paff/auth/authenticate", authData, {
+        withCredentials: true
+      })
       .then(response => {
-        localStorage.setItem("paff-token", response.data.token);
-
-        // const data = response.data.data;
-
-
-        // dispatch(authSuccess(data.token, data.user, "/"));
-        // dispatch(checkAuthTimeOut(response.data.expiresIn));
+        const data = response.data.data;
+        dispatch(authSuccess(data.user, "/"));
       })
       .catch(error => {
         console.log(error);
@@ -87,36 +83,30 @@ export const auth = (email, password) => {
 
 export const checkAuthState = () => {
   return dispatch => {
-    const token = localStorage.getItem("paff-token");
     // Check authenticate endpoint
-    const headers = {
-      Authorization: 'bearer ' + token
-    };
-    // fetch(config.directus + "/paff/users/me")
-    fetch(config.directus + "/paff/items/decks", { credentials: "include"})
+    fetch(config.directus + "/paff/users/me", { credentials: "include" })
       .then(response => response.json())
-      .then(user => {
-        console.log(user);
+      .then(data => {
+        console.log(data.data);
+        dispatch(authSuccess(data.data, "/"));
       })
       .catch(error => {
         console.log(error);
         console.log("error");
+        dispatch(logout());
       });
 
-    if (!token) {
-      dispatch(logout());
-    } else {
-      const expirationDate = new Date(localStorage.getItem("expirationDate"));
-      if (expirationDate <= new Date()) {
-        dispatch(logout());
-      } else {
-        const email = localStorage.getItem("email");
-        dispatch(authSuccess(token, email));
-        const expirationTime =
-          (expirationDate.getTime() - new Date().getTime()) / 1000;
+    // if (!token) {
+    //   dispatch(logout());
+    // } else {
+    //   if (expirationDate <= new Date()) {
+    //     dispatch(logout());
+    //   } else {
+    //     const email = localStorage.getItem("email");
 
-        dispatch(checkAuthTimeOut(expirationTime));
-      }
-    }
+    //     const expirationTime =
+    //       (expirationDate.getTime() - new Date().getTime()) / 1000;
+    //   }
+    // }
   };
 };

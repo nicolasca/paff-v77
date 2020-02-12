@@ -36,7 +36,8 @@ p {
 }
 
 @media screen and (min-width: $tablet) {
-  .edito p, .edito span {
+  .edito p,
+  .edito span {
     font-size: 1.3rem;
   }
 }
