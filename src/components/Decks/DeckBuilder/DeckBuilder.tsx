@@ -16,8 +16,6 @@ import styles from "./DeckBuilder.module.css";
 interface DeckBuilderProps {
   cardsToDisplay: any;
   setInitCards: any;
-  email: string;
-  token: string;
   history: any;
   resetCount: any;
 }
@@ -94,13 +92,12 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
       nom: nom,
       description: description,
       faction: selectedFaction,
-      joueur: props.email,
       cartes: [],
       createDate: new Date().toISOString(),
       updateDate: new Date().toISOString()
     } as IDeck;
 
-    DeckService.saveDeck(deckToSave, props.cardsToDisplay, props.token)
+    DeckService.saveDeck(deckToSave, props.cardsToDisplay)
       .then(() => {
         // Clean the inputs
         setNom("");
@@ -204,9 +201,7 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
 
 const mapStateToProps = (state: any) => {
   return {
-    cardsToDisplay: state.deckReducer.cardsToDisplay,
-    token: state.authReducer.token,
-    email: state.authReducer.email
+    cardsToDisplay: state.deckReducer.cardsToDisplay
   };
 };
 

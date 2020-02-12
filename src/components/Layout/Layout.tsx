@@ -13,12 +13,13 @@ import LobbyView from "../Lobby/Lobby";
 import Rules from "../Rules/Rules";
 import Header from "./Header/Header";
 import styles from "./Layout.module.css";
+import { IUser } from "../../models/IUser";
 
 export const UserContext = React.createContext(false);
 
 interface LayoutProps {
   isAuthenticated: boolean;
-  email: string;
+  user: IUser;
 }
 
 const Layout: FunctionComponent<LayoutProps> = props => {
@@ -57,7 +58,7 @@ const Layout: FunctionComponent<LayoutProps> = props => {
     <div className={styles.Site}>
       <UserContext.Provider value={props.isAuthenticated}>
         <Header
-          email={props.email}
+          user={props.user}
           isAuthenticated={props.isAuthenticated}
         ></Header>
         <main className={styles.Main}>
@@ -71,7 +72,7 @@ const Layout: FunctionComponent<LayoutProps> = props => {
 const mapStateToProps = (state: any) => {
   return {
     isAuthenticated: state.authReducer.token !== null,
-    email: state.authReducer.email
+    user: state.authReducer.user
   };
 };
 

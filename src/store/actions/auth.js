@@ -8,11 +8,11 @@ export const authStart = () => {
   };
 };
 
-export const authSuccess = (token, email, redirect) => {
+export const authSuccess = (token, user, redirect) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     token: token,
-    email: email,
+    user: user,
     redirect: redirect
   };
 };
@@ -70,12 +70,22 @@ export const auth = (email, password) => {
     axios
       .post(config.directus + "/paff/auth/authenticate", authData)
       .then(response => {
+        // const expirationDate = new Date(
+        //   new Date().getTime() + response.data.expiresIn * 1000
+        // );
+        // localStorage.setItem("token", response.data.token);
+        // localStorage.setItem("expirationDate", expirationDate);
+        // localStorage.setItem("email", email);
+        // console.log(localStorage.getItem("email"));
+        // const directusCookie =
+        // const expirationDate = new Date(
+        console.log(response);
+        console.log(response.cookies);
         const data = response.data.data;
 
-        // localStorage.setItem("token", data.token);
-        // localStorage.setItem("email", data.user.email);
-
-        dispatch(authSuccess(data.token, data.user.email, "/"));
+        //   new Date().getTime() + response.data.expiresIn * 1000
+        // );
+        dispatch(authSuccess(response.data.token, data.user, "/"));
         // dispatch(checkAuthTimeOut(response.data.expiresIn));
       })
       .catch(error => {
@@ -88,6 +98,17 @@ export const auth = (email, password) => {
 export const checkAuthState = () => {
   return dispatch => {
     const token = localStorage.getItem("token");
+    // Check authenticate endpoint
+    fetch("https://nicolasca.com/paff/users/me")
+      .then(response => response.json())
+      .then(user => {
+        console.log(user);
+      })
+      .catch(error => {
+        console.log(error);
+        console.log("error");
+      });
+
     if (!token) {
       dispatch(logout());
     } else {

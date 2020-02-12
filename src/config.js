@@ -1,6 +1,5 @@
-
 export const config = {
-  host: 'https://www.paff.nicolasca.com',
+  host: 'https://paff.nicolasca.com',
   directus: 'https://directus.nicolasca.com',
   directus_files: '/uploads/_/originals/',
     // host: 'http://localhost',
@@ -31,4 +30,5 @@ export const config = {
             limite: 1,
         },
     }
-}
+  }
+};
