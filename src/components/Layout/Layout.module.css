@@ -1,5 +1,7 @@
-.Site {
-  display: grid;
-  grid-template-rows: 60px 1fr;
-  height: 100vh;
+@media screen and (min-width: 769px) {
+  .Site {
+    display: grid;
+    grid-template-rows: 60px 1fr;
+    height: 100vh;
+  }
 }

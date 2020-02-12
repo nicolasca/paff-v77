@@ -65,27 +65,17 @@ export const auth = (email, password) => {
     const authData = {
       email: email,
       password: password,
-      mode: "cookie"
+      mode: "cookie",
     };
     axios
-      .post(config.directus + "/paff/auth/authenticate", authData)
+      .post(config.directus + "/paff/auth/authenticate", authData, {withCredentials: true})
       .then(response => {
-        // const expirationDate = new Date(
-        //   new Date().getTime() + response.data.expiresIn * 1000
-        // );
-        // localStorage.setItem("token", response.data.token);
-        // localStorage.setItem("expirationDate", expirationDate);
-        // localStorage.setItem("email", email);
-        // console.log(localStorage.getItem("email"));
-        // const directusCookie =
-        // const expirationDate = new Date(
-        console.log(response);
-        console.log(response.cookies);
-        const data = response.data.data;
+        localStorage.setItem("paff-token", response.data.token);
 
-        //   new Date().getTime() + response.data.expiresIn * 1000
-        // );
-        dispatch(authSuccess(response.data.token, data.user, "/"));
+        // const data = response.data.data;
+
+
+        // dispatch(authSuccess(data.token, data.user, "/"));
         // dispatch(checkAuthTimeOut(response.data.expiresIn));
       })
       .catch(error => {
@@ -97,9 +87,13 @@ export const auth = (email, password) => {
 
 export const checkAuthState = () => {
   return dispatch => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("paff-token");
     // Check authenticate endpoint
-    fetch("https://nicolasca.com/paff/users/me")
+    const headers = {
+      Authorization: 'bearer ' + token
+    };
+    // fetch(config.directus + "/paff/users/me")
+    fetch(config.directus + "/paff/items/decks", { credentials: "include"})
       .then(response => response.json())
       .then(user => {
         console.log(user);

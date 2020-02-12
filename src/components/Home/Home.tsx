@@ -11,7 +11,7 @@ function Home() {
 
   return (
     <div className={styles.MainPage + " container"}>
-      <div className={styles.Description}>
+      <div className={styles.Description + " edito"}>
       <h3>PAFF</h3>
         <p>
           {text}

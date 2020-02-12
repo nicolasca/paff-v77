@@ -68,7 +68,7 @@ const TheCards: FunctionComponent<TheCardsProps> = props => {
         {selectedFaction && selectedFaction.order ? (
           <>
             <h3>Ordre spécial</h3>
-            <div>
+            <div className="edito">
               <h4>{selectedFaction.order.name}</h4>
               <p>{selectedFaction.order.description}</p>
             </div>

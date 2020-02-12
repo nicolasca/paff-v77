@@ -25,8 +25,9 @@ const Factions: FunctionComponent = () => {
                       title={faction.name} />
                     <div className={styles.Description}>
                       <h2 className={styles.Title}>{faction.name}</h2>
-                      <div className={styles.Lettrine}
-                        dangerouslySetInnerHTML={{ __html: faction.description }} />
+                      <div className={styles.Lettrine + ' edito'}>
+                        <p dangerouslySetInnerHTML={{ __html: faction.description }}></p>
+                      </div>
                     </div>
 
                   </React.Fragment> : null}
@@ -63,10 +64,10 @@ const Factions: FunctionComponent = () => {
       });
   }, []);
 
-  
+
 
   return (
-  <div className={styles.Faction}>{factions}</div>
+    <div className={styles.Faction}>{factions}</div>
   );
 };
 

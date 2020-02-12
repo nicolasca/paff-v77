@@ -35,6 +35,12 @@ p {
   margin-right: auto;
 }
 
+@media screen and (min-width: $tablet) {
+  .edito p, .edito span {
+    font-size: 1.3rem;
+  }
+}
+
 h1,
 h2,
 h3,
