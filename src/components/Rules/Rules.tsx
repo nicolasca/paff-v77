@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { config } from '../../config';
+import styles from './Rules.module.scss';
 
 
 const Rules: FunctionComponent = () => {
@@ -14,12 +15,8 @@ const Rules: FunctionComponent = () => {
   }, []);
 
   return (
-    <div style={{
-      maxWidth: '1000px',
-      margin: 'auto'
-    }}>
-      <h1>Les règles</h1>
-
+    <div className={styles.Container}>
+  
       {content ?
 
         <div className="edito"
