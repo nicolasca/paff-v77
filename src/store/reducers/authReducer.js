@@ -6,7 +6,8 @@ const initialState = {
   user: null,
   error: null,
   loading: false,
-  redirect: null
+  redirect: null,
+  isAuthenticated: false,
 };
 
 const authStart = (state, action) => {

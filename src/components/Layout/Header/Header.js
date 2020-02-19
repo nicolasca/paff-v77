@@ -54,7 +54,7 @@ function Header(props) {
           </li>
         ) : null}
       </ul>
-      <ul>
+      {/* <ul>
         {!isAuthenticated ? (
           <li>
             <NavLink exact to="/auth" activeClassName={styles.ActiveNavLink}>
@@ -71,7 +71,7 @@ function Header(props) {
             </li>
           </React.Fragment>
         )}
-      </ul>
+      </ul> */}
     </header>
   );
 }

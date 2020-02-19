@@ -9,7 +9,6 @@ const Factions: FunctionComponent = () => {
 
   React.useEffect(() => {
     FactionService.getFactions().then(factions => {
-      console.log(factions);
       setFactions(
         factions.data.map((faction: IFaction) => {
           let factionComponent = null;
@@ -19,7 +18,7 @@ const Factions: FunctionComponent = () => {
             faction.image.filename_disk;
 
           factionComponent = (
-            <div className={styles.Faction + " " + styles[faction.slug]}>
+            <div key={faction.slug} className={styles.Faction + " " + styles[faction.slug]}>
               {faction ? (
                 <React.Fragment>
                   <div

@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
+import { IUser } from "../../models/IUser";
 import Auth from "../Auth/Auth";
 import Logout from "../Auth/Logout/Logout";
 import SignIn from "../Auth/SignIn";
@@ -13,7 +14,6 @@ import LobbyView from "../Lobby/Lobby";
 import Rules from "../Rules/Rules";
 import Header from "./Header/Header";
 import styles from "./Layout.module.css";
-import { IUser } from "../../models/IUser";
 
 export const UserContext = React.createContext(false);
 
@@ -35,6 +35,7 @@ const Layout: FunctionComponent<LayoutProps> = props => {
       <Route path="/factions" exact component={Factions} />
     </React.Fragment>
   );
+
 
   if (props.isAuthenticated) {
     content = (
@@ -71,7 +72,7 @@ const Layout: FunctionComponent<LayoutProps> = props => {
 
 const mapStateToProps = (state: any) => {
   return {
-    isAuthenticated: state.authReducer.token !== null,
+    isAuthenticated: state.authReducer.token,
     user: state.authReducer.user
   };
 };

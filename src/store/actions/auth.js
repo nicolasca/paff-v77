@@ -87,7 +87,11 @@ export const checkAuthState = () => {
     fetch(config.directus + "/paff/users/me", { credentials: "include" })
       .then(response => response.json())
       .then(data => {
-        console.log(data.data);
+        if (!data.data) {
+          console.log(data.data);
+          dispatch(logout());
+        }
+
         dispatch(authSuccess(data.data, "/"));
       })
       .catch(error => {
