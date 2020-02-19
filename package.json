@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@types/jest": "^24.0.23",
+    "@types/mapbox-gl": "^1.7.0",
     "@types/node": "^12.12.17",
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.4",
@@ -12,8 +13,9 @@
     "bulma": "^0.7.5",
     "esm": "^3.2.25",
     "lodash.debounce": "^4.0.8",
+    "mapbox-gl": "^1.7.0",
     "node-persist": "^3.0.5",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dnd": "^9.4.0",
@@ -22,7 +24,7 @@
     "react-redux": "^7.1.0",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1",
+    "react-scripts": "3.3.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0"
   },

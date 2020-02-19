@@ -1,5 +1,10 @@
 @import './../../colors.scss';
 
+.MainMap {
+  width: 100vw;
+  height: calc(100vh - 60px);
+}
+
 .MainPage {
       display: flex;
       margin: auto;

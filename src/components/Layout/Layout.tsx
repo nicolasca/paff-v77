@@ -1,47 +1,50 @@
-import React, { FunctionComponent } from 'react';
-import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
-import Auth from '../Auth/Auth';
-import Logout from '../Auth/Logout/Logout';
-import SignIn from '../Auth/SignIn';
-import DeckBuilder from '../Decks/DeckBuilder/DeckBuilder';
-import DeckList from '../Decks/DeckList/DeckList';
-import Factions from '../Factions/Factions';
-import Home from '../Home/Home';
-import LobbyView from '../Lobby/Lobby';
-import Header from './Header/Header';
-import styles from './Layout.module.css';
+import React, { FunctionComponent } from "react";
+import { connect } from "react-redux";
+import { Route, Switch } from "react-router-dom";
+import { IUser } from "../../models/IUser";
+import Auth from "../Auth/Auth";
+import Logout from "../Auth/Logout/Logout";
+import SignIn from "../Auth/SignIn";
+import DeckBuilder from "../Decks/DeckBuilder/DeckBuilder";
+import DeckList from "../Decks/DeckList/DeckList";
+import TheCards from "../Decks/TheCards/TheCards";
+import Factions from "../Factions/Factions";
+import Home from "../Home/Home";
+import LobbyView from "../Lobby/Lobby";
+import Rules from "../Rules/Rules";
+import Header from "./Header/Header";
+import styles from "./Layout.module.css";
 
 export const UserContext = React.createContext(false);
 
 interface LayoutProps {
   isAuthenticated: boolean;
-  username: string;
+  user: IUser;
 }
 
-const Layout: FunctionComponent<LayoutProps> = (props) => {
-
+const Layout: FunctionComponent<LayoutProps> = props => {
   let content = (
     <React.Fragment>
       <Route path="/home" component={Home} />
       <Route path="/" exact component={Home} />
       <Route path="/auth" exact component={Auth} />
+      <Route path="/regles" exact component={Rules} />
       <Route path="/liste-decks" exact component={DeckList} />
       <Route path="/signin" exact component={SignIn} />
-      <Route path="/creer-deck" exact component={DeckBuilder} />
+      <Route path="/les-cartes" exact component={TheCards} />
       <Route path="/factions" exact component={Factions} />
     </React.Fragment>
-
   );
 
-  if (props.isAuthenticated) {
 
+  if (props.isAuthenticated) {
     content = (
       <React.Fragment>
         <Route path="/home" component={Home} />
         <Route path="/" exact component={Home} />
         <Route path="/auth" exact component={Auth} />
         <Route path="/signin" exact component={SignIn} />
+        <Route path="/regles" exact component={Rules} />
         <Route path="/creer-deck" exact component={DeckBuilder} />
         <Route path="/factions" exact component={Factions} />
         <Route path="/logout" exact component={Logout} />
@@ -56,25 +59,22 @@ const Layout: FunctionComponent<LayoutProps> = (props) => {
     <div className={styles.Site}>
       <UserContext.Provider value={props.isAuthenticated}>
         <Header
-          username={props.username}
-          isAuthenticated={props.isAuthenticated}></Header>
+          user={props.user}
+          isAuthenticated={props.isAuthenticated}
+        ></Header>
         <main className={styles.Main}>
-          <Switch>
-            {content}
-          </Switch>
+          <Switch>{content}</Switch>
         </main>
       </UserContext.Provider>
-
     </div>
   );
-}
-
+};
 
 const mapStateToProps = (state: any) => {
   return {
-    isAuthenticated: state.authReducer.token !== null,
-    username: state.authReducer.username,
-  }
-}
+    isAuthenticated: state.authReducer.token,
+    user: state.authReducer.user
+  };
+};
 
 export default connect(mapStateToProps)(Layout);

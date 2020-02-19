@@ -1,7 +1,18 @@
 export interface IFaction {
   _id: string;
-  nom: string;
+  name: string;
   description: string;
-  image: string;
+  image: {
+    filename_disk: string;
+  };
   slug: string;
+  order: ISpecialOrder;
+}
+
+export interface ISpecialOrder {
+  _id: number;
+  slug: string;
+  name: string;
+  description: string;
+  pc_cost: number;
 }

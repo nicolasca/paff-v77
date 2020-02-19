@@ -3,21 +3,19 @@ import React, { FunctionComponent, useContext } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { config } from "../../../config";
-import { ICard, IOrder, IUnite } from "../../../models/ICard";
+import { ICard, IUnit } from "../../../models/ICard";
 import { IDeck } from "../../../models/IDeck";
 import { IFaction } from "../../../models/IFaction";
+import { DeckService } from "../../../services/Deck.services";
 import * as actionTypes from "../../../store/actions/actionTypes";
 import { UserContext } from "../../Layout/Layout";
 import DeckItem from "../DeckItem/DeckItem";
-import styles from "./DeckBuilder.module.css";
 import DeckSummary from "../DeckSummary/DeckSummary";
-import { DeckService } from "../../../services/Deck.services";
+import styles from "./DeckBuilder.module.css";
 
 interface DeckBuilderProps {
   cardsToDisplay: any;
   setInitCards: any;
-  username: string;
-  token: string;
   history: any;
   resetCount: any;
 }
@@ -30,8 +28,7 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
   const [selectedFaction, setSelectedFaction] = React.useState<IFaction>(null!);
   const [nom, setNom] = React.useState("");
   const [description, setDescription] = React.useState("");
-  const [unites, setUnites] = React.useState<IUnite[]>([]);
-  const [ordres, setOrdres] = React.useState<IOrder[]>([]);
+  const [unites, setUnites] = React.useState<IUnit[]>([]);
   const [factions, setFactions] = React.useState<IFaction[]>([]);
   const [factionsOptions, setFactionsOptions] = React.useState([]);
 
@@ -45,13 +42,12 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
       .then(
         axios.spread((unitesHttp, factionsHttp, ordresHttp) => {
           setUnites(unitesHttp.data);
-          setOrdres(ordresHttp.data);
 
           // Factions
           const factionOptions = factionsHttp.data.map((faction: IFaction) => {
             return (
               <option key={faction.slug} value={faction.slug}>
-                {faction.nom}
+                {faction.name}
               </option>
             );
           });
@@ -66,13 +62,12 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
     if (selectedFaction) {
       const cards: any = DeckService.populateDeckFromCards(
         unites,
-        ordres,
         selectedFaction
       );
       setDisplayCards(true);
       setInitCards(cards);
     }
-  }, [selectedFaction, unites, ordres, setInitCards]);
+  }, [selectedFaction, unites, setInitCards]);
 
   const changeFactionHandler = (event: any) => {
     setDisplayCards(false);
@@ -97,13 +92,12 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
       nom: nom,
       description: description,
       faction: selectedFaction,
-      joueur: props.username,
       cartes: [],
       createDate: new Date().toISOString(),
       updateDate: new Date().toISOString()
     } as IDeck;
 
-    DeckService.saveDeck(deckToSave, props.cardsToDisplay, props.token)
+    DeckService.saveDeck(deckToSave, props.cardsToDisplay)
       .then(() => {
         // Clean the inputs
         setNom("");
@@ -207,9 +201,7 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
 
 const mapStateToProps = (state: any) => {
   return {
-    cardsToDisplay: state.deckReducer.cardsToDisplay,
-    token: state.authReducer.token,
-    username: state.authReducer.username
+    cardsToDisplay: state.deckReducer.cardsToDisplay
   };
 };
 

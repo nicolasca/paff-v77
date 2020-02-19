@@ -1,29 +1,92 @@
+.Faction {
+  position: relative;
+}
+
 .Logo {
   max-width: 200px;
-  border-radius: 50%;
-  min-height: 200px;
 }
 
-.Faction {
-  display: flex;
-  flex-direction: column;
+.BgImage {
+  height: 100vh;
+  background-size: cover;
+  background-position: "top";
 }
 
-.FactionItem a {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: column;
+.Description {
+  position: absolute;
+  max-width: 600px;
+  right: 10%;
+  bottom: 20%;
+  background: white;
+  padding: 1rem 3rem 5rem 3rem;
 }
 
-.FactionItem {
-  h2 {
-    color: #363636;
+h2.Title {
+  text-align: center;
+}
+
+.Lettrine p:first-of-type:first-letter {
+  font-family: "Fantasy";
+  font-size: 5rem;
+  padding: 5px 10px 5px 0px;
+  margin-right: 5px;
+  float: left;
+}
+
+// Specific colors and position
+.Faction.liches {
+  .Description {
+    border: 1px solid #c0a13b;
   }
 
-  &:hover {
-    h2 {
-      color: #D99A4E;
-    }
+  h2.Title {
+    color: #c0a13b;
+  }
+
+  .Lettrine p:first-of-type:first-letter {
+    color: #c0a13b;
+  }
+}
+
+.Faction.sephosi {
+  .Description {
+    border: 1px solid #c00000;
+    left: 10%;
+  }
+
+  h2.Title {
+    color: #c00000;
+  }
+
+  .Lettrine p:first-of-type:first-letter {
+    color: #c00000;
+  }
+}
+
+.Faction.peaux-vertes {
+  .Description {
+    border: 1px solid #45742d;
+  }
+
+  h2.Title {
+    color: #45742d;
+  }
+
+  .Lettrine p:first-of-type:first-letter {
+    color: #45742d;
+  }
+}
+
+.Faction.gaeli {
+  .Description {
+    border: 1px solid #05467e;
+  }
+
+  h2.Title {
+    color: #05467e;
+  }
+
+  .Lettrine p:first-of-type:first-letter {
+    color: #05467e;
   }
 }
