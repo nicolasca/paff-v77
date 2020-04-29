@@ -1,10 +1,10 @@
-import { ICapacity } from "./../models/ICard";
 import { config } from "../config";
+import { ICapacity } from "./../models/ICard";
 
 const getUnits = async (factionSlug: string) => {
   const response = await fetch(
-    config.directus +
-      "/paff/items/units?fields=*,faction.*,capacities.*.*,image.filename_disk&filter[faction.slug][like]=" +
+    config.directus + config.directus_api +
+      "/units?fields=*,faction.*,capacities.*.*,image.filename_disk&filter[faction.slug][like]=" +
       factionSlug
   );
   const units = await response.json();

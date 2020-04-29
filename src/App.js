@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import { Client } from 'boardgame.io/react';
-
 import { BrowserRouter } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
-import * as actions from './store/actions/index'
+import * as actions from './store/actions/index';
 
 class App extends Component {
 

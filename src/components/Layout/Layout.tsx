@@ -23,6 +23,9 @@ interface LayoutProps {
 }
 
 const Layout: FunctionComponent<LayoutProps> = props => {
+
+console.log(props.isAuthenticated);
+
   let content = (
     <React.Fragment>
       <Route path="/home" component={Home} />
@@ -72,7 +75,7 @@ const Layout: FunctionComponent<LayoutProps> = props => {
 
 const mapStateToProps = (state: any) => {
   return {
-    isAuthenticated: state.authReducer.token,
+    isAuthenticated: state.authReducer.user,
     user: state.authReducer.user
   };
 };

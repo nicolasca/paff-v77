@@ -5,8 +5,8 @@ import { config } from "../../../config";
 import { ICard } from "../../../models/ICard";
 import { IDeck } from "../../../models/IDeck";
 import * as actionTypes from "../../../store/actions/actionTypes";
-import DeckSummary from "../DeckSummary/DeckSummary";
 import DeckItem from "../DeckItem/DeckItem";
+import DeckSummary from "../DeckSummary/DeckSummary";
 import styles from "./DeckList.module.scss";
 
 interface DeckListProps {
@@ -23,11 +23,11 @@ const DeckList: FunctionComponent<DeckListProps> = props => {
   const [deckSelectedId, setDeckSelectedId] = useState<string>("");
 
   useEffect(() => {
-    const headers = {
-      Authorization: "Bearer " + props.token
-    };
     axios
-      .get(config.host + ":3008/decks", { headers })
+      .get(config.directus + config.directus_api + "/decks",
+        {
+          withCredentials: true,
+        })
       .then(response => {
         if (response.data && response.data.length > 0) {
           const options = response.data.map((deck: IDeck) => {
@@ -72,26 +72,22 @@ const DeckList: FunctionComponent<DeckListProps> = props => {
 
     deckSelected["cartes"] = cardsToSave;
 
-    var headers = {
-      Authorization: "Bearer " + props.token
-    };
+
     axios
-      .put(config.host + ":3008/decks/" + deckSelected._id, deckSelected, {
-        headers: headers
+      .put(config.directus + config.directus_api + "/decks/" + deckSelected._id, deckSelected, {
+        withCredentials: true,
       })
-      .then(() => {})
+      .then(() => { })
       .catch(error => {
         console.log(error);
       });
   };
 
   const deleteDeck = () => {
-    var headers = {
-      Authorization: "Bearer " + props.token
-    };
+
     axios
-      .delete(config.host + ":3008/decks/" + deckSelected._id, {
-        headers: headers
+      .delete(config.directus + config.directus_api + "/decks/" + deckSelected._id, {
+        withCredentials: true,
       })
       .then(response => {
         const newDeckList: IDeck[] = deckList.filter(

@@ -35,7 +35,7 @@ const saveDeck = (deckToSave: IDeck, cards: any) => {
 
   deckToSave["cartes"] = cardsToSave;
 
-  return axios.post(config.host + ":3008/decks", deckToSave);
+  return axios.post(config.directus + config.directus_api + "/decks", deckToSave, { withCredentials: true});
 };
 
 export const DeckService = {

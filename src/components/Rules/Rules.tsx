@@ -7,7 +7,7 @@ const Rules: FunctionComponent = () => {
   const [content, setContent] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch(config.directus + '/paff/items/page?filter[title][like]=Règles')
+    fetch(config.directus + config.directus_api + '/page?filter[title][like]=Règles')
       .then(response => response.json())
       .then((rules) => {
         setContent(rules.data[0].content);

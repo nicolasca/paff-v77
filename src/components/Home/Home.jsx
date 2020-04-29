@@ -1,56 +1,25 @@
-import mapboxgl from 'mapbox-gl';
-import React, { useEffect, useRef, useState } from "react";
-import styles from "./Home.module.scss";
+import React from 'react';
+import logo from '../../assets/map/map.jpg';
+import styles from './Home.module.scss';
+
 
 function Home() {
 
+  const text = "Le PAFF est un jeu de carte simulant des batailles d’armées stratégiques dans un univers heroic fantasy. En tant que général de son armée, le joueur doit positionner ses troupes et distribuer ses ordres au cours de la bataille en tentant de contrer la stratégie de l’adversaire par l’anticipation, le bluff et un sens de la tactique affuté." +
+    "\nCe jeu comporte pour l’instant 4 factions mais si la guerre venait à se propager, elle pourrait progressivement atteindre les 8 autres factions du continent de Priana.";
 
-  const [map, setMap] = useState(null)
-  const mapContainer = useRef(null)
-
-  useEffect(() => {
-
-    mapboxgl.accessToken =
-      "pk.eyJ1Ijoibmljb2xhc2NhIiwiYSI6ImNqdjNlZHY2czFzbGs0M280ZXg5bHE3ZnQifQ.qvyAeDcAJiswn2VLP320Tw"
-    const initializeMap = ({ setMap, mapContainer }) => {
-      const map = new mapboxgl.Map({
-        container: mapContainer.current,
-        center: [-175.73219158277513, 1.2417133592737315],
-        style: "mapbox://styles/nicolasca/ck6tbrrb22qtw1in0q0n92vdb",
-        zoom: 1.5,
-      })
-      // Add zoom and rotation controls to the map.
-      map.addControl(new mapboxgl.NavigationControl(), "top-left")
-
-      map.on("load", () => {
-        setMap(map)
-        map.resize()
-      })
-    }
-
-    if (!map) {
-      initializeMap({ setMap, mapContainer })
-    }
-
-  }, [map]);
 
   return (
-    // <div className={styles.MainPage + " container"}>
-    //   <div className={styles.Description}>
-    //     <h3>PAFF</h3>
-    //     <p>{text}</p>
-    //   </div>
-    //   <div className={styles.MapPriana}>
-    //     <img src={logo} alt="" />
-    //   </div>
-    // </div>
-
-    <div className={styles.MainMap}>
-      <div
-        className="Map"
-        style={{ height: "100vh", width: "100%" }}
-        ref={el => (mapContainer.current = el)}
-      />
+    <div className={styles.MainPage + " container"}>
+      <div className={styles.Description}>
+        <h3>PAFF</h3>
+        <p>
+          {text}
+        </p>
+      </div>
+      <div className={styles.MapPriana}>
+        <img src={logo} alt="" />
+      </div>
     </div>
   );
 }

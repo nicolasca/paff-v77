@@ -12,7 +12,7 @@ export const authSuccess = (user, redirect) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     user: user,
-    redirect: redirect
+    redirect: redirect,
   };
 };
 
@@ -47,9 +47,9 @@ export const signIn = (email, password) => {
       password: password
     };
     axios
-      .post(config.host + ":3008/users", signInData)
+      .post(config.directus + "/users", signInData)
       .then(response => {
-        dispatch(authSuccess(null, null, "/auth"));
+        dispatch(authSuccess(null, "/auth"));
       })
       .catch(error => {
         console.log(error);
@@ -72,7 +72,9 @@ export const auth = (email, password) => {
       })
       .then(response => {
         const data = response.data.data;
-        dispatch(authSuccess(data.user, "/"));
+        console.log(data);
+        // localStorage.setItem("token", data.token);
+        dispatch(authSuccess(data.user, "/", data.token));
       })
       .catch(error => {
         console.log(error);
@@ -84,33 +86,27 @@ export const auth = (email, password) => {
 export const checkAuthState = () => {
   return dispatch => {
     // Check authenticate endpoint
-    fetch(config.directus + "/paff/users/me", { credentials: "include" })
+    fetch(config.directus + "/paff/users/me", { credentials: "include" }) 
+    // {
+    //   headers: new Headers({
+    //     'Authorization': 'bearer ' + localStorage.getItem('token'),
+    //   }),
+    // })
       .then(response => response.json())
       .then(data => {
-        if (!data.data) {
-          console.log(data.data);
-          dispatch(logout());
-        }
+        console.log('check auth');
 
-        dispatch(authSuccess(data.data, "/"));
+        if (!data.data) {
+          // Check if 
+          dispatch(logout());
+        } else {
+          dispatch(authSuccess(data.data, "/", localStorage.getItem('token')));
+        }
       })
       .catch(error => {
         console.log(error);
         console.log("error");
         dispatch(logout());
       });
-
-    // if (!token) {
-    //   dispatch(logout());
-    // } else {
-    //   if (expirationDate <= new Date()) {
-    //     dispatch(logout());
-    //   } else {
-    //     const email = localStorage.getItem("email");
-
-    //     const expirationTime =
-    //       (expirationDate.getTime() - new Date().getTime()) / 1000;
-    //   }
-    // }
   };
 };

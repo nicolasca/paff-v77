@@ -35,9 +35,9 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
   React.useEffect(() => {
     axios
       .all([
-        axios.get(config.host + ":3008/unites"),
-        axios.get(config.host + ":3008/factions"),
-        axios.get(config.host + ":3008/ordres")
+        axios.get(config.directus + config.directus_api + "/units"),
+        axios.get(config.directus + config.directus_api + "/factions"),
+        axios.get(config.directus + config.directus_api + "/orders")
       ])
       .then(
         axios.spread((unitesHttp, factionsHttp, ordresHttp) => {

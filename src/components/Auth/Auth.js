@@ -37,7 +37,10 @@ class Auth extends Component {
     this.props.onAuth(this.state.email, this.state.password, "/auth");
   };
 
+  
+
   render() {
+    console.log(this.props.redirect); 
     const formElementsArray = [];
     for (let key in this.state.registerForm) {
       formElementsArray.push({

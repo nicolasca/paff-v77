@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState, FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { config } from "../../../config";
 import { IDeck } from "../../../models/IDeck";
@@ -17,14 +17,11 @@ const Draft: FunctionComponent<DraftProps> = props => {
   const [isValidated, setValidated] = useState<boolean>(false);
 
   useEffect(() => {
-    const headers = {
-      Authorization: "Bearer " + props.token
-    };
 
     axios
       .all([
-        axios.get(config.host + ":3008/decks", { headers: headers }),
-        axios.get(config.host + ":3008/ordres")
+        axios.get(config.directus + config.directus_api + "/decks", { withCredentials: true }),
+        axios.get(config.directus + config.directus_api + "/orders")
       ])
       .then(
         axios.spread((decksHttp, ordresHttp) => {

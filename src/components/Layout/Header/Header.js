@@ -4,7 +4,7 @@ import { UserContext } from "../Layout";
 import styles from "./Header.module.scss";
 
 function Header(props) {
-  const isAuthenticated = React.useContext(UserContext);
+  let isAuthenticated = React.useContext(UserContext);
 
   return (
     <header className={styles.Header}>
@@ -54,7 +54,7 @@ function Header(props) {
           </li>
         ) : null}
       </ul>
-      {/* <ul>
+      <ul>
         {!isAuthenticated ? (
           <li>
             <NavLink exact to="/auth" activeClassName={styles.ActiveNavLink}>
@@ -71,7 +71,7 @@ function Header(props) {
             </li>
           </React.Fragment>
         )}
-      </ul> */}
+      </ul>
     </header>
   );
 }
