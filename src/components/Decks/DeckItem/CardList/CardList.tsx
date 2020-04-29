@@ -16,8 +16,8 @@ const CardList: FunctionComponent<CardListProps> = props => {
   useEffect(() => {
     if (props.cards) {
       const options = Object.keys(props.cards).map((key, index) => {
-        const unit = props.cards[key];
-
+        const card = props.cards[key];
+        
         return (
           <div className={styles.cardItem} key={index}>
             {/* {props.faction.name === "Sephosi" ? (
@@ -25,8 +25,8 @@ const CardList: FunctionComponent<CardListProps> = props => {
             ) : (
                 <CardUnit unit={unit}></CardUnit>
               )} */}
-            <CardUnit unit={unit}></CardUnit>
-            <CardSelector count={unit.count! | 0} name={unit.name}></CardSelector>
+            <CardUnit unit={card.unit}></CardUnit>
+            <CardSelector count={card.count! | 0} name={card.unit.name}></CardSelector>
           </div>
         );
       });

@@ -17,15 +17,16 @@ const DeckSummary: React.SFC<DeckSummaryProps> = (props) => {
     let deployment_points = 0;
     let nbCards = 0;
     const cards = Object.keys(props.cards).map((key, index) => {
-      if (props.cards[key].count > 0) {
-        nbCards += props.cards[key].count;
+      const card = props.cards[key];
+      if (card.count > 0) {
+        nbCards += card.count;
         // Calculer les points de deploiement (cout carte * nb) si unité
-        if (props.cards[key].type !== 'ordre')
-          deployment_points += props.cards[key].deploy * props.cards[key].count;
+        if (card.unit.type !== 'ordre')
+          deployment_points += card.unit.deploy * card.count;
 
         return (
-          <div key={index} className={[styles.Card, styles[props.cards[key].type]].join(' ')}>
-            {key} x{props.cards[key].count}
+          <div key={index} className={[styles.Card, styles[card.unit.type]].join(' ')}>
+            {card.unit.name} x{card.count}
           </div>
         )
       }

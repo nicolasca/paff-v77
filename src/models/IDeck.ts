@@ -2,11 +2,11 @@ import { ICard } from "./ICard";
 import { IFaction } from "./IFaction";
 
 export interface IDeck {
-  id?: string;
+  id: string;
   name: string;
   description: string;
   faction: IFaction;
-  units: ICard[];
+  cards: ICard[];
   modified_by: string;
   modified_on: string;
 }

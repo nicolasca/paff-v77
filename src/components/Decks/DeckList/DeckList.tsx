@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import { config } from "../../../config";
 import { ICard } from "../../../models/ICard";
 import { IDeck } from "../../../models/IDeck";
+import { DeckService } from "../../../services/Deck.services";
 import * as actionTypes from "../../../store/actions/actionTypes";
 import CardList from "../DeckItem/CardList/CardList";
 import DeckSummary from "../DeckSummary/DeckSummary";
@@ -24,14 +25,10 @@ const DeckList: FunctionComponent<DeckListProps> = props => {
   const [deckSelectedId, setDeckSelectedId] = useState<string>("");
 
   useEffect(() => {
-    axios
-      .get(config.directus + config.directus_api + "/decks",
-        {
-          withCredentials: true,
-        })
-      .then(response => {
-        if (response.data && response.data.length > 0) {
-          const options = response.data.map((deck: IDeck) => {
+    
+      DeckService.getDecks().then((decks: IDeck[]) => {
+        if (decks.length > 0) {
+          const options = decks.map((deck: IDeck) => {
             return (
               <option key={deck.id} value={deck.id}>
                 {deck.name}
@@ -39,23 +36,19 @@ const DeckList: FunctionComponent<DeckListProps> = props => {
             );
           });
           setDeckListOptions(options);
-          setDeckList(response.data);
-          setDeckSelected(response.data[0]);
-          setDeckSelectedId(response.data[0]._id);
+          setDeckList(decks);
+          setDeckSelected(decks[0]);
+          setDeckSelectedId(decks[0].id);
         }
       })
-      .catch(error => {
+      .catch((error: any) => {
         console.log(error);
       });
   }, [props.token]);
 
   useEffect(() => {
-    const cards: any = {};
     if (deckSelected) {
-      deckSelected.units.forEach((card: ICard) => {
-        cards[card.unit.name] = card.unit;
-      });
-      setInitCards(cards);
+      setInitCards(deckSelected.cards);
     }
   }, [deckSelected, setInitCards]);
 
@@ -69,11 +62,11 @@ const DeckList: FunctionComponent<DeckListProps> = props => {
       });
     });
 
-    deckSelected["units"] = cardsToSave;
+    deckSelected.cards = cardsToSave;
 
 
     axios
-      .put(config.directus + config.directus_api + "/decks/" + deckSelected.id, deckSelected, {
+      .patch(config.directus + config.directus_api + "/decks/" + deckSelected.id, deckSelected, {
         withCredentials: true,
       })
       .then(() => { })
@@ -113,7 +106,8 @@ const DeckList: FunctionComponent<DeckListProps> = props => {
 
   const changeDeck = (event: any) => {
     const selectedDeck: IDeck =
-      deckList.find((deck: IDeck) => deck.id === event.target.value) || null!;
+      deckList.find((deck: IDeck) => String(deck.id) === event.target.value) || null!;
+      
     setDeckSelected(selectedDeck);
     setDeckSelectedId(event.target.value);
   };
