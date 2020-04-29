@@ -36,11 +36,11 @@ const CardUnit: FunctionComponent<CardUnitProps> = props => {
 
   let capacites = null;
   if (props.unit.capacities) {
-    capacites = props.unit.capacities.map(capacite => {
+    capacites = props.unit.capacities.map((capacite, index) => {
       return (
         <span
           className={styles.Tooltip}
-          key={capacite.slug}
+          key={index}
           data-tooltip={capacite.effect}
         >
           {capacite.name}

@@ -76,7 +76,7 @@ const TheCards: FunctionComponent<TheCardsProps> = props => {
         ) : null}
 
         {units && units.length > 1 ? (
-          <CardList units={units} faction={selectedFaction}></CardList>
+          <CardList cards={units} faction={selectedFaction}></CardList>
         ) : null}
       </div>
     </div>

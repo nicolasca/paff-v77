@@ -1,12 +1,12 @@
 import { IFaction } from "./IFaction";
 
 export interface ICard {
-  carte: IUnit;
-  nbExemplaires: number;
+  unit: IUnit;
+  count: number;
 }
 
 export interface IUnit {
-  _id: string;
+  id: string;
   name: string;
   slug: string;
   type: string;

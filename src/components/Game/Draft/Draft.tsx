@@ -36,15 +36,15 @@ const Draft: FunctionComponent<DraftProps> = props => {
   const getSelectOptions = (decks: IDeck[]) => {
     return decks.map(deck => {
       return (
-        <option key={deck._id} value={deck._id}>
-          {deck.nom}
+        <option key={deck.id} value={deck.id}>
+          {deck.name}
         </option>
       );
     });
   };
 
   const changeDeckHandler = (event: any) => {
-    const deck = decks.find(deck => deck._id === event.target.value);
+    const deck = decks.find(deck => deck.id === event.target.value);
     if (deck) setSelectedDeck(deck);
   };
 
@@ -73,7 +73,7 @@ const Draft: FunctionComponent<DraftProps> = props => {
 
       {isValidated ? (
         <div>
-          <p>Armée qui part à la guerre: {selectedDeck.nom} </p>
+          <p>Armée qui part à la guerre: {selectedDeck.name} </p>
           <p className={styles.Waiting}>
             En attente du général adverse<span>.</span>
             <span>.</span>

@@ -8,31 +8,42 @@ interface DeckSummaryProps {
 
 const DeckSummary: React.SFC<DeckSummaryProps> = (props) => {
 
-  let pts_depl = 0;
-  let nombreCartes = 0;
-  const cards = Object.keys(props.cards).map((key, index) => {
-    if (props.cards[key].count > 0) {
-      nombreCartes += props.cards[key].count;
-      // Calculer les points de deploiement (cout carte * nb) si unité
-      if (props.cards[key].type !== 'ordre')
-        pts_depl += props.cards[key].deploy * props.cards[key].count;
+  const [deploymentPoints, setDeploymentPoints] = React.useState(0);
+  const [numberOfCards, setNumberOfCards] = React.useState(0);
+  const [cardsJSX, setCardsJSX] =React.useState<(JSX.Element | null)[]>(null!);
 
-      return (
-        <div key={index} className={[styles.Card, styles[props.cards[key].type]].join(' ')}>
-          {key} x{props.cards[key].count}
-        </div>
-      )
-    }
-    return null;
-  });
+  React.useEffect(() => {
+
+    let deployment_points = 0;
+    let nbCards = 0;
+    const cards = Object.keys(props.cards).map((key, index) => {
+      if (props.cards[key].count > 0) {
+        nbCards += props.cards[key].count;
+        // Calculer les points de deploiement (cout carte * nb) si unité
+        if (props.cards[key].type !== 'ordre')
+          deployment_points += props.cards[key].deploy * props.cards[key].count;
+
+        return (
+          <div key={index} className={[styles.Card, styles[props.cards[key].type]].join(' ')}>
+            {key} x{props.cards[key].count}
+          </div>
+        )
+      }
+      return null;
+    });
+    setDeploymentPoints(deployment_points);
+    setNumberOfCards(nbCards);
+    setCardsJSX(cards);
+  }, [props.cards])
+
 
   return (
     <div>
-      <div>Nombre de cartes: {nombreCartes}</div>
+      <div>Nombre de cartes: {numberOfCards}</div>
       <div className={styles.DeployPoints}>
-        Points de déploiement: {pts_depl} pts
+        Points de déploiement: {deploymentPoints} pts
        </div>
-      {cards}
+      {cardsJSX}
     </div>
 
   );

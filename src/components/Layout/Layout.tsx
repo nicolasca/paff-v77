@@ -24,8 +24,6 @@ interface LayoutProps {
 
 const Layout: FunctionComponent<LayoutProps> = props => {
 
-console.log(props.isAuthenticated);
-
   let content = (
     <React.Fragment>
       <Route path="/home" component={Home} />

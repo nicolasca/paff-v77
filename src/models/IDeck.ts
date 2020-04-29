@@ -2,11 +2,17 @@ import { ICard } from "./ICard";
 import { IFaction } from "./IFaction";
 
 export interface IDeck {
-  _id?: string;
-  nom: string;
+  id?: string;
+  name: string;
   description: string;
   faction: IFaction;
-  cartes: ICard[];
-  createDate: string;
-  updateDate: string;
+  units: ICard[];
+  modified_by: string;
+  modified_on: string;
+}
+
+export interface IDeckDTO {
+  name: string;
+  description: string;
+  faction: string;
 }

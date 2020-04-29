@@ -4,12 +4,13 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { config } from "../../../config";
 import { ICard, IUnit } from "../../../models/ICard";
-import { IDeck } from "../../../models/IDeck";
+import { IDeckDTO } from "../../../models/IDeck";
 import { IFaction } from "../../../models/IFaction";
 import { DeckService } from "../../../services/Deck.services";
+import { UnitsService } from "../../../services/Units.service";
 import * as actionTypes from "../../../store/actions/actionTypes";
 import { UserContext } from "../../Layout/Layout";
-import DeckItem from "../DeckItem/DeckItem";
+import CardList from "../DeckItem/CardList/CardList";
 import DeckSummary from "../DeckSummary/DeckSummary";
 import styles from "./DeckBuilder.module.css";
 
@@ -35,16 +36,17 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
   React.useEffect(() => {
     axios
       .all([
-        axios.get(config.directus + config.directus_api + "/units"),
+        axios.get(config.directus + config.directus_api +
+          "/units?fields=*,faction.*,capacities.*.*,image.filename_disk"),
         axios.get(config.directus + config.directus_api + "/factions"),
-        axios.get(config.directus + config.directus_api + "/orders")
       ])
       .then(
-        axios.spread((unitesHttp, factionsHttp, ordresHttp) => {
-          setUnites(unitesHttp.data);
-
+        axios.spread((unitesHttp, factionsHttp) => {
+          const units = UnitsService.setCapacities(unitesHttp.data.data)
+          setUnites(units);
+      
           // Factions
-          const factionOptions = factionsHttp.data.map((faction: IFaction) => {
+          const factionOptions = factionsHttp.data.data.map((faction: IFaction) => {
             return (
               <option key={faction.slug} value={faction.slug}>
                 {faction.name}
@@ -52,20 +54,23 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
             );
           });
           setFactionsOptions(factionOptions);
-          setFactions(factionsHttp.data);
-          setSelectedFaction(factionsHttp.data[0]);
+          setFactions(factionsHttp.data.data);
+          setSelectedFaction(factionsHttp.data.data[0]);
         })
       );
   }, []);
 
   React.useEffect(() => {
+    
     if (selectedFaction) {
       const cards: any = DeckService.populateDeckFromCards(
         unites,
         selectedFaction
       );
+
       setDisplayCards(true);
       setInitCards(cards);
+      
     }
   }, [selectedFaction, unites, setInitCards]);
 
@@ -89,13 +94,10 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
 
   const saveDeckhandler = () => {
     const deckToSave = {
-      nom: nom,
+      name: nom,
       description: description,
-      faction: selectedFaction,
-      cartes: [],
-      createDate: new Date().toISOString(),
-      updateDate: new Date().toISOString()
-    } as IDeck;
+      faction: selectedFaction.id,
+    } as IDeckDTO;
 
     DeckService.saveDeck(deckToSave, props.cardsToDisplay)
       .then(() => {
@@ -183,10 +185,10 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
         )}
 
         {displayCards ? (
-          <DeckItem
-            cardsToDisplay={props.cardsToDisplay}
+          <CardList
+            cards={props.cardsToDisplay}
             faction={selectedFaction}
-          ></DeckItem>
+          ></CardList>
         ) : null}
       </div>
 

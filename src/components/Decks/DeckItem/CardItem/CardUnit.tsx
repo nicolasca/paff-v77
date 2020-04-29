@@ -19,6 +19,7 @@ interface CardUnitProps {
 const CardUnit: FunctionComponent<CardUnitProps> = props => {
   let type;
 
+  
   if (props.unit.type === config.typeCard.troupe.label) {
     type = <Sword></Sword>;
   } else if (props.unit.type === config.typeCard.tir.label) {
@@ -34,12 +35,12 @@ const CardUnit: FunctionComponent<CardUnitProps> = props => {
   }
 
   let capacites = null;
-  if (props.unit.capacities) {
-    capacites = props.unit.capacities.map(capacite => {
+  if (props.unit.capacities.length > 0) {
+    capacites = props.unit.capacities.map((capacite, index) => {
       return (
         <span
           className={styles.Tooltip}
-          key={capacite.slug}
+          key={index}
           data-tooltip={capacite.effect}
         >
           {capacite.name}

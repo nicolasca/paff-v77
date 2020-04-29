@@ -1,11 +1,12 @@
 import axios from "axios";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { config } from "../../../config";
 import { ICard } from "../../../models/ICard";
 import { IDeck } from "../../../models/IDeck";
 import * as actionTypes from "../../../store/actions/actionTypes";
-import DeckItem from "../DeckItem/DeckItem";
+import CardList from "../DeckItem/CardList/CardList";
 import DeckSummary from "../DeckSummary/DeckSummary";
 import styles from "./DeckList.module.scss";
 
@@ -32,8 +33,8 @@ const DeckList: FunctionComponent<DeckListProps> = props => {
         if (response.data && response.data.length > 0) {
           const options = response.data.map((deck: IDeck) => {
             return (
-              <option key={deck._id} value={deck._id}>
-                {deck.nom}
+              <option key={deck.id} value={deck.id}>
+                {deck.name}
               </option>
             );
           });
@@ -51,30 +52,28 @@ const DeckList: FunctionComponent<DeckListProps> = props => {
   useEffect(() => {
     const cards: any = {};
     if (deckSelected) {
-      deckSelected.cartes.forEach((card: ICard) => {
-        cards[card.carte.name] = card.carte;
+      deckSelected.units.forEach((card: ICard) => {
+        cards[card.unit.name] = card.unit;
       });
       setInitCards(cards);
     }
   }, [deckSelected, setInitCards]);
 
   const saveDeckhandler = () => {
-    deckSelected.updateDate = new Date().toISOString();
-
     const cardsToSave: ICard[] = [];
 
     Object.keys(props.cardsToDisplay).forEach((key, index) => {
       cardsToSave.push({
-        carte: props.cardsToDisplay[key],
-        nbExemplaires: props.cardsToDisplay[key].count
+        unit: props.cardsToDisplay[key].unit,
+        count: props.cardsToDisplay[key].count
       });
     });
 
-    deckSelected["cartes"] = cardsToSave;
+    deckSelected["units"] = cardsToSave;
 
 
     axios
-      .put(config.directus + config.directus_api + "/decks/" + deckSelected._id, deckSelected, {
+      .put(config.directus + config.directus_api + "/decks/" + deckSelected.id, deckSelected, {
         withCredentials: true,
       })
       .then(() => { })
@@ -86,22 +85,22 @@ const DeckList: FunctionComponent<DeckListProps> = props => {
   const deleteDeck = () => {
 
     axios
-      .delete(config.directus + config.directus_api + "/decks/" + deckSelected._id, {
+      .delete(config.directus + config.directus_api + "/decks/" + deckSelected.id, {
         withCredentials: true,
       })
       .then(response => {
         const newDeckList: IDeck[] = deckList.filter(
-          (deck: IDeck) => deck._id !== deckSelected._id
+          (deck: IDeck) => deck.id !== deckSelected.id
         );
 
         setDeckList(newDeckList);
         setDeckSelected(newDeckList.length > 0 ? newDeckList[0] : null!);
-        setDeckSelectedId(newDeckList.length > 0 ? newDeckList[0]._id! : "");
+        setDeckSelectedId(newDeckList.length > 0 ? newDeckList[0].id! : "");
 
         const options = newDeckList.map((deck: IDeck) => {
           return (
-            <option key={deck._id} value={deck._id}>
-              {deck.nom}
+            <option key={deck.id} value={deck.id}>
+              {deck.name}
             </option>
           );
         });
@@ -114,7 +113,7 @@ const DeckList: FunctionComponent<DeckListProps> = props => {
 
   const changeDeck = (event: any) => {
     const selectedDeck: IDeck =
-      deckList.find((deck: IDeck) => deck._id === event.target.value) || null!;
+      deckList.find((deck: IDeck) => deck.id === event.target.value) || null!;
     setDeckSelected(selectedDeck);
     setDeckSelectedId(event.target.value);
   };
@@ -148,15 +147,25 @@ const DeckList: FunctionComponent<DeckListProps> = props => {
                 Enregistrer
               </button>
             </div>
+
+            <div className="control">
+              <button
+                className="button is-primary is-outlined"
+              >
+                <NavLink exact to="/creer-deck" activeClassName={styles.ActiveNavLink}>
+                  Créer
+            </NavLink>
+              </button>
+            </div>
           </div>
         ) : null}
 
         <div>
           {props.cardsToDisplay && deckSelected ? (
-            <DeckItem
-              cardsToDisplay={props.cardsToDisplay}
+            <CardList
+              cards={props.cardsToDisplay}
               faction={deckSelected.faction}
-            ></DeckItem>
+            ></CardList>
           ) : null}
         </div>
       </div>

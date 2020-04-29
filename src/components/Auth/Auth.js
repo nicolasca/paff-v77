@@ -40,7 +40,6 @@ class Auth extends Component {
   
 
   render() {
-    console.log(this.props.redirect); 
     const formElementsArray = [];
     for (let key in this.state.registerForm) {
       formElementsArray.push({

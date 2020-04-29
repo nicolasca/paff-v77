@@ -1,8 +1,8 @@
 import axios from "axios";
 import { config } from "../config";
 import { IFaction } from "../models/IFaction";
-import { ICard, IUnit } from "./../models/ICard";
-import { IDeck } from "./../models/IDeck";
+import { IUnit } from "./../models/ICard";
+import { IDeckDTO } from "./../models/IDeck";
 
 const populateDeckFromCards: any = (
   units: IUnit[],
@@ -23,19 +23,29 @@ const populateDeckFromCards: any = (
   return cards;
 };
 
-const saveDeck = (deckToSave: IDeck, cards: any) => {
-  const cardsToSave: ICard[] = [];
+const saveDeck = (deckToSave: IDeckDTO, cards: any) => {
+  const cardsToSave: any = [];
 
-  Object.keys(cards).forEach((key, index) => {
-    cardsToSave.push({
-      carte: cards[key],
-      nbExemplaires: cards[key].count
+  // First save the deck
+  return axios.post(
+    config.directus + config.directus_api + "/decks",
+    deckToSave,
+    { withCredentials: true }).then((deck) => {
+      // const deck = response.json();
+      // Create entries for the join table decks_units
+      Object.keys(cards).forEach((key, index) => {
+        cardsToSave.push({
+          decks_id: deck.data.data.id,
+          units_id: cards[key].id,
+          count: cards[key].count
+        });
+      });
+
+      return axios.post(
+        config.directus + config.directus_api + "/decks_units",
+        cardsToSave,
+        { withCredentials: true })
     });
-  });
-
-  deckToSave["cartes"] = cardsToSave;
-
-  return axios.post(config.directus + config.directus_api + "/decks", deckToSave, { withCredentials: true});
 };
 
 export const DeckService = {

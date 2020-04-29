@@ -59,7 +59,7 @@ const PAFF = {
             itemNumber++
           ) {
             const item = deck.cartes[itemNumber];
-            for (let number = 0; number < item.nbExemplaires; number++) {
+            for (let number = 0; number < item.count; number++) {
               const cardCopy = { ...item.carte };
               let carteGameId = `${itemNumber}-${number}`;
               cardCopy["gameCardId"] = carteGameId;

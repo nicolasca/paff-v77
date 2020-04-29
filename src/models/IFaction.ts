@@ -1,5 +1,5 @@
 export interface IFaction {
-  _id: string;
+  id: string;
   name: string;
   description: string;
   image: {
