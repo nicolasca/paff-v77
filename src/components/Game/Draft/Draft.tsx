@@ -1,40 +1,31 @@
-import axios from "axios";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { config } from "../../../config";
 import { IDeck } from "../../../models/IDeck";
 import styles from "./Draft.module.scss";
+import { DeckService } from "../../../services/Deck.services";
 
 interface DraftProps {
   token: string;
   onClickHandler: Function;
 }
 
-const Draft: FunctionComponent<DraftProps> = props => {
+const Draft: FunctionComponent<DraftProps> = (props) => {
   const [options, setOptions] = useState<JSX.Element[]>([]);
   const [decks, setDecks] = useState<IDeck[]>([]);
   const [selectedDeck, setSelectedDeck] = useState<IDeck>(null!);
   const [isValidated, setValidated] = useState<boolean>(false);
 
   useEffect(() => {
-
-    axios
-      .all([
-        axios.get(config.directus + config.directus_api + "/decks", { withCredentials: true }),
-        axios.get(config.directus + config.directus_api + "/orders")
-      ])
-      .then(
-        axios.spread((decksHttp, ordresHttp) => {
-          // Set decks
-          setDecks(decksHttp.data);
-          setSelectedDeck(decksHttp.data[0]);
-          setOptions(getSelectOptions(decksHttp.data));
-        })
-      );
+    DeckService.getDecks().then((decks) => {
+      // Set decks
+      setDecks(decks);
+      setSelectedDeck(decks[0]);
+      setOptions(getSelectOptions(decks));
+    });
   }, [setOptions, setDecks, setSelectedDeck, props.token]);
 
   const getSelectOptions = (decks: IDeck[]) => {
-    return decks.map(deck => {
+    return decks.map((deck) => {
       return (
         <option key={deck.id} value={deck.id}>
           {deck.name}
@@ -44,7 +35,7 @@ const Draft: FunctionComponent<DraftProps> = props => {
   };
 
   const changeDeckHandler = (event: any) => {
-    const deck = decks.find(deck => deck.id === event.target.value);
+    const deck = decks.find((deck) => deck.id === event.target.value);
     if (deck) setSelectedDeck(deck);
   };
 
@@ -87,7 +78,7 @@ const Draft: FunctionComponent<DraftProps> = props => {
 
 const mapPropsToState = (state: any) => {
   return {
-    token: state.authReducer.token
+    token: state.authReducer.token,
   };
 };
 
