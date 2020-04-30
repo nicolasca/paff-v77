@@ -16,7 +16,6 @@ const CardList: FunctionComponent<CardListProps> = (props) => {
     if (props.cards) {
       const options = Object.keys(props.cards).map((key, index) => {
         const card = props.cards[key];
-        console.log(card);
 
         return (
           <div className={styles.cardItem} key={index}>

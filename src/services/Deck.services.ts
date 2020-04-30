@@ -1,7 +1,7 @@
 import axios from "axios";
 import { config } from "../config";
 import { IFaction } from "../models/IFaction";
-import { IUnit, ICapacity } from "./../models/ICard";
+import { ICapacity, IUnit } from "./../models/ICard";
 import { IDeck, IDeckDTO } from "./../models/IDeck";
 
 const getDecks = () => {
@@ -62,12 +62,11 @@ const populateDeckFromCards: any = (
   units.forEach((unite) => {
     if (unite.faction.slug === selectedFaction.slug) {
       cards[unite.name] = {
-        ...unite,
+        unit: unite,
         count: 0,
       };
     }
   });
-
   return cards;
 };
 
