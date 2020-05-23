@@ -1,33 +1,24 @@
+import { IEntity } from "./IEntity";
 import { IFaction } from "./IFaction";
 
 export interface ICard {
-  unit: IUnit;
-  count: number;
-}
-
-export interface IUnit {
   id: string;
   name: string;
-  slug: string;
-  type: string;
   faction: IFaction;
-  deploy: number;
-  regiment: number;
-  att_cac: number;
-  is_att_cac_magic: number;
-  att_shoot: number;
-  is_att_shoot_magic: number;
-  def_cac: number;
-  def_shoot: number;
+  entity: IEntity;
+  cost: number;
+  capacity: string;
+  max_in_deck: number;
   image: {
     filename_disk: string;
   };
-  capacities: ICapacity[];
+  attack?: number;
+  life?: number;
+  type_unit?: string;
   count?: number;
 }
 
-export interface ICapacity {
-  name: string;
-  slug: string;
-  effect: string;
+export interface ICardInDeck {
+  card: ICard;
+  count: number;
 }

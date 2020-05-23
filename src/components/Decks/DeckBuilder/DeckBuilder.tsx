@@ -3,16 +3,15 @@ import React, { FunctionComponent, useContext } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { config } from "../../../config";
-import { ICard, IUnit } from "../../../models/ICard";
+import { ICard } from "../../../models/ICard";
 import { IDeckDTO } from "../../../models/IDeck";
-import { IFaction } from "../../../models/IFaction";
 import { DeckService } from "../../../services/Deck.services";
-import { UnitsService } from "../../../services/Units.service";
 import * as actionTypes from "../../../store/actions/actionTypes";
 import { UserContext } from "../../Layout/Layout";
 import CardList from "../DeckItem/CardList/CardList";
 import DeckSummary from "../DeckSummary/DeckSummary";
 import styles from "./DeckBuilder.module.css";
+import { IEntity } from "../../../models/IEntity";
 
 interface DeckBuilderProps {
   cardsToDisplay: any;
@@ -21,65 +20,67 @@ interface DeckBuilderProps {
   resetCount: any;
 }
 
-const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
+const DeckBuilder: FunctionComponent<DeckBuilderProps> = (props) => {
   const isAuthenticated = useContext(UserContext);
 
   const { setInitCards } = props;
   const [displayCards, setDisplayCards] = React.useState(false);
-  const [selectedFaction, setSelectedFaction] = React.useState<IFaction>(null!);
+  const [selectedEntity, setSelectedEntity] = React.useState<IEntity>(null!);
   const [nom, setNom] = React.useState("");
   const [description, setDescription] = React.useState("");
-  const [unites, setUnites] = React.useState<IUnit[]>([]);
-  const [factions, setFactions] = React.useState<IFaction[]>([]);
-  const [factionsOptions, setFactionsOptions] = React.useState([]);
+  const [cards, setCards] = React.useState<ICard[]>([]);
+  const [entities, setEntities] = React.useState<IEntity[]>([]);
+  const [entitiesOptions, setEntitiesOptions] = React.useState([]);
 
   React.useEffect(() => {
     axios
       .all([
-        axios.get(config.directus + config.directus_api +
-          "/units?fields=*,faction.*,capacities.*.*,image.filename_disk"),
-        axios.get(config.directus + config.directus_api + "/factions"),
+        axios.get(
+          config.directus +
+            config.directus_api +
+            "/cards?fields=*,entity.*,image.filename_disk"
+        ),
+        axios.get(config.directus + config.directus_api + "/entities"),
       ])
       .then(
-        axios.spread((unitesHttp, factionsHttp) => {
-          const units = UnitsService.setCapacities(unitesHttp.data.data)
-          setUnites(units);
-      
+        axios.spread((cardsHttp, entitiesHttp) => {
+          setCards(cardsHttp.data.data);
+
           // Factions
-          const factionOptions = factionsHttp.data.data.map((faction: IFaction) => {
-            return (
-              <option key={faction.slug} value={faction.slug}>
-                {faction.name}
-              </option>
-            );
-          });
-          setFactionsOptions(factionOptions);
-          setFactions(factionsHttp.data.data);
-          setSelectedFaction(factionsHttp.data.data[0]);
+          const entityOptions = entitiesHttp.data.data.map(
+            (entity: IEntity) => {
+              return (
+                <option key={entity.shortname} value={entity.shortname}>
+                  {entity.name}
+                </option>
+              );
+            }
+          );
+          setEntitiesOptions(entityOptions);
+          setEntities(entitiesHttp.data.data);
+          setSelectedEntity(entitiesHttp.data.data[0]);
         })
       );
   }, []);
 
   React.useEffect(() => {
-    
-    if (selectedFaction) {
-      const cards: any = DeckService.populateDeckFromCards(
-        unites,
-        selectedFaction
+    if (selectedEntity) {
+      const cardsNew: any = DeckService.populateDeckFromCards(
+        cards,
+        selectedEntity
       );
 
       setDisplayCards(true);
-      setInitCards(cards);
-      
+      setInitCards(cardsNew);
     }
-  }, [selectedFaction, unites, setInitCards]);
+  }, [selectedEntity, cards, setInitCards]);
 
-  const changeFactionHandler = (event: any) => {
+  const changeEntityHandler = (event: any) => {
     setDisplayCards(false);
-    const faction: IFaction = factions.find(
-      faction => faction.slug === event.target.value
+    const entity: IEntity = entities.find(
+      (entity) => entity.shortname === event.target.value
     )!;
-    setSelectedFaction(faction);
+    setSelectedEntity(entity);
   };
 
   const nomChangeHandler = (event: any) => {
@@ -96,7 +97,7 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
     const deckToSave = {
       name: nom,
       description: description,
-      faction: selectedFaction.id,
+      entity: selectedEntity.id,
     } as IDeckDTO;
 
     DeckService.saveDeck(deckToSave, props.cardsToDisplay)
@@ -107,7 +108,7 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
         props.resetCount();
         props.history.push("/liste-decks");
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -146,7 +147,7 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
               </div>
             </div>
 
-            {selectedFaction ? (
+            {selectedEntity ? (
               <div
                 className={[styles.SelectFaction, "field", "is-grouped"].join(
                   " "
@@ -162,8 +163,8 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
                 </div>
                 <div className="control">
                   <div className="select is-primary">
-                    <select onChange={changeFactionHandler} id="TheSelect">
-                      {factionsOptions}
+                    <select onChange={changeEntityHandler} id="TheSelect">
+                      {entitiesOptions}
                     </select>
                   </div>
                 </div>
@@ -172,11 +173,11 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
           </div>
         ) : (
           <React.Fragment>
-            {selectedFaction ? (
+            {selectedEntity ? (
               <div className="control">
                 <div className="select">
-                  <select onChange={changeFactionHandler} id="TheSelect">
-                    {factionsOptions}
+                  <select onChange={changeEntityHandler} id="TheSelect">
+                    {entitiesOptions}
                   </select>
                 </div>
               </div>
@@ -187,7 +188,7 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
         {displayCards ? (
           <CardList
             cards={props.cardsToDisplay}
-            faction={selectedFaction}
+            entity={selectedEntity}
           ></CardList>
         ) : null}
       </div>
@@ -203,7 +204,7 @@ const DeckBuilder: FunctionComponent<DeckBuilderProps> = props => {
 
 const mapStateToProps = (state: any) => {
   return {
-    cardsToDisplay: state.deckReducer.cardsToDisplay
+    cardsToDisplay: state.deckReducer.cardsToDisplay,
   };
 };
 
@@ -211,7 +212,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     setInitCards: (cards: ICard[]) =>
       dispatch({ type: actionTypes.INIT_CARD_DISPLAY, cards: cards }),
-    resetCount: () => dispatch({ type: actionTypes.RESET_COUNT })
+    resetCount: () => dispatch({ type: actionTypes.RESET_COUNT }),
   };
 };
 

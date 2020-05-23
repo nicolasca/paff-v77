@@ -1,7 +1,7 @@
+import { IEntity } from "./../models/IEntity";
 import axios from "axios";
 import { config } from "../config";
-import { IFaction } from "../models/IFaction";
-import { IUnit, ICapacity } from "./../models/ICard";
+import { ICard } from "./../models/ICard";
 import { IDeck, IDeckDTO } from "./../models/IDeck";
 
 const getDecks = () => {
@@ -12,7 +12,7 @@ const getDecks = () => {
       axios.get(
         config.directus +
           config.directus_api +
-          "/decks?fields=*,units.*,units.units_id.*,units.units_id.capacities.*.*, units.units_id.faction.*,units.units_id.image.filename_disk",
+          "/decks?fields=*,cards.*,cards.cards_id.*, units.units_id.entity.*,cards.cards_id.image.filename_disk",
         { withCredentials: true }
       ),
       // axios.get(config.directus + config.directus_api +
@@ -25,9 +25,8 @@ const getDecks = () => {
         decks.forEach((deck: any) => {
           deck.cards = [];
           deck.units.forEach((unit: any) => {
-            const unitWithCapacities = setCapacities(unit.units_id);
             deck.cards[unit.units_id.name] = {
-              unit: unitWithCapacities,
+              unit: unit,
               count: unit.count,
             };
           });
@@ -41,34 +40,23 @@ const getDecks = () => {
     });
 };
 
-const setCapacities = (unit: IUnit) => {
-  if (unit.capacities.length > 0) {
-    const newCapacities: ICapacity[] = [];
-    unit.capacities.forEach((capacity: any) => {
-      newCapacities.push(capacity["capacities"] as ICapacity);
-    });
-    unit.capacities = newCapacities;
-  }
-  return unit;
-};
-
 const populateDeckFromCards: any = (
-  units: IUnit[],
-  selectedFaction: IFaction
+  cards: ICard[],
+  selectedFaction: IEntity
 ): any => {
-  const cards: any = {};
+  const cardsPopulated: any = {};
 
   // Populate les unites
-  units.forEach((unite) => {
-    if (unite.faction.slug === selectedFaction.slug) {
-      cards[unite.name] = {
-        ...unite,
+  cards.forEach((card) => {
+    if (card.entity.shortname === selectedFaction.shortname) {
+      cardsPopulated[card.name] = {
+        ...card,
         count: 0,
       };
     }
   });
 
-  return cards;
+  return cardsPopulated;
 };
 
 const saveDeck = (deckToSave: IDeckDTO, cards: any) => {

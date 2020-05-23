@@ -3,7 +3,7 @@ import React, { FunctionComponent, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { config } from "../../../config";
-import { ICard } from "../../../models/ICard";
+import { ICard, ICardInDeck } from "../../../models/ICard";
 import { IDeck } from "../../../models/IDeck";
 import { DeckService } from "../../../services/Deck.services";
 import * as actionTypes from "../../../store/actions/actionTypes";
@@ -17,7 +17,7 @@ interface DeckListProps {
   cardsToDisplay: any;
 }
 
-const DeckList: FunctionComponent<DeckListProps> = props => {
+const DeckList: FunctionComponent<DeckListProps> = (props) => {
   const { setInitCards } = props;
   const [deckList, setDeckList] = useState<IDeck[]>([]);
   const [deckListOptions, setDeckListOptions] = useState<JSX.Element[]>([]);
@@ -25,8 +25,8 @@ const DeckList: FunctionComponent<DeckListProps> = props => {
   const [deckSelectedId, setDeckSelectedId] = useState<string>("");
 
   useEffect(() => {
-    
-      DeckService.getDecks().then((decks: IDeck[]) => {
+    DeckService.getDecks()
+      .then((decks: IDeck[]) => {
         if (decks.length > 0) {
           const options = decks.map((deck: IDeck) => {
             return (
@@ -53,35 +53,40 @@ const DeckList: FunctionComponent<DeckListProps> = props => {
   }, [deckSelected, setInitCards]);
 
   const saveDeckhandler = () => {
-    const cardsToSave: ICard[] = [];
+    const cardsToSave: ICardInDeck[] = [];
 
     Object.keys(props.cardsToDisplay).forEach((key, index) => {
       cardsToSave.push({
-        unit: props.cardsToDisplay[key].unit,
-        count: props.cardsToDisplay[key].count
+        card: props.cardsToDisplay[key].unit,
+        count: props.cardsToDisplay[key].count,
       });
     });
 
     deckSelected.cards = cardsToSave;
 
-
     axios
-      .patch(config.directus + config.directus_api + "/decks/" + deckSelected.id, deckSelected, {
-        withCredentials: true,
-      })
-      .then(() => { })
-      .catch(error => {
+      .patch(
+        config.directus + config.directus_api + "/decks/" + deckSelected.id,
+        deckSelected,
+        {
+          withCredentials: true,
+        }
+      )
+      .then(() => {})
+      .catch((error) => {
         console.log(error);
       });
   };
 
   const deleteDeck = () => {
-
     axios
-      .delete(config.directus + config.directus_api + "/decks/" + deckSelected.id, {
-        withCredentials: true,
-      })
-      .then(response => {
+      .delete(
+        config.directus + config.directus_api + "/decks/" + deckSelected.id,
+        {
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
         const newDeckList: IDeck[] = deckList.filter(
           (deck: IDeck) => deck.id !== deckSelected.id
         );
@@ -99,15 +104,16 @@ const DeckList: FunctionComponent<DeckListProps> = props => {
         });
         setDeckListOptions(options);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
 
   const changeDeck = (event: any) => {
     const selectedDeck: IDeck =
-      deckList.find((deck: IDeck) => String(deck.id) === event.target.value) || null!;
-      
+      deckList.find((deck: IDeck) => String(deck.id) === event.target.value) ||
+      null!;
+
     setDeckSelected(selectedDeck);
     setDeckSelectedId(event.target.value);
   };
@@ -143,12 +149,14 @@ const DeckList: FunctionComponent<DeckListProps> = props => {
             </div>
 
             <div className="control">
-              <button
-                className="button is-primary is-outlined"
-              >
-                <NavLink exact to="/creer-deck" activeClassName={styles.ActiveNavLink}>
+              <button className="button is-primary is-outlined">
+                <NavLink
+                  exact
+                  to="/creer-deck"
+                  activeClassName={styles.ActiveNavLink}
+                >
                   Créer
-            </NavLink>
+                </NavLink>
               </button>
             </div>
           </div>
@@ -158,7 +166,7 @@ const DeckList: FunctionComponent<DeckListProps> = props => {
           {props.cardsToDisplay && deckSelected ? (
             <CardList
               cards={props.cardsToDisplay}
-              faction={deckSelected.faction}
+              entity={deckSelected.entity}
             ></CardList>
           ) : null}
         </div>
@@ -175,14 +183,14 @@ const DeckList: FunctionComponent<DeckListProps> = props => {
 const mapStateToProps = (state: any) => {
   return {
     token: state.authReducer.token,
-    cardsToDisplay: state.deckReducer.cardsToDisplay
+    cardsToDisplay: state.deckReducer.cardsToDisplay,
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
     setInitCards: (cards: ICard[]) =>
-      dispatch({ type: actionTypes.INIT_CARD_DISPLAY, cards: cards })
+      dispatch({ type: actionTypes.INIT_CARD_DISPLAY, cards: cards }),
   };
 };
 

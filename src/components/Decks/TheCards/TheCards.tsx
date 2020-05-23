@@ -1,35 +1,35 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { IUnit } from "../../../models/ICard";
-import { IFaction } from "../../../models/IFaction";
-import { FactionService } from "../../../services/Faction.service";
-import { UnitsService } from "../../../services/Units.service";
+import { IEntity } from "../../../models/IEntity";
+import { CardService } from "../../../services/Card.service";
+import { EntityService } from "../../../services/Entity.service";
 import CardList from "../DeckItem/CardList/CardList";
 import styles from "./TheCards.module.scss";
+import { ICard } from "../../../models/ICard";
 
 interface TheCardsProps {}
 
-const TheCards: FunctionComponent<TheCardsProps> = props => {
-  const [units, setUnits] = useState<IUnit[]>([]);
-  const [factions, setFactions] = useState<IFaction[]>([]);
-  const [selectedFaction, setSelectedFaction] = useState<IFaction>(null!);
-  const [factionsOptions, setFactionsOptions] = useState([]);
+const TheCards: FunctionComponent<TheCardsProps> = (props) => {
+  const [cards, setCards] = useState<ICard[]>([]);
+  const [entities, setEntities] = useState<IEntity[]>([]);
+  const [selectedEntity, setSelectedEntity] = useState<IEntity>(null!);
+  const [entitiesOptions, setEntitiesOptions] = useState([]);
 
   async function setData() {
-    const factions = await FactionService.getFactions();
-    setFactions(factions.data);
-    setSelectedFaction(factions.data[0]);
-    // Factions
-    const factionOptions = factions.data.map((faction: IFaction) => {
+    const entities = await EntityService.getEntities();
+    setEntities(entities.data);
+    setSelectedEntity(entities.data[0]);
+    // Entities
+    const entityOptions = entities.data.map((entity: IEntity) => {
       return (
-        <option key={faction.slug} value={faction.slug}>
-          {faction.name}
+        <option key={entity.shortname} value={entity.shortname}>
+          {entity.name}
         </option>
       );
     });
-    setFactionsOptions(factionOptions);
+    setEntitiesOptions(entityOptions);
 
-    const units = await UnitsService.getUnits(factions.data[0].slug);
-    setUnits(units.data);
+    const cards = await CardService.getCards(entities.data[0].shortname);
+    setCards(cards.data);
   }
 
   useEffect(() => {
@@ -37,46 +37,36 @@ const TheCards: FunctionComponent<TheCardsProps> = props => {
   }, []);
 
   useEffect(() => {
-    if (selectedFaction) {
-      UnitsService.getUnits(selectedFaction.slug).then(response => {
-        setUnits(response.data);
+    if (selectedEntity) {
+      CardService.getCards(selectedEntity.shortname).then((response) => {
+        setCards(response.data);
       });
     }
-  }, [selectedFaction]);
+  }, [selectedEntity]);
 
-  const changeFactionHandler = (event: any) => {
-    const faction: IFaction = factions.find(
-      faction => faction.slug === event.target.value
+  const changeEntityHandler = (event: any) => {
+    const entity: IEntity = entities.find(
+      (entity) => entity.shortname === event.target.value
     )!;
-    setUnits([]);
-    setSelectedFaction(faction);
+    setCards([]);
+    setSelectedEntity(entity);
   };
 
   return (
     <div className={styles.TheCards}>
-      {factions && factions.length > 1 ? (
+      {entities && entities.length > 1 ? (
         <div className="control">
           <div className="select">
-            <select onChange={changeFactionHandler} id="TheSelect">
-              {factionsOptions}
+            <select onChange={changeEntityHandler} id="TheSelect">
+              {entitiesOptions}
             </select>
           </div>
         </div>
       ) : null}
 
       <div>
-        {selectedFaction && selectedFaction.order ? (
-          <>
-            <h3>Ordre spécial</h3>
-            <div className="edito">
-              <h4>{selectedFaction.order.name}</h4>
-              <p>{selectedFaction.order.description}</p>
-            </div>
-          </>
-        ) : null}
-
-        {units && units.length > 1 ? (
-          <CardList cards={units} faction={selectedFaction}></CardList>
+        {cards && cards.length > 1 ? (
+          <CardList cards={cards} entity={selectedEntity}></CardList>
         ) : null}
       </div>
     </div>

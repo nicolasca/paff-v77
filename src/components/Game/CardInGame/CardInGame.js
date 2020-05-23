@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDrag } from "react-dnd";
 import CardUnit from "../../Decks/DeckItem/CardItem/CardUnit";
-import CardUnitSephosi from "../../Decks/DeckItem/CardItem/CardUnitSephosi";
 import { ItemTypes } from "./../Drag/ItemTypes";
 import styles from "./CardInGame.module.scss";
 import { PHASES } from "../../../game/PAFF";
@@ -15,7 +14,7 @@ function CardInGame(props) {
     item: {
       type: ItemTypes.CARD,
       card: props.unit,
-      previousSquareId: props.previousSquareId
+      previousSquareId: props.previousSquareId,
     },
     canDrag: () => {
       // Possible drag on if
@@ -28,9 +27,9 @@ function CardInGame(props) {
         props.playerID !== null
       );
     },
-    collect: monitor => ({
-      isDragging: !!monitor.isDragging()
-    })
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
   });
 
   // Debounce function: Input as function which needs to be debounced and delay is the debounced time in milliseconds
@@ -42,7 +41,7 @@ function CardInGame(props) {
   //   timerId = setTimeout(func, delay)
   // }
 
-  const onRightClickHandler = event => {
+  const onRightClickHandler = (event) => {
     event.preventDefault();
     setCardHover(true);
   };
@@ -82,14 +81,14 @@ function CardInGame(props) {
       className={[
         styles.CardUnit,
         styles.container,
-        styles[props.unit.faction.slug]
+        styles[props.unit.faction.slug],
       ].join(" ")}
       onContextMenu={onRightClickHandler}
       onMouseLeave={onMouseLeaveHandler}
       ref={drag}
       style={{
         opacity: isDragging ? 0.5 : 1,
-        cursor: "move"
+        cursor: "move",
       }}
     >
       <div className={styles.name}>
@@ -109,11 +108,7 @@ function CardInGame(props) {
 
       {cardHover ? (
         <div className={styles.CardHover}>
-          {props.unit.faction.nom === "Sephosi" ? (
-            <CardUnitSephosi unit={props.unit}></CardUnitSephosi>
-          ) : (
-            <CardUnit unit={props.unit}></CardUnit>
-          )}
+          <CardUnit unit={props.unit}></CardUnit>
         </div>
       ) : null}
     </div>
