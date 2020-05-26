@@ -7,8 +7,6 @@ interface CardUnitProps {
   card: ICard;
 }
 const CardUnit: FunctionComponent<CardUnitProps> = (props) => {
-  let type;
-
   const imageUrl = !props.card.image
     ? require(`../../../../assets/logo.jpg`)
     : config.directus + config.directus_files + props.card.image.filename_disk;
@@ -21,31 +19,36 @@ const CardUnit: FunctionComponent<CardUnitProps> = (props) => {
         styles[props.card.entity.shortname],
       ].join(" ")}
     >
-      <div className={styles.deploy}>{props.card.cost}</div>
+      <div className={styles.Entity}>{props.card.entity.shortname}</div>
       <div className={styles.Faction}>
-        <span>{props.card.entity.name}</span>
+        <span>{props.card.faction.name}</span>
       </div>
       <div className={styles.name}>
         <span>{props.card.name}</span>
       </div>
-      <div className={styles.type}>{type}</div>
+      <div className={styles.Cost}>{props.card.cost}</div>
       <div
         className={styles.Image}
         style={{ backgroundImage: `url(${imageUrl})` }}
-      >
-        {/* <img src={require(`../../../assets/logo.jpg`)} alt="boss orc" /> */}
-      </div>
-      <div className={styles.Regiment}>{props.card.life}</div>
-      <div className={styles.Capacites}>{props.card.capacity}</div>
-      <div className={styles.DetailCarac}>
-        {props.card.attack !== 0 ? (
-          <div className={styles.ItemCarac}>
-            <div>{props.card.attack}</div>
+      ></div>
+      {props.card.is_unit ? (
+        <>
+          <div className={styles.DetailCarac}>
+            <div className={styles.Life}>{props.card.life}</div>
+            <div className={styles.Attack}>{props.card.attack}</div>
+            <div className={styles.Type}>
+              {props.card.type_unit ? props.card.type_unit : ""}
+            </div>
           </div>
-        ) : (
-          <div></div>
-        )}
-      </div>
+          <div className={styles.Capacities + " " + styles.CapacitiesSmall}>
+            {props.card.capacity}
+          </div>
+        </>
+      ) : (
+        <div className={styles.Capacities + " " + styles.CapacitiesLarge}>
+          {props.card.capacity}
+        </div>
+      )}
     </div>
   );
 };

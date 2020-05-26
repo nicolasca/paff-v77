@@ -73,7 +73,7 @@
   font-family: "Helvetica";
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: 10% 10% 55% 17% 8%;
+  grid-template-rows: 10% 10% 55% 10% 10%;
   height: 100%;
 
   svg {
@@ -83,7 +83,15 @@
   }
 }
 
-.type {
+.Type {
+  background: grey;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Cost {
   grid-column: 1 / 3;
   grid-row: 1 / 3;
   background: grey;
@@ -95,7 +103,7 @@
   border: 1px solid black;
 }
 
-.deploy {
+.Entity {
   grid-column: 9 / 11;
   grid-row: 1 / 3;
   color: white;
@@ -135,69 +143,72 @@
   text-align: center;
 }
 
-.Regiment {
-  grid-column: 1 / 6;
-  grid-row: 4 / 5;
-  font-size: 2rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid black;
-  background-color: white;
-}
+// .Regiment {
+//   grid-column: 1 / 6;
+//   grid-row: 4 / 5;
+//   font-size: 2rem;
+//   font-weight: 600;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   border: 1px solid black;
+//   background-color: white;
+// }
 
 .DetailCarac {
   color: #4a4a4a;
-  grid-column: 6 / 11;
+  background-color: white;
+  grid-column: 1 / 11;
   grid-row: 4 / 5;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  // grid-template-rows: 1fr 1fr;
   border: 1px solid black;
-  border-left: none;
-  padding: 5px;
+  display: flex;
 
-  .ItemCarac {
+  div {
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 50%;
+    padding: 5px;
+    font-weight: 600;
 
-    div {
-      width: 25px;
-      height: 25px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 1px solid black;
-      border-radius: 50%;
-      padding: 5px;
-      background-color: white;
-      color: #4a4a4a;
+    &.Life {
+      border-right: 1px solid black;
     }
 
-    img {
-      height: 15px;
-      align-self: flex-start;
+    &.Attack {
+      color: darkred;
     }
   }
 }
 
-.Capacites {
+.Capacities {
   grid-column: 1 / 11;
-  grid-row: 5 / 6;
   display: flex;
   align-items: center;
   justify-content: space-around;
   border: 1px solid black;
   border-top: none;
   background-color: white;
+  padding: 10px;
 }
 
-.Capacites span {
+.CapacitiesSmall {
+  grid-row: 5 / 6;
+}
+
+.CapacitiesLarge {
+  grid-row: 4 / 6;
+  border-top: 1px solid black;
+}
+
+.Capacities span {
   margin: none;
 }
 
-.Capacites span:hover {
+.CapacitiesSmall span:hover {
   text-decoration: underline;
 }
 

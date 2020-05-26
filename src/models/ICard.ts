@@ -9,6 +9,7 @@ export interface ICard {
   cost: number;
   capacity: string;
   max_in_deck: number;
+  is_unit: number;
   image: {
     filename_disk: string;
   };
