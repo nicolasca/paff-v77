@@ -41,11 +41,11 @@ function Header(props) {
             Règles
           </NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink to="/factions" activeClassName={styles.ActiveNavLink}>
             Factions
           </NavLink>
-        </li>
+        </li> */}
         {isAuthenticated ? (
           <li>
             <NavLink to="/jouer" activeClassName={styles.ActiveNavLink}>
