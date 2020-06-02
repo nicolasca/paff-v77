@@ -2,6 +2,7 @@ import axios from "axios";
 import { config } from "../../config";
 import * as actionTypes from "./actionTypes";
 
+
 export const authStart = () => {
   return {
     type: actionTypes.AUTH_START
@@ -23,20 +24,26 @@ export const authFail = error => {
   };
 };
 
-export const logout = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("expirationDate");
-  localStorage.removeItem("email");
+export const logoutSuccess = error => {
   return {
-    type: actionTypes.AUTH_LOGOUT
+    type: actionTypes.AUTH_LOGOUT,
   };
 };
 
-export const checkAuthTimeOut = expirationTime => {
+export const logout = () => {
+
   return dispatch => {
-    setTimeout(() => {
-      dispatch(logout());
-    }, expirationTime * 1000 * 24); // une journee
+    axios
+      .post(config.directus + "/paff/auth/logout", {
+        withCredentials: true
+      })
+      .then(() => {
+        dispatch(logoutSuccess());
+      })
+      .catch(error => {
+        console.log(error);
+        // dispatch(logout(error));
+      });
   };
 };
 
@@ -86,12 +93,7 @@ export const auth = (email, password) => {
 export const checkAuthState = () => {
   return dispatch => {
     // Check authenticate endpoint
-    fetch(config.directus + "/paff/users/me", { credentials: "include" }) 
-    // {
-    //   headers: new Headers({
-    //     'Authorization': 'bearer ' + localStorage.getItem('token'),
-    //   }),
-    // })
+    fetch(config.directus + "/paff/users/me", { credentials: "include" })
       .then(response => response.json())
       .then(data => {
         console.log('check auth');
