@@ -11,7 +11,7 @@ function Reserve(props) {
           Votre adversaire a {props.bottomHand.length} cartes dans sa réserve
         </div>
       </div>
-      ) }
+      )
     </React.Fragment>
   );
 }
