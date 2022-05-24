@@ -8,7 +8,7 @@ const Factions: FunctionComponent = () => {
   const [factions, setFactions] = React.useState<IFaction | null>(null);
 
   React.useEffect(() => {
-    FactionService.getFactions().then(factions => {
+    FactionService.getFactions().then((factions) => {
       setFactions(
         factions.data.map((faction: IFaction) => {
           let factionComponent = null;
@@ -18,7 +18,10 @@ const Factions: FunctionComponent = () => {
             faction.image.filename_disk;
 
           factionComponent = (
-            <div key={faction.slug} className={styles.Faction + " " + styles[faction.slug]}>
+            <div
+              key={faction.slug}
+              className={styles.Faction + " " + styles[faction.slug]}
+            >
               {faction ? (
                 <React.Fragment>
                   <div
@@ -31,7 +34,7 @@ const Factions: FunctionComponent = () => {
                     <div className={styles.Lettrine}>
                       <p
                         dangerouslySetInnerHTML={{
-                          __html: faction.description
+                          __html: faction.description,
                         }}
                       ></p>
                     </div>

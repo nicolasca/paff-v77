@@ -1,34 +1,34 @@
 export const config = {
-  host: 'https://paff.nicolasca.com',
-  directus: 'https://directus.nicolasca.com',
-  directus_api: '/paff/items',
-  directus_files: '/uploads/_/originals/',
+  host: "https://paff.nicolasca.com",
+  directus: "https://jondfqyz.directus.app",
+  directus_api: "/items",
+  directus_files: "/assets/",
   // host: 'http://localhost',
   typeCard: {
     ordre: {
-      label: 'ordre',
+      label: "ordre",
     },
     troupe: {
-      label: 'troupe',
+      label: "troupe",
     },
     tir: {
-      label: 'tir',
+      label: "tir",
     },
     cavalerie: {
-      label: 'cavalerie',
+      label: "cavalerie",
       limite: 6,
     },
     artillerie: {
-      label: 'artillerie',
+      label: "artillerie",
       limite: 4,
     },
     elite: {
-      label: 'elite',
+      label: "elite",
       limite: 1,
     },
     unique: {
-      label: 'unique',
+      label: "unique",
       limite: 1,
     },
-  }
+  },
 };
