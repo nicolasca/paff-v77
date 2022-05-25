@@ -34,7 +34,12 @@ const authFail = (state, action) => {
 };
 
 const authlogout = (state, action) => {
-  return updateObject(state, { token: null, user: null, redirect: null });
+  return updateObject(state, {
+    token: null,
+    user: null,
+    isAuthenticated: false,
+    redirect: null,
+  });
 };
 
 const reducer = (state = initialState, action) => {

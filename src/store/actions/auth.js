@@ -1,9 +1,9 @@
 import axios from "axios";
-import { Directus } from "@directus/sdk";
+// import { Directus } from "@directus/sdk";
 import { config } from "../../config";
 import * as actionTypes from "./actionTypes";
 
-const directus = new Directus("https://jondfqyz.directus.app");
+// const directus = new Directus("https://jondfqyz.directus.app");
 
 export const authStart = () => {
   return {
@@ -29,16 +29,19 @@ export const authFail = (error) => {
 export const logoutSuccess = (error) => {
   return {
     type: actionTypes.AUTH_LOGOUT,
+    user: null,
   };
 };
 
 export const logout = () => {
   return (dispatch) => {
+    const token = localStorage.getItem("token");
     axios
-      .post(config.directus + "/paff/auth/logout", {
-        withCredentials: true,
+      .post(config.directus + "/auth/logout", {
+        refresh_token: token,
       })
       .then(() => {
+        localStorage.removeItem("token");
         dispatch(logoutSuccess());
       })
       .catch((error) => {
@@ -80,11 +83,11 @@ export const auth = (email, password) => {
       })
       .then(async (response) => {
         const data = response.data.data;
-        console.log(data);
-        // localStorage.setItem("token", data.token);
-        const user = await directus.users.me.read();
-        console.log(user);
-        dispatch(authSuccess(data.user, "/", data.token));
+        localStorage.setItem("token", data.access_token);
+        const user = await fetch(
+          config.directus + "/users/me?access_token=" + data.access_token
+        );
+        dispatch(authSuccess(user, "/"));
       })
       .catch((error) => {
         console.log(error);
@@ -95,11 +98,10 @@ export const auth = (email, password) => {
 
 export const checkAuthState = () => {
   return async (dispatch) => {
-    const user = await directus.users.me.read();
-    console.log(user);
+    const token = localStorage.getItem("token");
 
     // Check authenticate endpoint
-    fetch(config.directus + "/users/me", { withCredentials: true })
+    fetch(config.directus + "/users/me?access_token=" + token)
       .then((response) => response.json())
       .then((data) => {
         console.log("check auth");
@@ -108,7 +110,7 @@ export const checkAuthState = () => {
           // Check if
           dispatch(logout());
         } else {
-          dispatch(authSuccess(data.data, "/", localStorage.getItem("token")));
+          dispatch(authSuccess(data.data, "/"));
         }
       })
       .catch((error) => {
