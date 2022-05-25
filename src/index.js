@@ -1,19 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import { Provider } from 'react-redux';
-import './index.scss';
-import App from './App';
-import deckReducer from './store/reducers/deckReducer';
-import authReducer from './store/reducers/authReducer';
-import gameReducer from './store/reducers/gameReducer';
+import React from "react";
+import ReactDOM from "react-dom";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
+import { Provider } from "react-redux";
+import "./index.scss";
+import App from "./App";
+import deckReducer from "./store/reducers/deckReducer";
+import authReducer from "./store/reducers/authReducer";
+import gameReducer from "./store/reducers/gameReducer";
 
 const rootReducer = combineReducers({
   deckReducer: deckReducer,
   authReducer: authReducer,
   gameReducer: gameReducer,
-})
+});
 /* const logger = store => {
     return next => {
         return action => {
@@ -28,6 +28,13 @@ const rootReducer = combineReducers({
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger, thunk)));
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
-
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);

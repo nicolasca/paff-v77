@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import { IUser } from "../../models/IUser";
+import { RootState } from "../../store";
 import Auth from "../Auth/Auth";
 import Logout from "../Auth/Logout/Logout";
 import SignIn from "../Auth/SignIn";
@@ -22,7 +23,10 @@ interface LayoutProps {
   user: IUser;
 }
 
-const Layout: FunctionComponent<LayoutProps> = props => {
+const Layout: FunctionComponent<LayoutProps> = (props) => {
+  const isAuthenticated = useSelector<RootState, boolean>(
+    (state) => state.authReducer.isAuthenticated
+  );
 
   let content = (
     <React.Fragment>
@@ -37,8 +41,7 @@ const Layout: FunctionComponent<LayoutProps> = props => {
     </React.Fragment>
   );
 
-
-  if (props.isAuthenticated) {
+  if (isAuthenticated) {
     content = (
       <React.Fragment>
         <Route path="/home" component={Home} />
@@ -58,11 +61,8 @@ const Layout: FunctionComponent<LayoutProps> = props => {
 
   return (
     <div className={styles.Site}>
-      <UserContext.Provider value={props.isAuthenticated}>
-        <Header
-          user={props.user}
-          isAuthenticated={props.isAuthenticated}
-        ></Header>
+      <UserContext.Provider value={isAuthenticated}>
+        <Header user={props.user} isAuthenticated={isAuthenticated}></Header>
         <main className={styles.Main}>
           <Switch>{content}</Switch>
         </main>
@@ -74,7 +74,7 @@ const Layout: FunctionComponent<LayoutProps> = props => {
 const mapStateToProps = (state: any) => {
   return {
     isAuthenticated: state.authReducer.user,
-    user: state.authReducer.user
+    user: state.authReducer.user,
   };
 };
 

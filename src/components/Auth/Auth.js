@@ -8,7 +8,7 @@ import styles from "./Auth.module.css";
 class Auth extends Component {
   state = {
     email: "",
-    password: ""
+    password: "",
   };
 
   checkValidity = (value, rules) => {
@@ -28,23 +28,21 @@ class Auth extends Component {
   inputChangedHandler = (event, inputId) => {
     this.setState({
       ...this.state,
-      [inputId]: event.target.value
+      [inputId]: event.target.value,
     });
   };
 
-  registerHandler = event => {
+  registerHandler = (event) => {
     event.preventDefault();
     this.props.onAuth(this.state.email, this.state.password, "/auth");
   };
-
-  
 
   render() {
     const formElementsArray = [];
     for (let key in this.state.registerForm) {
       formElementsArray.push({
         id: key,
-        config: this.state.registerForm[key]
+        config: this.state.registerForm[key],
       });
     }
 
@@ -64,7 +62,7 @@ class Auth extends Component {
                 type="text"
                 placeholder="Zarn"
                 value={this.state.email}
-                onChange={event => this.inputChangedHandler(event, "email")}
+                onChange={(event) => this.inputChangedHandler(event, "email")}
               />
             </div>
           </div>
@@ -76,8 +74,11 @@ class Auth extends Component {
                 className="input"
                 type="password"
                 placeholder="PrianaSoumis"
+                name="email"
                 value={this.state.password}
-                onChange={event => this.inputChangedHandler(event, "password")}
+                onChange={(event) =>
+                  this.inputChangedHandler(event, "password")
+                }
               />
             </div>
           </div>
@@ -96,17 +97,17 @@ class Auth extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     redirect: state.authReducer.redirect,
-    error: state.authReducer.error
+    error: state.authReducer.error,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     onAuth: (email, password, method) =>
-      dispatch(actions.auth(email, password, method))
+      dispatch(actions.auth(email, password, method)),
   };
 };
 

@@ -1,11 +1,13 @@
 import axios from "axios";
+import { Directus } from "@directus/sdk";
 import { config } from "../../config";
 import * as actionTypes from "./actionTypes";
 
+const directus = new Directus("https://jondfqyz.directus.app");
 
 export const authStart = () => {
   return {
-    type: actionTypes.AUTH_START
+    type: actionTypes.AUTH_START,
   };
 };
 
@@ -17,30 +19,29 @@ export const authSuccess = (user, redirect) => {
   };
 };
 
-export const authFail = error => {
+export const authFail = (error) => {
   return {
     type: actionTypes.AUTH_FAIL,
-    error: error
+    error: error,
   };
 };
 
-export const logoutSuccess = error => {
+export const logoutSuccess = (error) => {
   return {
     type: actionTypes.AUTH_LOGOUT,
   };
 };
 
 export const logout = () => {
-
-  return dispatch => {
+  return (dispatch) => {
     axios
       .post(config.directus + "/paff/auth/logout", {
-        withCredentials: true
+        withCredentials: true,
       })
       .then(() => {
         dispatch(logoutSuccess());
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         // dispatch(logout(error));
       });
@@ -48,17 +49,17 @@ export const logout = () => {
 };
 
 export const signIn = (email, password) => {
-  return dispatch => {
+  return (dispatch) => {
     const signInData = {
       email: email,
-      password: password
+      password: password,
     };
     axios
       .post(config.directus + "/users", signInData)
-      .then(response => {
+      .then((response) => {
         dispatch(authSuccess(null, "/auth"));
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         dispatch(authFail(error));
       });
@@ -66,24 +67,26 @@ export const signIn = (email, password) => {
 };
 
 export const auth = (email, password) => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(authStart());
     const authData = {
       email: email,
       password: password,
-      mode: "cookie"
+      mode: "cookie",
     };
     axios
-      .post(config.directus + "/paff/auth/authenticate", authData, {
-        withCredentials: true
+      .post(config.directus + "/auth/login", authData, {
+        withCredentials: true,
       })
-      .then(response => {
+      .then(async (response) => {
         const data = response.data.data;
         console.log(data);
         // localStorage.setItem("token", data.token);
+        const user = await directus.users.me.read();
+        console.log(user);
         dispatch(authSuccess(data.user, "/", data.token));
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         dispatch(authFail(error));
       });
@@ -91,21 +94,24 @@ export const auth = (email, password) => {
 };
 
 export const checkAuthState = () => {
-  return dispatch => {
+  return async (dispatch) => {
+    const user = await directus.users.me.read();
+    console.log(user);
+
     // Check authenticate endpoint
-    fetch(config.directus + "/paff/users/me", { credentials: "include" })
-      .then(response => response.json())
-      .then(data => {
-        console.log('check auth');
+    fetch(config.directus + "/users/me", { withCredentials: true })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("check auth");
 
         if (!data.data) {
-          // Check if 
+          // Check if
           dispatch(logout());
         } else {
-          dispatch(authSuccess(data.data, "/", localStorage.getItem('token')));
+          dispatch(authSuccess(data.data, "/", localStorage.getItem("token")));
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         console.log("error");
         dispatch(logout());
