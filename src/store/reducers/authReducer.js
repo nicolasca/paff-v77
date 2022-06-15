@@ -20,7 +20,8 @@ const authSuccess = (state, action) => {
     user: action.user,
     error: null,
     loading: false,
-    redirect: action.redirect
+    redirect: action.redirect,
+    isAuthenticated: true,
   });
 };
 
@@ -28,12 +29,17 @@ const authFail = (state, action) => {
   return updateObject(state, {
     error: action.error,
     loading: false,
-    redirect: null
+    redirect: null,
   });
 };
 
 const authlogout = (state, action) => {
-  return updateObject(state, { token: null, user: null, redirect: null });
+  return updateObject(state, {
+    token: null,
+    user: null,
+    isAuthenticated: false,
+    redirect: null,
+  });
 };
 
 const reducer = (state = initialState, action) => {

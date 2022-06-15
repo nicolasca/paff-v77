@@ -26,15 +26,26 @@ function Header(props) {
           </li>
         ) : null}
         {!isAuthenticated ? (
-          <li>
-            <NavLink
-              exact
-              to="/les-cartes"
-              activeClassName={styles.ActiveNavLink}
-            >
-              Les cartes
-            </NavLink>
-          </li>
+          <>
+            <li>
+              <NavLink
+                exact
+                to="/les-cartes"
+                activeClassName={styles.ActiveNavLink}
+              >
+                Les cartes
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                exact
+                to="/factions"
+                activeClassName={styles.ActiveNavLink}
+              >
+                Les factions
+              </NavLink>
+            </li>
+          </>
         ) : null}
         <li>
           <NavLink exact to="/regles" activeClassName={styles.ActiveNavLink}>

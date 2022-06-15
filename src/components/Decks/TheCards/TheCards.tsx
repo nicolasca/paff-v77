@@ -54,7 +54,7 @@ const TheCards: FunctionComponent<TheCardsProps> = (props) => {
 
   return (
     <div className={styles.TheCards}>
-      {entities && entities.length > 1 ? (
+      {entities && entities.length > 0 ? (
         <div className="control">
           <div className="select">
             <select onChange={changeEntityHandler} id="TheSelect">
@@ -65,7 +65,7 @@ const TheCards: FunctionComponent<TheCardsProps> = (props) => {
       ) : null}
 
       <div>
-        {cards && cards.length > 1 ? (
+        {cards && cards.length > 0 ? (
           <CardList cards={cards} entity={selectedEntity}></CardList>
         ) : null}
       </div>
